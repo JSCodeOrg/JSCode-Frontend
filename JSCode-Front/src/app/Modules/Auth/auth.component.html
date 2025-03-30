@@ -6,10 +6,13 @@
       <img class="image" src = "https://www.univalle.edu.co/images/Univalle/70_Rojo.jpg" alt="Logo Univalle">
     </div> 
     <div class = "Compo-register" *ngIf="!mostrarRegistro">
-      <app-register></app-register>
+      <app-register (notify)="onNotify($event)"></app-register>
+      <c-alert class= "alertaRegistro "*ngIf="showAlert" [color]="alertType" dismissible >
+        {{ alertMessage }}
+      </c-alert>
     </div>
     <div class = "Campo-login" *ngIf="mostrarRegistro">
-      <app-login></app-login>
+      <app-login ></app-login>
     </div>
   </div>
   <div class="register-container">
@@ -24,5 +27,6 @@
       <app-button class="bottom-1" label='Inicia sesión aquí' variant= "secondary"(click)="toggleVista()"></app-button>
     </div> 
   </div>
-    
+  
+  
 </div>

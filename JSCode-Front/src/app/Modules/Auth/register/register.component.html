@@ -8,7 +8,7 @@
     </div>
       <app-input-field label="Usuario" placeholder="Ingrese su Usuario" variant="primary" (valueChange)="onUserChange($event)"></app-input-field>
       <app-input-field label="Correo" placeholder="Ingrese su correo" variant="primary" (valueChange)="onEmailChange($event)"></app-input-field>
-      <app-input-field label="Contraseña" placeholder="Ingresa tu contraseña" variant="primary" (valueChange)="onPasswordChange($event)"></app-input-field>
+      <app-input-field class= "Contra" label="Contraseña" placeholder="Ingresa tu contraseña" variant="primary" (valueChange)="onPasswordChange($event)" cTooltip="Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."></app-input-field>
       <app-input-field label="Confirma tu contraseña" placeholder="Confirma tu contraseña" variant="primary" (valueChange)="onPasswordRepeatChange($event)"></app-input-field>
       <span class="button_register"><app-button label="Registrate" variant="primary" (click)="onRegister()"></app-button></span>
     </div>
