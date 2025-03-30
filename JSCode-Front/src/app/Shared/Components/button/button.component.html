@@ -1,4 +1,4 @@
-<button class="btn" [disabled]="disabled" (click)="onClick()" >
+<button class="btn" [disabled]="disabled" (click)="onClick()" [ngClass]="{'btn-primary': variant === 'primary', 'btn-secondary': variant === 'secondary'}">
   {{ label }}
 </button>
 

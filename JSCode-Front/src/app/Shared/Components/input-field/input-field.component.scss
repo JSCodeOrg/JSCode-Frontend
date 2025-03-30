@@ -9,8 +9,13 @@
   transform: scale(1.008);
 }
 
-.input-label {
+.input-primary label {
   margin-bottom: 5px;
+  color: #0A0F1F;
+}
+.input-secondary label {
+  margin-bottom: 5px;
+  color: #B3B3B3;
 }
 
 input {
@@ -33,4 +38,13 @@ input {
   &:hover {
     border-color: #6c63ff;
   }
+}
+
+// 🎨 Estilos específicos para Primary y Secondary
+.input-primary input {
+  background-color: white;
+}
+
+.input-secondary input {
+  color: white;
 }

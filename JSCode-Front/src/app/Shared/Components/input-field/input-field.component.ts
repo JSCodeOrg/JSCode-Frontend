@@ -14,6 +14,7 @@ export class InputFieldComponent {
   @Input() type: string = 'text'; 
   @Input() placeholder: string = ''; 
   @Input() disabled: boolean = false;
+  @Input() variant: 'primary' | 'secondary' = 'primary';
   @Output() valueChange = new EventEmitter<string>();
 
   inputControl = new FormControl('');

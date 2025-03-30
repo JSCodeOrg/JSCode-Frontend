@@ -11,7 +11,7 @@ import { CommonModule } from "@angular/common";
 export class ButtonComponent {
   @Input() label: string = "Button";
   @Input() disabled: boolean = false;
-  @Input() buttonType: 'primary' | 'secondary' = 'primary';
+  @Input() variant: 'primary' | 'secondary' = 'primary';
   @Output() clicked = new EventEmitter<void>();
 
   onClick() {

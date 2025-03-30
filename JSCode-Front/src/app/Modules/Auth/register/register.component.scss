@@ -1,10 +1,10 @@
-.text-iniciar-sesi-n_4-16 {
-    font-size: 64px;
+.title-register {
+    font-size: 50px;
     font-weight: bold; 
     text-align: center;
     display: block; 
     margin: 20px auto; 
-    color: #9097C0;
+    color: #FFFFFF;
 }
 
 .text_4-16{
@@ -14,13 +14,14 @@
     margin: 20px auto;
 }
 
-.frame-login{
-    border: 2px solid #00000027 ;
+.frame-register{
     border-radius: 10px;
-    
+    padding: 20px;
+    background-color: #2c2c2ce1;
 }
 
-.login_1-2{
-    display: block;
-    max-width: 450px;
+.input-field_1-2{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
 }

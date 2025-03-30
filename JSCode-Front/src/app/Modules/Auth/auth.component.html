@@ -4,17 +4,25 @@
   <div class="login-container">
     <div class="js-code">
       <span class="js-text">JS</span><span class="code-text">Code</span>
-    </div>  
+    </div> 
+    <div class="login-text" *ngIf="!mostrarRegistro">
+      <span class="login-text1">¿Ya tienes cuenta?</span>
+      <span class="login-text2">Inicia sesión para continuar</span>
+      <app-button class="bottom-1" label='Inicia sesión aquí' (click)="toggleVista()"></app-button>
+    </div> 
+    <div class = "Campo-login" *ngIf="mostrarRegistro">
       <app-login></app-login>
-      <span class="derechos">© 2021 JSCode. Todos los derechos reservados.</span>
+    </div>
   </div>
   <div class="register-container">
-  <div class = "register">
-    <span class="register-text1">Bienvenido</span>
-    <span class="register-text2">Si no tienes cuenta, registrate para iniciar sesión</span>
-    <app-button class="bottom-1" label='Regístrate'></app-button>
-  </div>
-
+    <div class = "register" *ngIf="mostrarRegistro">
+      <span class="register-text1">Bienvenido</span>
+      <span class="register-text2">Si no tienes cuenta, registrate para iniciar sesión</span>
+      <app-button class="bottom-1" label='Regístrate aquí' (click)="toggleVista()"></app-button>
+    </div>
+    <div class = "Compo-register" *ngIf="!mostrarRegistro">
+      <app-register></app-register>
+    </div>
   </div>
     
 </div>

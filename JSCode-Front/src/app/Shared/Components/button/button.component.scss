@@ -15,14 +15,24 @@
   font-family: 'Fredoka', sans-serif;
 }
 
-
-.btn:hover {
+.btn-primary{
+  color: white;
+}
+.btn-primary:hover {
   background-color: #1e1e1e;
   transform: scale(1.005);
 }
-
 .btn:disabled {
   background-color: #d9d9d9;
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.btn-secondary{
+  background-color: #6c63ff;
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: #4137f4;
+  transform: scale(1.05);
 }

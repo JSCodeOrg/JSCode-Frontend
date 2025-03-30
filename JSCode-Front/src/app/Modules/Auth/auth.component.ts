@@ -6,13 +6,13 @@ import { ButtonComponent } from "../../Shared/Components/button/button.component
 @Component({
   selector: "app-auth",
   standalone: true,
-  imports: [LoginComponent, RegisterComponent, CommonModule, ButtonComponent],
+  imports: [LoginComponent,RegisterComponent, CommonModule, ButtonComponent, LoginComponent],
   templateUrl: "./auth.component.html",
   styleUrls: ["./auth.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthComponent {
-  mostrarRegistro = false;
+  mostrarRegistro = true;
 
   toggleVista() {
     this.mostrarRegistro = !this.mostrarRegistro;
