@@ -12,7 +12,10 @@
       </c-alert>
     </div>
     <div class = "Campo-login" *ngIf="mostrarRegistro">
-      <app-login ></app-login>
+      <app-login (notify)="onNotify($event)"></app-login>
+      <c-alert class= "alertaRegistro "*ngIf="showAlert" [color]="alertType" dismissible >
+        {{ alertMessage }}
+      </c-alert>
     </div>
   </div>
   <div class="register-container">

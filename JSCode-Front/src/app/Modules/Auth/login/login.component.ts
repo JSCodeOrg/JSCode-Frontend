@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input, Output, EventEmitter } from "@angular/core";
 import { ButtonComponent } from "../../../Shared/Components/button/button.component";
 import { InputFieldComponent } from "../../../Shared/Components/input-field/input-field.component";
 @Component({
@@ -10,6 +10,7 @@ import { InputFieldComponent } from "../../../Shared/Components/input-field/inpu
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
+  @Output() notify = new EventEmitter<{ type: string; message: string }>();
   loginData = {
     email: "",
     password: "",
@@ -25,7 +26,7 @@ export class LoginComponent {
 
   onLogin() {
     if (!this.loginData.email || !this.loginData.password) {
-      console.error("Por favor, complete todos los campos.");
+      this.notify.emit({ type: "danger", message: "Por favor, complete todos los campos." });
       return;
     }
     console.log("Solicitud enviada:", JSON.stringify(this.loginData, null, 2));
