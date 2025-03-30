@@ -3,13 +3,11 @@
  
   <div class="login-container">
     <div class="js-code">
-      <span class="js-text">JS</span><span class="code-text">Code</span>
+      <img class="image" src = "https://www.univalle.edu.co/images/Univalle/70_Rojo.jpg" alt="Logo Univalle">
     </div> 
-    <div class="login-text" *ngIf="!mostrarRegistro">
-      <span class="login-text1">¿Ya tienes cuenta?</span>
-      <span class="login-text2">Inicia sesión para continuar</span>
-      <app-button class="bottom-1" label='Inicia sesión aquí' (click)="toggleVista()"></app-button>
-    </div> 
+    <div class = "Compo-register" *ngIf="!mostrarRegistro">
+      <app-register></app-register>
+    </div>
     <div class = "Campo-login" *ngIf="mostrarRegistro">
       <app-login></app-login>
     </div>
@@ -18,11 +16,13 @@
     <div class = "register" *ngIf="mostrarRegistro">
       <span class="register-text1">Bienvenido</span>
       <span class="register-text2">Si no tienes cuenta, registrate para iniciar sesión</span>
-      <app-button class="bottom-1" label='Regístrate aquí' (click)="toggleVista()"></app-button>
+      <app-button class="bottom-1" label='Regístrate aquí' variant="secondary" (click)="toggleVista()"></app-button>
     </div>
-    <div class = "Compo-register" *ngIf="!mostrarRegistro">
-      <app-register></app-register>
-    </div>
+    <div class="login-text" *ngIf="!mostrarRegistro">
+      <span class="login-text1">¿Ya tienes cuenta?</span>
+      <span class="login-text2">Inicia sesión para continuar</span>
+      <app-button class="bottom-1" label='Inicia sesión aquí' variant= "secondary"(click)="toggleVista()"></app-button>
+    </div> 
   </div>
     
 </div>

@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from "./register/register.component";
 import { CommonModule } from "@angular/common";
 import { ButtonComponent } from "../../Shared/Components/button/button.component";
+
 @Component({
   selector: "app-auth",
   standalone: true,

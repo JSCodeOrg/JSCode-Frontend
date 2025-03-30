@@ -24,6 +24,10 @@ export class LoginComponent {
   }
 
   onLogin() {
+    if (!this.loginData.email || !this.loginData.password) {
+      console.error("Por favor, complete todos los campos.");
+      return;
+    }
     console.log("Solicitud enviada:", JSON.stringify(this.loginData, null, 2));
   }
 }

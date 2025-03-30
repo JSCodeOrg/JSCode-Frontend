@@ -3,13 +3,13 @@
   <span class="title-register">¡Registrate!</span>
   <div class="frame-register">
     <div class="input-field_1-2">
-      <app-input-field label="Nombre" placeholder="Ingrese su Nombre" variant="secondary"></app-input-field>
-      <app-input-field label="Apellido" placeholder="Ingrese su Apellido" variant="secondary"></app-input-field>
+      <app-input-field label="Nombre" placeholder="Ingrese su Nombre" variant="primary" (valueChange)="onNameChange($event)"></app-input-field>
+      <app-input-field label="Apellido" placeholder="Ingrese su Apellido" variant="primary" (valueChange)="onLastNameChange($event)"></app-input-field>
     </div>
-      <app-input-field label="Usuario" placeholder="Ingrese su Usuario" variant="secondary"></app-input-field>
-      <app-input-field label="Correo" placeholder="Ingrese su correo" variant="secondary"></app-input-field>
-      <app-input-field label="Contraseña" placeholder="Ingresa tu contraseña" variant="secondary"></app-input-field>
-      <app-input-field label="Confirma tu contraseña" placeholder="Confirma tu contraseña" variant="secondary"></app-input-field>
-      <span class="button_register"><app-button label="Registrate" variant="secondary"></app-button></span>
+      <app-input-field label="Usuario" placeholder="Ingrese su Usuario" variant="primary" (valueChange)="onUserChange($event)"></app-input-field>
+      <app-input-field label="Correo" placeholder="Ingrese su correo" variant="primary" (valueChange)="onEmailChange($event)"></app-input-field>
+      <app-input-field label="Contraseña" placeholder="Ingresa tu contraseña" variant="primary" (valueChange)="onPasswordChange($event)"></app-input-field>
+      <app-input-field label="Confirma tu contraseña" placeholder="Confirma tu contraseña" variant="primary" (valueChange)="onPasswordRepeatChange($event)"></app-input-field>
+      <span class="button_register"><app-button label="Registrate" variant="primary" (click)="onRegister()"></app-button></span>
     </div>
 </div>
