@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from "@angular/core";
 import { CommonModule } from "@angular/common";
 @Component({
   selector: "app-button",
@@ -9,11 +9,14 @@ import { CommonModule } from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  @Input() hasIconStart: boolean = false;
-  @Input() hasIconEnd: boolean = false;
   @Input() label: string = "Button";
-  @Input() variant: "Primary" | "Neutral" | "Subtle" = "Primary";
-  @Input() state: "Default" | "Hover" | "Disabled" = "Default";
-  @Input() size: "Medium" | "Small" = "Medium";
+  @Input() disabled: boolean = false;
   @Input() buttonType: 'primary' | 'secondary' = 'primary';
+  @Output() clicked = new EventEmitter<void>();
+
+  onClick() {
+    if (!this.disabled) {
+      this.clicked.emit();
+    }
+  }
 }

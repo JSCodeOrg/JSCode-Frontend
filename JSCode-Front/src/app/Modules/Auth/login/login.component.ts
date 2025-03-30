@@ -9,4 +9,21 @@ import { InputFieldComponent } from "../../../Shared/Components/input-field/inpu
   styleUrls: ["./login.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {}
+export class LoginComponent {
+  loginData = {
+    email: "",
+    password: "",
+  };
+
+  onEmailChange(value: string) {
+    this.loginData.email = value;
+  }
+
+  onPasswordChange(value: string) {
+    this.loginData.password = value;
+  }
+
+  onLogin() {
+    console.log("Solicitud enviada:", JSON.stringify(this.loginData, null, 2));
+  }
+}
