@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './password-code.component.html',
 })
-export class RecoverPasswordComponent {
+export class ValidateCodeComponent {
 
 }
