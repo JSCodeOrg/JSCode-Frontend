@@ -1,12 +1,12 @@
 .text-iniciar-sesi-n_4-16 {
-    font-size: 58px;
+    font-size: 50px;
     font-weight: bold; 
     text-align: center;
     display: block; 
+    font-weight: bold;
     margin: 20px auto; 
     color: #6C63FF;
     padding-bottom: 15px;
-    width: 80%;
 }
 
 .text_4-16{
@@ -14,12 +14,17 @@
     text-align: center;
     display: block;
     margin: 20px auto;
+    text-decoration: underline;
 }
 
 .frame-login{
     border: 2px solid #00000027 ;
     border-radius: 10px;
     padding: 20px;
+    width: 100%; /* Que ocupe el 100% del contenedor */
+    height: 100%;
+    background-color: #ffffff
+    
 }
 .frame-login:hover {
     border-color: #212038;
@@ -27,5 +32,17 @@
   }
 
 .login_1-2{
-    min-width: 400px;
+    min-width: 500px;
+    padding: 10%;
+}
+
+.js-code{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.image{
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
 }

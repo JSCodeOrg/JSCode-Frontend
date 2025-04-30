@@ -1,0 +1,16 @@
+
+<div class="Component-Selector-Rol">
+  <div class="frame-rol">
+    <h1 class="titulo">Crear usuario</h1>
+    <span class="texto" >Diligenciar los siguientes datos para crear el usuario</span>
+      <app-input-field label="Email" placeholder="Ingrese su correo" (valueChange)="onEmailChange($event)"></app-input-field>
+      <mat-form-field appearance="outline" class="custom-select">
+        <mat-select [(ngModel)]="selectedValue">
+          <mat-option *ngFor="let option of options" [value]="option.value">
+            {{ option.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <app-button label="Ingresar" (clicked)="onCreate()"></app-button>
+  </div>
+</div>

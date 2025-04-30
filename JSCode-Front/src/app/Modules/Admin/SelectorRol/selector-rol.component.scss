@@ -1,0 +1,56 @@
+.titulo {
+    font-size: 58px;
+    font-weight: bold; 
+    text-align: center;
+    display: block; 
+    margin: 20px auto; 
+    color: #6C63FF;
+    padding-bottom: 15px;
+    width: 80%;
+}
+
+.texto{
+    font-size: 20px;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+}
+
+.frame-rol{
+    border: 2px solid #00000027 ;
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 80%;
+    max-width: 60%;
+}
+
+
+.login_1-2{
+    min-width: 400px;
+}
+
+.custom-select {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+    border-color: #4204a5;
+    
+}
+.custom-select mat-label{
+    margin-bottom: 5px;
+    
+}
+.custom-select mat-select{
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 14px;
+    transition: border 0.3s;
+    width: 100%;
+}
+
+.custom-select mat-option{
+    font-size: 14px;
+    overflow: visible;
+    z-index: 10000;    
+}
