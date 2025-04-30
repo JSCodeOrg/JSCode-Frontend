@@ -11,7 +11,9 @@ export class UserService{
     constructor(){}
 
     loginUser(userData: any){
-    return axios.post(`${this.apiUrl}`, userData); 
+    return axios.post(`${this.apiUrl}`, userData, {
+        withCredentials: true
+    }); 
 
     
   }

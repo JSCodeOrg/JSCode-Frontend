@@ -37,9 +37,12 @@ export class LoginComponent {
       });
       return;
     }
+
+    //TODO: Falta validar si ocurre un error de conexión con el servidor.
     this.userService.loginUser(this.loginData)
       .then((response) => {
         if(response.status == 200){
+          console.log(response.data);
           this.notify.emit({
             type: "success",
             message: "Login exitoso.",
@@ -54,6 +57,8 @@ export class LoginComponent {
         });
       });
   }
+
+
 
   onForgotPassword() {
     this.router.navigate(['forgot-password']);
