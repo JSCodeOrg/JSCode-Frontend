@@ -1,0 +1,59 @@
+<header class="nav-header">
+    <div class="left-section">
+      <div class="logo-container">
+        <img src="" alt="Company Logo" class="logo">
+        <h1 class="company-name">App Servicios</h1>
+      </div>
+    </div>
+  
+    <nav class="center-section">
+      <ul class="nav-links" [class.mobile-nav]="isMobileMenuOpen">
+        <li><a href="#" class="nav-link" [class.active]="activeLink === 'home'">
+          <fa-icon [icon]="faHouse"></fa-icon> Inicio
+        </a></li>
+        <li><a href="#" class="nav-link" [class.active]="activeLink === 'products'">
+          <fa-icon [icon]="faBox"></fa-icon> Productos
+        </a></li>
+        <li><a href="#" class="nav-link" [class.active]="activeLink === 'contact'">
+          <fa-icon [icon]="faPhone"></fa-icon> Contactos
+        </a></li>
+        <li><a href="#" class="nav-link" [class.active]="activeLink === 'about'">
+          <fa-icon [icon]="faCircleInfo"></fa-icon> Sobre Nosotros
+        </a></li>
+      </ul>
+      
+      <button class="hamburger" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  
+    <div class="right-section" [@authState]="isAuthenticated ? 'authenticated' : 'unauthenticated'">
+      <ng-container *ngIf="!isAuthenticated">
+        <button class="btn sign-in" (click)="signIn()">Iniciar Sesion</button>
+        <button class="btn register" (click)="register()">Registarse</button>
+      </ng-container>
+  
+      <ng-container *ngIf="isAuthenticated">
+        <button class="icon-btn favorites" (click)="toggleFavorites()">
+          <span class="heart">❤️</span>
+          <span class="badge" *ngIf="favoritesCount > 0">{{favoritesCount}}</span>
+        </button>
+        <button class="icon-btn cart" (click)="toggleCart()">
+          <span class="cart-icon">🛒</span>
+          <span class="badge" *ngIf="cartCount > 0">{{cartCount}}</span>
+        </button>
+        <div class="profile-container" (clickOutside)="closeProfileMenu()">
+          <button class="profile-btn" (click)="toggleProfileMenu()">
+            <img [src]="userProfileImage || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?fit=crop&w=40'" alt="User Profile" class="profile-img">
+          </button>
+          <div class="profile-dropdown" *ngIf="isProfileMenuOpen" [@dropdownAnimation]>
+            <ul>
+              <li><a href="#">Mi perfil</a></li>
+              <li><a href="#">Configuracion</a></li>
+              <li><a href="#" (click)="signOut()">Cerrar sesion</a></li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </header>

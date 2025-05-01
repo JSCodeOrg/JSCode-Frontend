@@ -1,0 +1,62 @@
+<footer class="footer-container bg-dark" [@fadeSlideUp]="true">
+    <div class="wave-decoration"></div>
+    
+    <div class="footer-content">
+      <div class="social-section">
+        <h3>Siguenos</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Follow us on Twitter" class="social-icon twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" aria-label="Follow us on Instagram" class="social-icon instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" aria-label="Follow us on LinkedIn" class="social-icon linkedin">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="#" aria-label="Subscribe to our YouTube" class="social-icon youtube">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+  
+      <div class="navigation-section">
+        <h3>Navegacion rapida</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
+          <li><a href="#"><i class="fas fa-shopping-bag"></i>Productos o categorias</a></li>
+          <li><a href="#"><i class="fas fa-user"></i>Mi Cuenta / Iniciar Sesión</a></li>
+          <li><a href="#"><i class="fas fa-shopping-cart"></i>Carrito De Compras</a></li>
+          <li><a href="#"><i class="fas fa-undo"></i>Politica De Cambios y Devoluciones</a></li>
+        </ul>
+      </div>
+  
+      <div class="contact-section">
+        <h3>Informacion de contacto</h3>
+        <div class="contact-info">
+          <a href="tel:+1234567890" class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+57 (numero telefono)</span>
+          </a>
+          <div class="contact-item email-copy" (click)="copyEmail()">
+            <i class="fas fa-envelope"></i>
+            <span>correo&#64;gmail.com</span>
+            <div class="copied-tooltip" [class.show]="showCopied">Copiado!</div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <span>Servicio 24/7</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="legal-section">
+        <div class="legal-links">
+          <a href="#">Politicas de privacidad</a>
+          <a href="#">Terminos y condiciones</a>
+          <a href="#">Políticas de Envío y devoluciones</a>
+        </div>
+        <p class="copyright">© {{currentYear}} E-Commerce. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
