@@ -5,16 +5,26 @@ import { environment } from "../../../environments/environment";
 @Injectable({
     providedIn: 'root'
 })
-export class UserService{
-    private apiUrl = environment.backendUrl
+export class UserService {
+    private GestionUsuariosApi = environment.GestionUsuariosUrl
 
-    constructor(){}
+    constructor() { }
 
-    loginUser(userData: any){
-    return axios.post(`${this.apiUrl}`, userData, {
-        withCredentials: true
-    }); 
+    loginUser(userData: any) {
+        return axios.post(`${this.GestionUsuariosApi + '/auth/login'}`, userData, {
+            withCredentials: true
+        });
+    }
 
-    
-  }
+    recoverPassword(recoverPasswordData: any) {
+        console.log(recoverPasswordData);
+        return axios.post(`${this.GestionUsuariosApi + '/users/recoverpassword'}`, recoverPasswordData)
+    }
+
+    validateCode(validationData: any) {
+        console.log(validationData);
+        return axios.post(`${this.GestionUsuariosApi + '/users/checkrecoverycode'}`, validationData, {
+            withCredentials: true,
+        })
+    }
 }

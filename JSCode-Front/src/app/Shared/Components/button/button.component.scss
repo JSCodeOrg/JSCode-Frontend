@@ -1,5 +1,4 @@
 .btn {
-  background: linear-gradient(to right, #9b4d9b, #2e2f61);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -16,7 +15,9 @@
 
 .btn-primary{
   color: white;
+  background: linear-gradient(to right, #9b4d9b, #2e2f61);
 }
+
 .btn-primary:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transform: scale(1.005);
@@ -28,10 +29,15 @@
 }
 
 .btn-secondary{
-  background-color: #6c63ff;
-  color: white;
+  background: transparent;
+  border: 1px solid #5c2e91;
+  color: #5c2e91;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
 }
 .btn-secondary:hover {
-  background-color: #4137f4;
-  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.005);
 }
