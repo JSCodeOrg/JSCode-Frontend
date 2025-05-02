@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Klee+One&display=swap');
 
 .content {
-    font-family: 'Fredoka', sans-serif; /* Establece la fuente principal */
+    font-family: 'inter', sans-serif;
 }
 
 * {
@@ -13,5 +13,6 @@
 html, body {
   height: 100%;
   width: 100%;
-  overflow: hidden; /* Evita cualquier scroll inesperado */
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

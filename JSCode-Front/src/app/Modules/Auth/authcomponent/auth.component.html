@@ -1,10 +1,7 @@
 
 <div class="auth-container">
  
-  <div class="login-container">
-    <div class="js-code">
-      <img class="image" src = "https://www.univalle.edu.co/images/Univalle/70_Rojo.jpg" alt="Logo Univalle">
-    </div> 
+  <div class="login-container"> 
     <div class = "Compo-register" *ngIf="!mostrarRegistro">
       <app-register (notify)="onNotify($event)"></app-register>
       <c-alert class= "alertaRegistro "*ngIf="showAlert" [color]="alertType" dismissible >
@@ -20,14 +17,21 @@
   </div>
   <div class="register-container">
     <div class = "register" *ngIf="mostrarRegistro">
+      <div class="blob-one"></div>
+      <div class="blob-two"></div>
+      <div class="blob-three"></div>  
       <span class="register-text1">Bienvenido</span>
       <span class="register-text2">Si no tienes cuenta, registrate para iniciar sesión</span>
-      <app-button class="bottom-1" label='Regístrate aquí' variant="secondary" (click)="toggleVista()"></app-button>
+      <app-button class="bottom-1" label='Regístrate aquí' variant="primary" (click)="toggleVista()"></app-button>
     </div>
     <div class="login-text" *ngIf="!mostrarRegistro">
+      <div class="blob-one"></div>
+      <div class="blob-three"></div> 
+      <img src="favicon.png" alt="Logo" class="logo"> 
       <span class="login-text1">¿Ya tienes cuenta?</span>
-      <span class="login-text2">Inicia sesión para continuar</span>
-      <app-button class="bottom-1" label='Inicia sesión aquí' variant= "secondary"(click)="toggleVista()"></app-button>
+      <span class="login-text2">Inicia sesión para disfrutar de todas las funcionalides 
+        disponibles para ti</span>
+      <app-button class="bottom-1" label='Inicia sesión aquí' variant= "primary"(click)="toggleVista()"></app-button>
     </div> 
   </div>
   

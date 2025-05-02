@@ -4,6 +4,7 @@ import { trigger, state, style, animate, transition } from "@angular/animations"
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHouse, faBox, faPhone, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Router } from "@angular/router";
+import { UserService } from "../../../services/UserServices/user.service";
 
 
 @Component({
@@ -51,10 +52,16 @@ export class HeaderComponent implements OnInit {
   faPhone = faPhone;
   faCircleInfo = faCircleInfo;
 
-  constructor(private router: Router) {} 
+  constructor(private router: Router, private userService: UserService) {} 
 
   ngOnInit(): void {
-    // Initialize component state
+    this.userService.getUserData(sessionStorage.getItem('authToken') || '').then((response) => {
+      if(response.status == 200){
+        this.isAuthenticated = true;
+        this.userProfileImage =  response.data.data.profileImgUrl;
+      }
+    });
+
   }
 
   toggleMobileMenu(): void {
@@ -70,7 +77,7 @@ export class HeaderComponent implements OnInit {
   }
 
   signIn(): void {
-    this.isAuthenticated = true;
+    this.router.navigate(['auth'])
   }
 
   signOut(): void {

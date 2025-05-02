@@ -10,33 +10,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 70%;
+    width: 65%;
     height: 100%;
-    border: 1px solid #00000027;
-    background-color: #ffffff; /* Evita que la imagen se repita */ /* Ocupa toda la altura de la pantalla */
+    background-color: #F2ECEC; 
 }
 .register-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30%; /* Toma la mitad del ancho */
+    width: 35%; /* Toma la mitad del ancho */
     height: 100%;
-    background-color: #2C2C2C;
+    background-color: #ffffff;
     align-self: center;
   }
 
-.js-code{
-    display: flex;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    flex-direction: column;
-}
-.image{
-    width: 100px;
-    height: auto;
-    border-radius: 10px;
-}
 
 .derechos{
     position: absolute;
@@ -58,22 +45,29 @@
     font-size: 40px;
     font-weight: bold;
     padding: 10px;
+    z-index: 1;
 }
 .register-text2{
-    color: #D9D9D9;
+    color: #ffffff;
     font-size: 20px;
     padding-left: 10px;
+    z-index: 1;
 }
 .login-text1{
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 40px;
     font-weight: bold;
     padding: 10px;
+    z-index: 1;
 }
 .login-text2{
-    color: #D9D9D9;
-    font-size: 20px;
-    padding-left: 10px;
+    color: #000000;
+
+    font-size: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    z-index: 1;
 }
 
 .login-text{
@@ -89,3 +83,44 @@
     bottom: 10px;
     flex-direction: column;
 }
+.bottom-1{
+    z-index: 1;
+}
+.logo{
+    z-index: 1;
+}
+.blob-one {
+    position: absolute;
+    top: 0vh;
+    right: 10vw;
+    width: 25vw;
+    height: 25vw;
+    background: linear-gradient(135deg, #9b47c3, #00c6ff);
+    border-radius: 50% 70% 70% 40% / 40% 60% 70% 50%;
+    z-index: 0;
+    opacity: 0.7;
+  }
+  
+  .blob-two {
+    position: absolute;
+    top: -5vh;
+    right: 0vw;
+    width: 400px;
+    height: 480px;
+    background: linear-gradient(135deg, #9b47c3, #4a00e0);
+    border-radius: 60% 70% 0% 70% / 40% 70% 100% 60%;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .blob-three {
+    position: absolute;
+    top: 20vh;
+    right: 15vw;
+    width: 20vw;
+    height: 30vw;
+    background: linear-gradient(140deg, #9b47c3, #00c6ff);
+    border-radius: 60% 90% 70% 0% / 40% 60% 70% 20%;
+    z-index: 0;
+    opacity: 0.8;
+  }
