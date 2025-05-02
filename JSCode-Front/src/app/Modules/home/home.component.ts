@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../../Shared/Components/header/header.component';
-import { FooterComponent } from '../../../Shared/Components/footer/footer.component';
-import { ProductCardComponent } from '../../../Shared/Components/product-card/productcard.component';
+import { HeaderComponent } from '../../shared/components/header/header.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { ProductCardComponent } from '../../shared/components/product-card/productcard.component';
 
 @Component({
   selector: 'app-home',

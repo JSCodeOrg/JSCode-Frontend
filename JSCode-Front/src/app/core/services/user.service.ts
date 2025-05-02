@@ -10,6 +10,10 @@ export class UserService {
 
     constructor() { }
 
+
+    //TODO: Mejorar las entradas, no usamos TS para usar any
+    //TODO: Migrar a httpClient de Angular en vez de Axios
+    
     loginUser(userData: any) {
         return axios.post(`${this.GestionUsuariosApi + '/auth/login'}`, userData, {
             withCredentials: true

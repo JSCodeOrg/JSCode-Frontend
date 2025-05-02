@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { InputFieldComponent } from "../../../../Shared/Components/input-field/input-field.component";
-import { ButtonComponent } from "../../../../Shared/Components/button/button.component";
-import { UserService } from '../../../../services/UserServices/user.service';
-import { PasswordRecoveryService } from '../../../../Shared/Services/PasswordRecoveryService';
-import { AlertComponent } from "../../../../Shared/Components/alert/alert.component";
-import { AlertService } from '../../../../Shared/Components/alert/alert.service';
+import { InputFieldComponent } from "../../../../shared/components/input-field/input-field.component";
+import { ButtonComponent } from "../../../../shared/components/button/button.component";
+import { UserService } from '../../../../core/services/user.service';
+import { PasswordRecoveryService } from '../../../../shared/state/PasswordRecoveryService';
+import { AlertComponent } from "../../../../shared/components/alert/alert.component";
+import { AlertService } from '../../../../shared/components/alert/alert.service';
+
+
 @Component({
   selector: 'app-recover-password',
   imports: [InputFieldComponent, ButtonComponent, AlertComponent],

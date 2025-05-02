@@ -4,7 +4,7 @@ import { trigger, state, style, animate, transition } from "@angular/animations"
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHouse, faBox, faPhone, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Router } from "@angular/router";
-import { UserService } from "../../../services/UserServices/user.service";
+import { UserService } from "../../../core/services/user.service";
 
 
 @Component({

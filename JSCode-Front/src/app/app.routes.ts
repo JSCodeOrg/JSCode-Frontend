@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { RecoverPasswordComponent } from './Modules/Auth/recover-password/password-recover/recover-password.component';
-import { AuthComponent } from './../app/Modules/Auth/authcomponent/auth.component';
-import { AdminRoleComponent } from './Modules/Admin/SelectorRol/selector-rol.component';
-import { NewPasswordComponent } from './Modules/Auth/recover-password/new_password/new-password.component';
-import { ValidateCodeComponent } from './Modules/Auth/recover-password/password_code/password-code.component';
-import { HomeComponent } from './Modules/Auth/home/home.component';
+import { RecoverPasswordComponent } from './modules/auth/recover-password/password-recover/recover-password.component';
+import { AuthComponent } from '../app/modules/auth/auth-component/auth.component';
+import { AdminRoleComponent } from './modules/admin/selector-rol/selector-rol.component';
+import { NewPasswordComponent } from './modules/auth/recover-password/new-password/new-password.component';
+import { ValidateCodeComponent } from './modules/auth/recover-password/password-code/password-code.component';
+import { HomeComponent } from './modules/home/home.component';
 
 
 export const routes: Routes = [
