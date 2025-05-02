@@ -25,7 +25,7 @@ export class AuthComponent {
 
     setTimeout(() => {
       this.showAlert = false;
-    }, 3000); // Cierra la alerta después de 3 segundos
+    }, 3000); 
   }
 
   mostrarRegistro = true;

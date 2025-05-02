@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ButtonComponent } from "../../../../Shared/Components/button/button.component";
 import { InputFieldComponent } from "../../../../Shared/Components/input-field/input-field.component";
 import { Router } from '@angular/router';
 import { UserService } from '../../../../services/UserServices/user.service';
-import { PasswordRecoveryService } from '../../../../Shared/Services/PasswordRecoveryService';
+import { AlertComponent } from '../../../../Shared/Components/alert/alert.component';
+import { AlertService } from '../../../../Shared/Components/alert/alert.service';
 @Component({
   selector: 'app-recover-password',
   standalone: true,
-  imports: [ButtonComponent, InputFieldComponent],
+  imports: [ButtonComponent, InputFieldComponent, AlertComponent],
   templateUrl: './new-password.component.html',
   styleUrls: ["./new-password.component.scss"],
 })
 
 export class NewPasswordComponent {
+  @Output() notify = new EventEmitter<{ type: string; message: string }>();
   newPasswordData = {
     newPassword: "",
     repeatPassword: ""
@@ -22,7 +24,7 @@ export class NewPasswordComponent {
     newPassword: "",
   };
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService, private alertService: AlertService) {
 
   }
 
@@ -35,11 +37,10 @@ export class NewPasswordComponent {
 
   finalizarCambioContras() {
     if (!this.newPasswordData.newPassword || !this.newPasswordData.repeatPassword) {
-      alert("Por favor, complete todos los campos.");
-      return;
+      this.alertService.showAlert("danger", "Por favor, complete todos los campos.");
     }
     if (this.newPasswordData.newPassword !== this.newPasswordData.repeatPassword) {
-      alert("Las contraseñas no coinciden.");
+      this.alertService.showAlert('danger', 'Las contraseñas no coinciden.');
       return;
     }
     this.changePasswordRequest.newPassword = this.newPasswordData.newPassword;
@@ -47,12 +48,14 @@ export class NewPasswordComponent {
     this.userService.setNewPassword(this.changePasswordRequest).then((response =>{
       if(response.status == 200){
         console.log(response.data);
-        alert("Contraseña cambiada exitosamente.");
-        this.router.navigate(['auth'])
+        this.alertService.showAlert('success', 'Contraseña cambiada correctamente.');
+        setTimeout(() => {
+          this.router.navigate(['auth']);
+        }, 3000);
       }
       else{
         console.error("Error al cambiar la contraseña:", response.data);
-        alert("Error al cambiar la contraseña.");
+        this.alertService.showAlert('danger', 'Ocurrió un error al cambiar la contraseña.');
       }
     }))
   }

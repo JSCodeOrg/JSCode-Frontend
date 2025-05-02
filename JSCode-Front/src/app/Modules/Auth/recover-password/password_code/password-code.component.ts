@@ -1,16 +1,18 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import { PasswordRecoveryService } from '../../../../Shared/Services/PasswordRecoveryService';
 import { ButtonComponent } from "../../../../Shared/Components/button/button.component";
 import { UserService } from '../../../../services/UserServices/user.service';
+import { AlertComponent } from '../../../../Shared/Components/alert/alert.component';
+import { AlertService } from '../../../../Shared/Components/alert/alert.service';
 
 @Component({
   selector: 'app-password-code',
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, AlertComponent],
   templateUrl: './password-code.component.html',
   styleUrls: ['./password-code.component.scss'],
 })
-//TODO: Implementar una alerta que diga que no se encontró correo al recargar la pagina
+
 export class ValidateCodeComponent implements OnInit {
   recoverPasswordData = {
     mail: ""
@@ -20,7 +22,7 @@ export class ValidateCodeComponent implements OnInit {
 
   @ViewChildren('codeInput') codeInputs!: QueryList<ElementRef>;
 
-  constructor(private passwordRecoveryService: PasswordRecoveryService, private router: Router, private userService: UserService) { }
+  constructor(private passwordRecoveryService: PasswordRecoveryService, private router: Router, private userService: UserService, private alertService: AlertService) { }
 
   validarCodigo(){
     const values = this.codeInputs.map(input => input.nativeElement.value);
@@ -28,18 +30,17 @@ export class ValidateCodeComponent implements OnInit {
     this.validateData.code = code;
 
     if(this.validateData.code === "" || this.validateData.code.length<6){
-      //todo Cambiar por notifier
-      alert("Por favor ingrese el código de verificación")
+      this.alertService.showAlert('danger', 'Por favor, Ingrese un código de verificación válido.');
       return
     }
 
     this.userService.validateCode(this.validateData).then((response)=> {
       if(response.status == 200){
+        this.alertService.showAlert('success', 'Código validado correctamente.');
         this.router.navigate(['new-password'])
       }
       else{
-        //todo Cambiar por notifier
-        alert("El código de verificación es incorrecto")
+        this.alertService.showAlert('danger', 'El código de verificación es incorrecto.');
       }
     })
   }
