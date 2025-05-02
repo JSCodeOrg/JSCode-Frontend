@@ -27,4 +27,10 @@ export class UserService {
             withCredentials: true,
         })
     }
+
+    setNewPassword(newPasswordData: any) {
+        return axios.put(`${this.GestionUsuariosApi + '/users/createnewpassword'}`, newPasswordData, {
+            withCredentials: true,
+        })
+    }
 }
