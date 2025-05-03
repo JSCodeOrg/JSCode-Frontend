@@ -8,20 +8,24 @@
         <app-input-field label="Apellido" placeholder="Ingrese su Apellido" variant="primary"
           (valueChange)="onLastNameChange($event)" icon="person_pin"></app-input-field>
       </div>
-      <app-input-field label="Usuario" placeholder="Ingrese su Usuario" variant="primary"
-        (valueChange)="onUserChange($event)" icon="person"></app-input-field>
+      <app-input-field label="Documento" placeholder="Ingrese su Documento" variant="primary"
+      (valueChange)="onDocumentChange($event)" icon="person_pin"></app-input-field>
       <app-input-field label="Correo" placeholder="Ingrese su correo" variant="primary"
         (valueChange)="onEmailChange($event)" icon="email"></app-input-field>
-      <app-input-field type="password" class="Contra" label="Contraseña" placeholder="Ingresa tu contraseña" variant="primary"
-        icon="lock" (valueChange)="onPasswordChange($event)"
+        <app-input-field label="Teléfono" placeholder="Teléfono" variant="primary" (valueChange)="onPhoneChange($event)"
+        icon="phone"></app-input-field>
+        <app-input-field label="Dirección" placeholder="Dirección" variant="primary" (valueChange)="onDirectionChange($event)"
+          icon="place"></app-input-field>
+      <app-input-field type="password" class="Contra" label="Contraseña" placeholder="Ingresa tu contraseña"
+        variant="primary" icon="lock" (valueChange)="onPasswordChange($event)"
         cTooltip="Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."></app-input-field>
-      <app-input-field type="password" label="Confirma tu contraseña" placeholder="Confirma tu contraseña" variant="primary" icon="lock"
-        (valueChange)="onPasswordRepeatChange($event)"></app-input-field>
+      <app-input-field type="password" label="Confirma tu contraseña" placeholder="Confirma tu contraseña"
+        variant="primary" icon="lock" (valueChange)="onPasswordRepeatChange($event)"></app-input-field>
       <span class="button_register"><app-button label="Registrate" variant="primary"
           (click)="onRegister()"></app-button></span>
-          <span *ngIf="isMobile()" class="button_register">
-            <app-button label="Regresar al inicio de sesión" variant="secondary" (click)="onGoToLogin()"></app-button>
-          </span>
+      <span *ngIf="isMobile()" class="button_register">
+        <app-button label="Regresar al inicio de sesión" variant="secondary" (click)="onGoToLogin()"></app-button>
+      </span>
     </div>
   </div>
 </div>

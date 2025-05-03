@@ -5,6 +5,7 @@ import { AlertModule } from '@coreui/angular';
 import { CommonModule } from "@angular/common";
 import { TooltipModule } from '@coreui/angular';
 import { Router } from "@angular/router";
+import { UserService } from "../../../core/services/user.service";
 
 @Component({
   selector: "app-register",
@@ -19,17 +20,20 @@ export class RegisterComponent {
   @Output() toggleToLogin = new EventEmitter<void>();
   passwordRepeat: string = "";
   registerData = {
-    name: "",
-    lastName: "",
-    user: "",
-    email: "",
+    mail: "",
     password: "",
+    document: "",
+    nombre: "",
+    apellido: "",
+    direccion: "",
+    telefono: "",
+
   };
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
   }
   onNameChange(value: string) {
-    this.registerData.name = value;
+    this.registerData.nombre = value;
   }
 
   onGoToLogin(){
@@ -37,14 +41,23 @@ export class RegisterComponent {
   }
 
   onLastNameChange(value: string) {
-    this.registerData.lastName = value;
+    this.registerData.apellido = value;
   }
-  onUserChange(value: string) {
-    this.registerData.user = value;
+
+  onDocumentChange(value: string){
+    this.registerData.document = value;
+  }
+
+  onPhoneChange(value: string){
+    this.registerData.telefono = value;
+  }
+
+  onDirectionChange(value: string){
+    this.registerData.direccion = value;
   }
 
   onEmailChange(value: string) {
-    this.registerData.email = value;
+    this.registerData.mail = value;
   }
   onPasswordChange(value: string) {
     this.registerData.password = value;
@@ -63,12 +76,27 @@ export class RegisterComponent {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
-    if (!this.registerData.name || !this.registerData.lastName || !this.registerData.user || !this.registerData.email || !this.registerData.password) {
+
+    if (!this.registerData.nombre || !this.registerData.apellido || !this.registerData.mail || !this.registerData.password || !this.registerData.document || !this.registerData.direccion || !this.registerData.telefono) {
       this.notify.emit({ type: "danger", message: "Por favor, complete todos los campos." });
       return;
     }
 
-    if (!emailRegex.test(this.registerData.email)) {
+    if(this.registerData.document.length<7 || this.registerData.document.length>10||!/^\d+$/.test(this.registerData.document)){
+      this.notify.emit({
+        type: "danger", message:"Por favor, ingrese un documento de identidad válido"
+      })
+      return
+    }
+
+    if(this.registerData.telefono.length<10 || !/^\d+$/.test(this.registerData.telefono)){
+      this.notify.emit({
+        type:"danger", message:"Por favor, ingresa un número de teléfono válido"
+      })
+      return
+    }
+
+    if (!emailRegex.test(this.registerData.mail)) {
       this.notify.emit({ type: "danger", message: "Ingrese un correo válido." });
       return;
     }
@@ -86,8 +114,22 @@ export class RegisterComponent {
       return;
     }
 
-    this.notify.emit({ type: "success", message: "Registro exitoso." });
-    console.log("Solicitud enviada:", JSON.stringify(this.registerData, null, 2));
+    
+    this.userService.registerUser(this.registerData).then((response =>{
+      if(response.status == 200){
+        this.notify.emit({type:"success", message:"El registro fue exitoso"})
+        setTimeout(() =>{
+          this.router.navigate(['auth'])
+        }, 3000)
+      }
+
+      else{
+        this.notify.emit({
+          type: "danger", message:"No se pudo completar el registro, por favor intente más tarde"
+        })
+      }
+
+    }))
 
   }
 }

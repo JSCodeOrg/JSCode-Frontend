@@ -7,6 +7,7 @@ import { environment } from "../../../environments/environment";
 })
 export class UserService {
     private GestionUsuariosApi = environment.GestionUsuariosUrl
+    private GestionUsuariosLocal = environment.GestionUsuariosLocal
 
     constructor() { }
 
@@ -45,5 +46,9 @@ export class UserService {
             },
             withCredentials: true,
         })
+    }
+
+    registerUser(newUserData: any){
+        return axios.post(`${this.GestionUsuariosApi + '/users/register'}`, newUserData)
     }
 }
