@@ -16,7 +16,7 @@ export class UserService {
     //TODO: Migrar a httpClient de Angular en vez de Axios
     
     loginUser(userData: any) {
-        return axios.post(`${this.GestionUsuariosApi + '/auth/login'}`, userData, {
+        return axios.post(`${this.GestionUsuariosLocal + '/auth/login'}`, userData, {
             withCredentials: true
         });
     }
@@ -50,5 +50,9 @@ export class UserService {
 
     registerUser(newUserData: any){
         return axios.post(`${this.GestionUsuariosApi + '/users/register'}`, newUserData)
+    }
+
+    verifyAccount(token: string){
+        return axios.post(`${this.GestionUsuariosLocal}/users/verify?token=${token}`)
     }
 }

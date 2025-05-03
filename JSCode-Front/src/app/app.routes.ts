@@ -5,6 +5,7 @@ import { AdminRoleComponent } from './modules/admin/selector-rol/selector-rol.co
 import { NewPasswordComponent } from './modules/auth/recover-password/new-password/new-password.component';
 import { ValidateCodeComponent } from './modules/auth/recover-password/password-code/password-code.component';
 import { HomeComponent } from './modules/home/home.component';
+import { VerifyComponent } from './modules/auth/register/verify/verify.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,9 @@ export const routes: Routes = [
     //Auth
     { path: 'auth', component: AuthComponent },
     { path: 'admin', component: AdminRoleComponent },
+
+    //verificación de cuenta
+    {path: 'verify', component: VerifyComponent}
 
 
 ];

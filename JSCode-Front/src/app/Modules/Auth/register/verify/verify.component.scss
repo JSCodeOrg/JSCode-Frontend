@@ -1,0 +1,54 @@
+ .verify-container {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100vh;
+     background: linear-gradient(to right, #884ab4, #8c52be);
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     color: #fff;
+     padding: 20px;
+ }
+
+ .verify-frame {
+     background-color: #fff;
+     color: #333;
+     padding: 40px 30px;
+     border-radius: 12px;
+     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+     max-width: 480px;
+     width: 100%;
+     text-align: center;
+ }
+
+ .heading-frame {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     margin-bottom: 20px;
+ }
+
+ .logo {
+     width: 80px;
+     margin-bottom: 10px;
+ }
+
+ .verify-title {
+     font-size: 1.8rem;
+     color: #6a0dad;
+     margin: 0;
+ }
+
+ .verify-info-frame p {
+     font-size: 1.1rem;
+     margin-top: 10px;
+ }
+
+ @media (max-width: 500px) {
+     .verify-frame {
+         padding: 30px 20px;
+     }
+
+     .verify-title {
+         font-size: 1.5rem;
+     }
+ }

@@ -1,0 +1,14 @@
+<div class="verify-container">
+    <div class="verify-frame">
+      <div class="heading-frame">
+        <img src="https://i.ibb.co/8hMwzXh/image-removebg-preview-2-1-removebg-preview.png" alt="logo" class="logo">
+        <h1 class="verify-title">Verificación de Cuenta</h1>
+      </div>
+      <div class="verify-info-frame">
+        <p *ngIf="isVerified">{{ successMessage }}</p>
+        <p *ngIf="!isVerified && errorMessage">{{ errorMessage }}</p>
+        <p *ngIf="!isVerified && !errorMessage">Estamos verificando tu cuenta...</p>
+      </div>
+    </div>
+  </div>
+  

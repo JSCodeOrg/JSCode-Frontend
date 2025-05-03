@@ -3,6 +3,8 @@ import { ButtonComponent } from "../../../shared/components/button/button.compon
 import { InputFieldComponent } from "../../../shared/components/input-field/input-field.component";
 import { Router } from "@angular/router";
 import { UserService } from "../../../core/services/user.service";
+import { response } from "express";
+import { retry } from "rxjs";
 @Component({
   selector: "app-login",
   standalone: true,
@@ -29,7 +31,7 @@ export class LoginComponent {
     this.loginData.password = value;
   }
 
-  callRegisterForm(){
+  callRegisterForm() {
     this.switchToRegister.emit();
   }
 
@@ -41,22 +43,33 @@ export class LoginComponent {
       });
       return;
     }
-
-    //TODO: Falta validar si ocurre un error de conexión con el servidor.
     this.userService.loginUser(this.loginData)
       .then((response) => {
-        if(response.status == 200){
+        console.log("la respuesta es" + response);
+        if (response.status == 200) {
           sessionStorage.setItem("authToken", response.data.token);
-
           this.router.navigate([''])
         }
-      })
-      .catch((error) => {
-        console.error("Error al hacer login:", error);
-        this.notify.emit({
-          type: "danger",
-          message: "Correo o contraseña incorrectos.",
-        });
+      }).catch((error) => {
+        if(error.status == 401){
+          this.notify.emit({
+            type: "danger",
+            message: "El usuario o la contraseña son incorrectos.",
+          });
+          console.log("cuerasdas")
+          return;
+        }
+        if (error.status == 403) {
+          this.notify.emit({
+            type: "danger", message: "El usuario no está verificado, por favor verifique su correo electrónico."
+          });
+          return;
+        } else {
+          this.notify.emit({
+            type: "danger", message: "Ocurrió un error inesperado. Intente nuevamente más tarde."
+          });
+        }
+        return;
       });
   }
 
