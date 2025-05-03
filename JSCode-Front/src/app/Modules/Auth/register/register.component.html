@@ -1,15 +1,27 @@
-
 <div class="register-1">
-  <span class="title-register">¡Registrate!</span>
-  <div class="frame-register">
-    <div class="input-field_1-2">
-      <app-input-field label="Nombre" placeholder="Ingrese su Nombre" variant="primary" (valueChange)="onNameChange($event)" icon="person_pin"></app-input-field>
-      <app-input-field label="Apellido" placeholder="Ingrese su Apellido" variant="primary" (valueChange)="onLastNameChange($event)" icon="person_pin"></app-input-field>
+  <div class="register-container">
+    <span class="title-register">¡Registrate!</span>
+    <div class="frame-register">
+      <div class="input-field_1-2">
+        <app-input-field label="Nombre" placeholder="Ingrese su Nombre" variant="primary"
+          (valueChange)="onNameChange($event)" icon="person_pin"></app-input-field>
+        <app-input-field label="Apellido" placeholder="Ingrese su Apellido" variant="primary"
+          (valueChange)="onLastNameChange($event)" icon="person_pin"></app-input-field>
+      </div>
+      <app-input-field label="Usuario" placeholder="Ingrese su Usuario" variant="primary"
+        (valueChange)="onUserChange($event)" icon="person"></app-input-field>
+      <app-input-field label="Correo" placeholder="Ingrese su correo" variant="primary"
+        (valueChange)="onEmailChange($event)" icon="email"></app-input-field>
+      <app-input-field type="password" class="Contra" label="Contraseña" placeholder="Ingresa tu contraseña" variant="primary"
+        icon="lock" (valueChange)="onPasswordChange($event)"
+        cTooltip="Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."></app-input-field>
+      <app-input-field type="password" label="Confirma tu contraseña" placeholder="Confirma tu contraseña" variant="primary" icon="lock"
+        (valueChange)="onPasswordRepeatChange($event)"></app-input-field>
+      <span class="button_register"><app-button label="Registrate" variant="primary"
+          (click)="onRegister()"></app-button></span>
+          <span *ngIf="isMobile()" class="button_register">
+            <app-button label="Regresar al inicio de sesión" variant="secondary" (click)="onGoToLogin()"></app-button>
+          </span>
     </div>
-      <app-input-field label="Usuario" placeholder="Ingrese su Usuario" variant="primary" (valueChange)="onUserChange($event)" icon="person"></app-input-field>
-      <app-input-field label="Correo" placeholder="Ingrese su correo" variant="primary" (valueChange)="onEmailChange($event)" icon="email"></app-input-field>
-      <app-input-field class= "Contra" label="Contraseña" placeholder="Ingresa tu contraseña" variant="primary" icon="lock" (valueChange)="onPasswordChange($event)" cTooltip="Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."></app-input-field>
-      <app-input-field label="Confirma tu contraseña" placeholder="Confirma tu contraseña" variant="primary" icon="lock" (valueChange)="onPasswordRepeatChange($event)"></app-input-field>
-      <span class="button_register"><app-button label="Registrate" variant="primary" (click)="onRegister()"></app-button></span>
-    </div>
+  </div>
 </div>

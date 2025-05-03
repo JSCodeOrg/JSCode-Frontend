@@ -8,12 +8,12 @@
   border-radius: 8px;
   margin: 20px;
   cursor: pointer;
-  display:block;
+  display: block;
   width: -webkit-fill-available;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-primary{
+.btn-primary {
   color: white;
   background: linear-gradient(to right, #9b4d9b, #2e2f61);
 }
@@ -22,13 +22,14 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transform: scale(1.005);
 }
+
 .btn:disabled {
   background-color: #d9d9d9;
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.btn-secondary{
+.btn-secondary {
   background: transparent;
   border: 1px solid #5c2e91;
   color: #5c2e91;
@@ -37,7 +38,18 @@
   cursor: pointer;
   font-size: 14px;
 }
+
 .btn-secondary:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transform: scale(1.005);
 }
+
+@media (max-width: 768px) {
+  .btn-primary {
+    margin: 2px;
+  }
+
+  .btn-secondary{
+    margin: 2px;
+  }
+} 

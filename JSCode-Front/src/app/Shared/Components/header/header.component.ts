@@ -5,6 +5,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHouse, faBox, faPhone, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Router } from "@angular/router";
 import { UserService } from "../../../core/services/user.service";
+import { timeout } from "rxjs";
+import { ButtonComponent } from "../button/button.component";
 
 
 @Component({
@@ -12,7 +14,7 @@ import { UserService } from "../../../core/services/user.service";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, ButtonComponent],
   animations: [
     trigger("authState", [
       state("authenticated", style({
@@ -82,6 +84,7 @@ export class HeaderComponent implements OnInit {
 
   signOut(): void {
     this.isAuthenticated = false;
+    sessionStorage.removeItem('authToken');
     this.closeProfileMenu();
   }
 

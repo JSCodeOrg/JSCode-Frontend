@@ -1,15 +1,19 @@
-
+<div class="login-background"></div>
 <div class="login_1-2">
   <div class="js-code">
-    <img class="image" src = "favicon.png" alt="Logo Univalle">
+    <img class="image" src="favicon.png" alt="Logo Univalle">
   </div>
   <span class="text-iniciar-sesi-n_4-16">Inicia sesión</span>
   <div class="frame-login">
     <span class="input-field_1-3">
-      <app-input-field label="Email" placeholder="Ingrese su correo" (valueChange)="onEmailChange($event)" icon="email"></app-input-field></span>
+      <app-input-field label="Email" placeholder="Ingrese su correo" (valueChange)="onEmailChange($event)"
+        icon="email"></app-input-field></span>
     <span class="input-field_1-3">
-      <app-input-field label="Contraseña" type="password" placeholder="Ingrese su contraseña" (valueChange)="onPasswordChange($event)" icon="lock"></app-input-field></span>
-    <span class="button_login"><app-button label="Iniciar sesión" (click)="onLogin()"></app-button></span>
-    <span class="text_4-16" (click)="onForgotPassword()" >¿Olvidaste tu contraseña?</span>
+      <app-input-field label="Contraseña" type="password" placeholder="Ingrese su contraseña"
+        (valueChange)="onPasswordChange($event)" icon="lock"></app-input-field></span>
+    <span class="button_login"><app-button class="button_login2" label="Iniciar sesión"
+        (click)="onLogin()"></app-button></span>
+    <span class="text_4-16" (click)="onForgotPassword()">¿Olvidaste tu contraseña?</span>
+    <span class="text_4-20" (click)="callRegisterForm()">¿No tienes una cuenta?</span>
   </div>
 </div>

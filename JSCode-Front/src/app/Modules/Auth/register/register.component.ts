@@ -4,34 +4,45 @@ import { InputFieldComponent } from "../../../shared/components/input-field/inpu
 import { AlertModule } from '@coreui/angular';
 import { CommonModule } from "@angular/common";
 import { TooltipModule } from '@coreui/angular';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-register",
   standalone: true,
-  imports: [ButtonComponent, InputFieldComponent, AlertModule, CommonModule , TooltipModule],
+  imports: [ButtonComponent, InputFieldComponent, AlertModule, CommonModule, TooltipModule],
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
   @Output() notify = new EventEmitter<{ type: string; message: string }>();
+  @Output() toggleToLogin = new EventEmitter<void>();
   passwordRepeat: string = "";
   registerData = {
     name: "",
     lastName: "",
-    user:"",
+    user: "",
     email: "",
     password: "",
   };
+
+  constructor(private router: Router) {
+  }
   onNameChange(value: string) {
     this.registerData.name = value;
   }
+
+  onGoToLogin(){
+    this.toggleToLogin.emit();
+  }
+
   onLastNameChange(value: string) {
     this.registerData.lastName = value;
   }
   onUserChange(value: string) {
     this.registerData.user = value;
   }
+
   onEmailChange(value: string) {
     this.registerData.email = value;
   }
@@ -41,6 +52,12 @@ export class RegisterComponent {
   onPasswordRepeatChange(value: string) {
     this.passwordRepeat = value;
   }
+
+  isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+
 
   onRegister() {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -57,8 +74,8 @@ export class RegisterComponent {
     }
 
     if (!passwordRegex.test(this.registerData.password)) {
-      this.notify.emit({ 
-        type: "danger", 
+      this.notify.emit({
+        type: "danger",
         message: "Contraseña inválida. Debe cumplir con los requisitos minimos"
       });
       return;
@@ -71,5 +88,6 @@ export class RegisterComponent {
 
     this.notify.emit({ type: "success", message: "Registro exitoso." });
     console.log("Solicitud enviada:", JSON.stringify(this.registerData, null, 2));
+
   }
 }

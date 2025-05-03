@@ -1,8 +1,8 @@
 <header class="nav-header">
     <div class="left-section">
       <div class="logo-container">
-        <img src="" alt="Company Logo" class="logo">
-        <h1 class="company-name">App Servicios</h1>
+        <img src="https://i.ibb.co/8hMwzXh/image-removebg-preview-2-1-removebg-preview.png" alt="Company Logo" class="logo">
+        <h1 class="company-name">Shop</h1>
       </div>
     </div>
   
@@ -29,8 +29,10 @@
   
     <div class="right-section" [@authState]="isAuthenticated ? 'authenticated' : 'unauthenticated'">
       <ng-container *ngIf="!isAuthenticated">
-        <button class="btn sign-in" (click)="signIn()">Iniciar Sesion</button>
-        <button class="btn register" (click)="register()">Registarse</button>
+        <div class="buttons-container">
+        <app-button class="login-button" label="Iniciar sesión" (click)="signIn()"></app-button>
+        <app-button class="register-button "label="Registrate" variant="secondary"(clicked)="register()"></app-button>
+      </div>
       </ng-container>
   
       <ng-container *ngIf="isAuthenticated">

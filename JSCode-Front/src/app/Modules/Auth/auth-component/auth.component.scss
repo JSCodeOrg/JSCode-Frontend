@@ -12,7 +12,7 @@
     justify-content: center;
     width: 65%;
     height: 100%;
-    background-color: #F2ECEC; 
+    background-color: transparent; 
 }
 .register-container {
     display: flex;
@@ -123,4 +123,43 @@
     border-radius: 60% 90% 70% 0% / 40% 60% 70% 20%;
     z-index: 0;
     opacity: 0.8;
+  }
+
+  @media(max-width: 768px){
+    .register-container {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2000;
+        background: white;
+        height: 100vh;
+        overflow: auto;
+        transition: all 0.3s ease;
+      }
+
+      .register-container.hidden-on-mobile {
+        display: none !important;
+      }
+
+    .auth-container{
+        width: 100%;
+    }
+
+    .login-container{
+        width: 100%;
+        position: absolute;
+        top: -420px;
+        max-height: 100%;
+    }
+
+    .auth-container{
+        width: 100%;
+    }
+
+    .Campo-login{
+        overflow: hidden;
+    }
+
   }

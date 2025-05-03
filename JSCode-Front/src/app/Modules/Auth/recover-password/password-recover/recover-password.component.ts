@@ -6,6 +6,7 @@ import { UserService } from '../../../../core/services/user.service';
 import { PasswordRecoveryService } from '../../../../shared/state/PasswordRecoveryService';
 import { AlertComponent } from "../../../../shared/components/alert/alert.component";
 import { AlertService } from '../../../../shared/components/alert/alert.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class RecoverPasswordComponent {
   recoverPasswordData = {
     mail: "",
   };
+
+  private userMail = new BehaviorSubject<string>("");
+  $setUserMail = this.userMail.asObservable();
 
   constructor(private router: Router, private userService: UserService, private passwordRecoveryService: PasswordRecoveryService, private alertService: AlertService) { }
 
@@ -39,11 +43,11 @@ export class RecoverPasswordComponent {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (!emailPattern.test(this.recoverPasswordData.mail)) {
-        console.log("pene")
         this.alertService.showAlert('danger', 'Por favor, ingrese un correo electrónico válido.');
         return;
       }
-    
+
+    this.userMail.next(this.recoverPasswordData.mail);
     this.userService.recoverPassword(this.recoverPasswordData).then((response )=>{
       if(response.status == 200){
         console.log(response.data);

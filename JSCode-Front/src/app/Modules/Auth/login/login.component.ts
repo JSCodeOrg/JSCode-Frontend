@@ -13,6 +13,7 @@ import { UserService } from "../../../core/services/user.service";
 })
 export class LoginComponent {
   @Output() notify = new EventEmitter<{ type: string; message: string }>();
+  @Output() switchToRegister = new EventEmitter<void>();
   loginData = {
     mail: "",
     password: "",
@@ -26,6 +27,10 @@ export class LoginComponent {
 
   onPasswordChange(value: string) {
     this.loginData.password = value;
+  }
+
+  callRegisterForm(){
+    this.switchToRegister.emit();
   }
 
   onLogin() {

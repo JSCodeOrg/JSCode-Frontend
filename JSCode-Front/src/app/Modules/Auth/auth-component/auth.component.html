@@ -1,21 +1,24 @@
 
 <div class="auth-container">
- 
   <div class="login-container"> 
     <div class = "Compo-register" *ngIf="!mostrarRegistro">
-      <app-register (notify)="onNotify($event)"></app-register>
+      <app-register (notify)="onNotify($event)" (toggleToLogin)="toggleVista()"></app-register>
       <c-alert class= "alertaRegistro "*ngIf="showAlert" [color]="alertType" dismissible >
         {{ alertMessage }}
       </c-alert>
     </div>
     <div class = "Campo-login" *ngIf="mostrarRegistro">
-      <app-login (notify)="onNotify($event)"></app-login>
+      <app-login (notify)="onNotify($event)" (switchToRegister)="toggleVista()"></app-login>
       <c-alert class= "alertaRegistro "*ngIf="showAlert" [color]="alertType" dismissible >
         {{ alertMessage }}
       </c-alert>
+
     </div>
   </div>
-  <div class="register-container">
+
+  <div class="register-container" 
+     [class.hidden-on-mobile]="isMobile() && !isRegisterVisibleOnMobile">
+
     <div class = "register" *ngIf="mostrarRegistro">
       <div class="blob-one"></div>
       <div class="blob-two"></div>
