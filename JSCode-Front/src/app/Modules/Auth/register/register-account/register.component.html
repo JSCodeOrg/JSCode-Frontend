@@ -21,7 +21,7 @@
         cTooltip="Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."></app-input-field>
       <app-input-field type="password" label="Confirma tu contraseña" placeholder="Confirma tu contraseña"
         variant="primary" icon="lock" (valueChange)="onPasswordRepeatChange($event)"></app-input-field>
-      <span class="button_register"><app-button label="Registrate" variant="primary"
+      <span class="button_finish"><app-button label="Registrate" variant="primary"
           (click)="onRegister()"></app-button></span>
       <span *ngIf="isMobile()" class="button_register">
         <app-button label="Regresar al inicio de sesión" variant="secondary" (click)="onGoToLogin()"></app-button>

@@ -55,4 +55,16 @@ export class UserService {
     verifyAccount(token: string){
         return axios.post(`${this.GestionUsuariosApi}/users/verify?token=${token}`)
     }
+
+    changeDefaultInfo(userData: any, token: String){
+        console.log(token)
+        console.log(userData)
+        return axios.put(`${this.GestionUsuariosApi}/users/updateinfo`, userData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            withCredentials: true,
+        })
+
+    }
 }

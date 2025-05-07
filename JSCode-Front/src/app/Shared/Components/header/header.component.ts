@@ -57,13 +57,12 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) {} 
 
   ngOnInit(): void {
-    this.userService.getUserData(sessionStorage.getItem('authToken') || '').then((response) => {
+    this.userService.getUserData(sessionStorage.getItem('authToken')).then((response) => {
       if(response.status == 200){
         this.isAuthenticated = true;
         this.userProfileImage =  response.data.data.profileImgUrl;
       }
     });
-
   }
 
   toggleMobileMenu(): void {

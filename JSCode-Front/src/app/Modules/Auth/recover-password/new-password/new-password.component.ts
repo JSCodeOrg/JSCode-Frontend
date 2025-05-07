@@ -49,6 +49,7 @@ export class NewPasswordComponent {
       if(response.status == 200){
         console.log(response.data);
         this.alertService.showAlert('success', 'Contraseña cambiada correctamente.');
+        sessionStorage.removeItem("recoverEmail");
         setTimeout(() => {
           this.router.navigate(['auth']);
         }, 3000);

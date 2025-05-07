@@ -1,0 +1,96 @@
+.change-info-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    padding: 20px;
+    background-color: #f9f9f9; 
+}
+
+.change-info-container {
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.title-change-info {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px auto;
+    color: #000000;
+}
+
+.frame-change-info {
+    border-radius: 10px;
+    padding: 20px;
+    border: 2px solid #00000027;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-field-change-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-field-change-info app-input-field {
+    flex: 1 1 48%; 
+}
+
+.change-info-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+@media (min-width: 1200px) {
+    .title-change-info {
+        font-size: 28px;
+    }
+
+    .frame-change-info {
+        padding: 30px;
+    }
+}
+
+
+@media (max-height: 800px) {
+    .change-info-background {
+        align-items: flex-start;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .change-info-container {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-field-change-info {
+        flex-direction: column;
+    }
+
+    .input-field-change-info app-input-field {
+        width: 100%;
+    }
+
+    .title-change-info {
+        font-size: 24px;
+    }
+
+    .frame-change-info {
+        padding: 15px;
+    }
+
+    .change-info-container {
+        margin-top: 40px;
+    }
+}

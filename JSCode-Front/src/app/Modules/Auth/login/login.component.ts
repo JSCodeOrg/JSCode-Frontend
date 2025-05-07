@@ -24,11 +24,11 @@ export class LoginComponent {
   constructor(private router: Router, private userService: UserService) { }
 
   onEmailChange(value: string) {
-    this.loginData.mail = value;
+    this.loginData.mail = value.trim();
   }
 
   onPasswordChange(value: string) {
-    this.loginData.password = value;
+    this.loginData.password = value.trim();
   }
 
   callRegisterForm() {
@@ -43,15 +43,20 @@ export class LoginComponent {
       });
       return;
     }
+    console.log("Correo enviado: [" + this.loginData.mail + "]");
+    console.log("Longitud del correo:", this.loginData.mail.length);
+
     this.userService.loginUser(this.loginData)
       .then((response) => {
-        console.log("la respuesta es" + response);
         if (response.status == 200) {
           sessionStorage.setItem("authToken", response.data.token);
-          this.router.navigate([''])
+          if (response.data.firstLogin) {
+            this.router.navigate(['changedefaultinfo'])
+          }
+          else { this.router.navigate(['']) }
         }
       }).catch((error) => {
-        if(error.status == 401){
+        if (error.status == 401) {
           this.notify.emit({
             type: "danger",
             message: "El usuario o la contraseña son incorrectos.",
@@ -72,8 +77,6 @@ export class LoginComponent {
         return;
       });
   }
-
-
 
   onForgotPassword() {
     this.router.navigate(['forgot-password']);

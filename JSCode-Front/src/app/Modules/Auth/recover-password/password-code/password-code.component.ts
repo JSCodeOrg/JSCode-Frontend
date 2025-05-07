@@ -50,12 +50,23 @@ export class ValidateCodeComponent implements OnInit {
     this.router.navigate(['forgot-password'])
   }
   ngOnInit(): void {
-    this.recoverPasswordData = this.passwordRecoveryService.getRecoverData();
-    this.validateData.mail = this.recoverPasswordData.mail;
-    if(!this.recoverPasswordData.mail){
-      this.router.navigate(['forgot-password'])
+    const data = this.passwordRecoveryService.getRecoverData();
+  
+    if (!data?.mail) {
+      const storedMail = sessionStorage.getItem("recoverEmail");
+      if (!storedMail) {
+        this.router.navigate(['forgot-password']);
+        return;
+      }
+      this.recoverPasswordData.mail = storedMail;
+      this.validateData.mail = storedMail;
+    } else {
+      this.recoverPasswordData.mail = data.mail;
+      this.validateData.mail = data.mail;
+      sessionStorage.setItem("recoverEmail", data.mail);
     }
   }
+  
 }
 
 
