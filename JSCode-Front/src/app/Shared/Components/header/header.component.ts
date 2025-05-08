@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserData(sessionStorage.getItem('authToken')).then((response) => {
       if(response.status == 200){
+        sessionStorage.setItem('userRole', response.data.data.role);
         this.isAuthenticated = true;
         this.userProfileImage =  response.data.data.profileImgUrl;
       }
