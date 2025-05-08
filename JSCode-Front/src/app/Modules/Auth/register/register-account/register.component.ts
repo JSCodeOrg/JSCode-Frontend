@@ -36,7 +36,7 @@ export class RegisterComponent {
     this.registerData.nombre = value;
   }
 
-  onGoToLogin(){
+  onGoToLogin() {
     this.toggleToLogin.emit();
   }
 
@@ -44,15 +44,15 @@ export class RegisterComponent {
     this.registerData.apellido = value;
   }
 
-  onDocumentChange(value: string){
+  onDocumentChange(value: string) {
     this.registerData.document = value;
   }
 
-  onPhoneChange(value: string){
+  onPhoneChange(value: string) {
     this.registerData.telefono = value;
   }
 
-  onDirectionChange(value: string){
+  onDirectionChange(value: string) {
     this.registerData.direccion = value;
   }
 
@@ -82,16 +82,16 @@ export class RegisterComponent {
       return;
     }
 
-    if(this.registerData.document.length<7 || this.registerData.document.length>10||!/^\d+$/.test(this.registerData.document)){
+    if (this.registerData.document.length < 7 || this.registerData.document.length > 10 || !/^\d+$/.test(this.registerData.document)) {
       this.notify.emit({
-        type: "danger", message:"Por favor, ingrese un documento de identidad válido"
+        type: "danger", message: "Por favor, ingrese un documento de identidad válido"
       })
       return
     }
 
-    if(this.registerData.telefono.length<10 || !/^\d+$/.test(this.registerData.telefono)){
+    if (this.registerData.telefono.length < 10 || !/^\d+$/.test(this.registerData.telefono)) {
       this.notify.emit({
-        type:"danger", message:"Por favor, ingresa un número de teléfono válido"
+        type: "danger", message: "Por favor, ingresa un número de teléfono válido"
       })
       return
     }
@@ -114,22 +114,26 @@ export class RegisterComponent {
       return;
     }
 
-    
-    this.userService.registerUser(this.registerData).then((response =>{
-      if(response.status == 200){
-        this.notify.emit({type:"success", message:"El registro fue exitoso"})
-        setTimeout(() =>{
-          this.router.navigate(['auth'])
-        }, 3000)
-      }
-
-      else{
-        this.notify.emit({
-          type: "danger", message:"No se pudo completar el registro, por favor intente más tarde"
-        })
-      }
-
-    }))
-
-  }
-}
+   this.userService.registerUser(this.registerData)
+  .then((response) => {
+    if (response.status === 200) {
+      this.notify.emit({ type: "success", message: "El registro fue exitoso" });
+      setTimeout(() => {
+        this.router.navigate(['auth']);
+      }, 3000);
+    } else {
+      this.notify.emit({ type: "warning", message: response.data.message });
+    }
+  })
+  .catch((error) => {
+    if (error.response && error.response.status === 409) {
+      this.notify.emit({ type: "danger", message: "El usuario o el documento ya existen." });
+    } else if (error.response && error.response.status === 400) {
+      this.notify.emit({ type: "danger", message: "Hay un error con los datos proporcionados." });
+    } else {
+      this.notify.emit({ type: "danger", message: "Ocurrió un error inesperado. Intente nuevamente más tarde." });
+    }
+    console.error("Error en la solicitud de registro:", error);
+  });
+  
+}}
