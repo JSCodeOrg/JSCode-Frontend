@@ -22,7 +22,7 @@ export const routes: Routes = [
 
     //Auth
     { path: 'auth', component: AuthComponent },
-    { path: 'admin', component: AdminRoleComponent },
+    { path: 'create-user-role', component: AdminRoleComponent },
     {path: 'changedefaultinfo', component: ChangeDefaultInfoComponent},
 
     //verificación de cuenta

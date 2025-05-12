@@ -43,8 +43,6 @@ export class LoginComponent {
       });
       return;
     }
-    console.log("Correo enviado: [" + this.loginData.mail + "]");
-    console.log("Longitud del correo:", this.loginData.mail.length);
 
     this.userService.loginUser(this.loginData)
       .then((response) => {
@@ -61,7 +59,6 @@ export class LoginComponent {
             type: "danger",
             message: "El usuario o la contraseña son incorrectos.",
           });
-          console.log("cuerasdas")
           return;
         }
         if (error.status == 403) {

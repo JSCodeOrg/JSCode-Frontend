@@ -44,6 +44,7 @@ export class HeaderComponent implements OnInit {
   isAuthenticated = false;
   isMobileMenuOpen = false;
   isProfileMenuOpen = false;
+  isAdmin:Boolean = false;
   activeLink = "home";
   favoritesCount = 0;
   cartCount = 0;
@@ -72,6 +73,7 @@ export class HeaderComponent implements OnInit {
 
   toggleProfileMenu(): void {
     this.isProfileMenuOpen = !this.isProfileMenuOpen;
+    this.isrole();
   }
 
   closeProfileMenu(): void {
@@ -85,7 +87,18 @@ export class HeaderComponent implements OnInit {
   signOut(): void {
     this.isAuthenticated = false;
     sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('userRole');
     this.closeProfileMenu();
+  }
+
+  isrole(): void {
+    const role = sessionStorage.getItem('userRole');
+    console.log(role);
+    if (role === 'administrador') {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   register(): void {

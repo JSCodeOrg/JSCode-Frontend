@@ -67,4 +67,13 @@ export class UserService {
         })
 
     }
+    createUserRole(userData: any){
+        console.log(userData)
+        return axios.post(`${this.GestionUsuariosApi}/users/createuser`, userData, {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem('authToken')}`
+            },
+            withCredentials: true,
+        })
+    }
 }

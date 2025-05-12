@@ -4,37 +4,72 @@ import { InputFieldComponent } from "../../../shared/components/input-field/inpu
 import {MatSelectModule} from '@angular/material/select';
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { AlertModule } from '@coreui/angular';
+import { UserService } from "../../../core/services/user.service";
 
 @Component({
   selector: "app-selector-rol",
   standalone: true,
-  imports: [ButtonComponent, InputFieldComponent, MatSelectModule, CommonModule, FormsModule],
+  imports: [ButtonComponent, InputFieldComponent, MatSelectModule, CommonModule, FormsModule, AlertModule],
   templateUrl: "./selector-rol.component.html",
   styleUrls: ["./selector-rol.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminRoleComponent {
+  alertMessage: string = '';
+  alertType: string = '';
+  showAlert: boolean = false;
+
   @Output() notify = new EventEmitter<{ type: string; message: string }>();
-  loginData = {
+  RegisterRoleData = {
     email: "",
-    rol: "",
+    role_id: "",
   };
 
-  onEmailChange(value: string) {
-    this.loginData.email = value;
+  constructor(private userService: UserService) {
   }
-  onCreate() {
-    if (!this.loginData.email || !this.loginData.rol) {
-      this.notify.emit({ type: "danger", message: "Por favor, complete todos los campos." });
+
+  onEmailChange(value: string) {
+    this.RegisterRoleData.email = value;
+  }
+  onCreateUserRole() {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!this.RegisterRoleData.email || !this.RegisterRoleData.role_id) {
+      this.onNotify({ type: "danger", message: "Por favor, complete todos los campos." });
       return;
     }
-    console.log("Solicitud enviada:", JSON.stringify(this.loginData, null, 2));
+    else if (!emailRegex.test(this.RegisterRoleData.email)) {
+      this.onNotify({ type: "danger", message: "El correo electrónico no es válido." });
+      return;
+    }
+    else{
+      this.userService.createUserRole(this.RegisterRoleData).then((response) => {
+        if (response.status === 200) {
+          this.onNotify({ type: "success", message: "Usuario con rol creado correctamente." });
+        } else {
+          this.onNotify({ type: "danger", message: "Error al crear el usuario." });
+        }
+      }).catch((error) => {
+        console.error("Error al crear el rol:", error);
+        this.onNotify({ type: "danger", message: "Error al crear el usuario." });
+      }
+      );
+    }
   }
 
-  selectedValue: string = '';
-
   options = [
-    { value: 'administrador', viewValue: 'Administrador' },
-    { value: 'repartidor', viewValue: 'Repartidor' }
+    { value: '3', viewValue: 'Administrador' },
+    { value: '2', viewValue: 'Repartidor' }
   ];
+
+  onNotify(event: { type: string; message: string }) {
+    this.alertType = event.type;
+    this.alertMessage = event.message;
+    this.showAlert = true;
+
+    setTimeout(() => {
+      this.showAlert = false;
+    }, 3000);
+  }
 }
