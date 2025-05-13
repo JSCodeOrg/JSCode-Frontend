@@ -1,0 +1,31 @@
+<div class="search-container">
+  <div class="relative">
+    <div class="search-input-wrapper">
+      <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+      <input
+        #searchInput
+        type="text"
+        [value]="searchTerm"
+        (input)="handleSearch($event)"
+        placeholder="Search products..."
+        class="search-input"
+        aria-label="Search products"
+      />
+      @if (searchTerm) {
+        <button
+          (click)="clearSearch()"
+          class="clear-button"
+          aria-label="Clear search"
+        >
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </button>
+      }
+    </div>
+
+    @if (isLoading) {
+      <div class="loading-indicator">
+        <div class="spinner"></div>
+      </div>
+    }
+  </div>
+</div>

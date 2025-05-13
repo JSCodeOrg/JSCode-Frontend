@@ -1,0 +1,67 @@
+<div class="home-search-wrapper">
+  <app-header></app-header>
+
+  <div class="home-search-container">
+    <div class="top-bar">
+      <div class="search-top-left">
+        <search-input></search-input>
+      </div>
+
+      <div class="filter-top-left">
+        <filter-panel></filter-panel>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <h1>Resultados de búsqueda</h1>
+      
+      <!-- Mostrar productos paginados -->
+      <div class="products-grid">
+        @for (product of paginatedProducts; track product.id) {
+          <app-product-card 
+            [product]="product"
+            class="product-item"
+          ></app-product-card>
+        }
+      </div>
+      
+      <!-- Mostrar mensaje si no hay productos -->
+      @if (products.length === 0) {
+        <p>No se encontraron productos</p>
+      }
+      
+      <!-- Controles de paginación -->
+      @if (totalPages > 1) {
+        <div class="pagination-controls">
+          <button 
+            (click)="prevPage()" 
+            [disabled]="currentPage === 1"
+            class="pagination-button"
+          >
+            Anterior
+          </button>
+          
+          @for (page of getPageNumbers(); track page) {
+            <button 
+              (click)="goToPage(page)"
+              [class.active]="page === currentPage"
+              class="pagination-button"
+            >
+              {{ page }}
+            </button>
+          }
+          
+          <button 
+            (click)="nextPage()" 
+            [disabled]="currentPage === totalPages"
+            class="pagination-button"
+          >
+            Siguiente
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

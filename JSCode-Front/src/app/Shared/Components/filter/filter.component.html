@@ -1,0 +1,74 @@
+<div class="filter-container">
+  <button class="filter-button" (click)="toggleFilter()" [attr.aria-expanded]="isFilterOpen" aria-label="Toggle filters">
+    <i class="material-icons">filter_list</i>
+    <span *ngIf="activeFiltersCount > 0" class="filter-badge">{{activeFiltersCount}}</span>
+  </button>
+
+  <div class="filter-panel" *ngIf="isFilterOpen" [@slideInOut]>
+    <div class="panel-header">
+      <h3>Opciones Filtrado</h3>
+      <button class="close-btn" (click)="toggleFilter()">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+
+    <form [formGroup]="filterForm">
+      <div class="price-range">
+        <h4>Rango de precios</h4>
+        <div class="range-inputs">
+          <input type="number" formControlName="minPrice" placeholder="Min" min="0" max="1000">
+          <span>-</span>
+          <input type="number" formControlName="maxPrice" placeholder="Max" min="0" max="1000">
+        </div>
+        <div class="range-slider">
+          <input type="range" formControlName="minPrice" [min]="0" [max]="1000" 
+                 (input)="onMinPriceInput($event)" class="slider min-slider">
+          <input type="range" formControlName="maxPrice" [min]="0" [max]="1000" 
+                 (input)="onMaxPriceInput($event)" class="slider max-slider">
+          <div class="slider-track"></div>
+        </div>
+      </div>
+
+      <div class="brand-selection">
+        <h4>Marcas</h4>
+        <div class="combobox-container">
+          <input type="text" [formControl]="brandSearch" 
+                 placeholder="Busca Marcas.." class="search-input"
+                 (focus)="showBrandDropdown = true">
+          
+          <div class="dropdown" *ngIf="showBrandDropdown">
+            <div class="dropdown-content">
+              <label *ngFor="let brand of filteredBrands$ | async" class="dropdown-item">
+                <input type="checkbox" [formControlName]="brand.id">
+                {{brand.name}}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-selection">
+        <h4>Colores</h4>
+        <div class="color-grid">
+          <div *ngFor="let color of colors" 
+               class="color-swatch" 
+               [style.background-color]="color.value"
+               [class.selected]="isColorSelected(color.id)"
+               (click)="toggleColor(color.id)"
+               [attr.title]="color.name">
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="showFilterError" class="filter-error">
+        <i class="material-icons">error_outline</i>
+        <span>Debe aplicar al menos un filtro</span>
+      </div>
+
+      <div class="filter-actions">
+        <button type="button" class="reset-btn" (click)="resetFilters()">Limpiar</button>
+        <button type="button" class="apply-btn" (click)="applyFilters()">Aplicar Filtrado</button>
+      </div>
+    </form>
+  </div>
+</div>

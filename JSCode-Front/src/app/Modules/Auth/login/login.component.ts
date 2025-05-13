@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, Output, EventEmitter } from "@angular/core";
-import { ButtonComponent } from "../../../shared/components/button/button.component";
-import { InputFieldComponent } from "../../../shared/components/input-field/input-field.component";
+import { ButtonComponent } from "../../../Shared/Components/button/button.component";
+import { InputFieldComponent } from "../../../Shared/Components/input-field/input-field.component";
 import { Router } from "@angular/router";
 import { UserService } from "../../../core/services/user.service";
 import { response } from "express";

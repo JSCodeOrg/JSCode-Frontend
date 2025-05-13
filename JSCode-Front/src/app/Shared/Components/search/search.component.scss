@@ -1,0 +1,80 @@
+.search-container {
+  width: 100%;
+  max-width: 22rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: #9ca3af;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 2rem;
+  border: 2px solid #000;
+  border-radius: 1.3rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+
+  &::placeholder {
+    color: #9ca3af;
+    font-style: italic;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #1f2937;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  &:hover {
+    border-color: #4b5563;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+}
+
+.clear-button {
+  position: absolute;
+  right: 0.75rem;
+  color: #9ca3af;
+
+  &:hover {
+    color: #4b5563;
+  }
+}
+
+.loading-indicator {
+  margin-top: 1rem;
+  text-align: center;
+  color: #4b5563;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  border-radius: 9999px;
+  width: 2rem;
+  height: 2rem;
+  border-width: 0.125rem;
+  border-color: #1f2937;
+  border-bottom-color: transparent;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

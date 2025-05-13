@@ -1,17 +1,17 @@
 /* Estructura principal */
-.home-wrapper {
+.home-search-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding-top: 122px;
 
-  .home-container {
+  .home-search-container {
     flex: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinea todo a la izquierda */
-    gap: 2rem; /* Espacio entre elementos */
+    align-items: flex-start;
+    gap: 2rem;
   }
 
   .search-top-left, .filter-top-left {
@@ -33,14 +33,13 @@
   white-space: nowrap; /* Evita que los elementos internos se envuelvan */
 }
 
-
   .main-content {
     width: 100%;
     text-align: center;
 
     h1 {
       font-size: 2.5rem;
-      color: #2196F3;
+      color: #f32121;
       margin-bottom: 1rem;
     }
 
@@ -48,6 +47,56 @@
       font-size: 1.2rem;
       color: #666;
       margin-bottom: 2rem;
+    }
+  }
+
+  /* Estilos para la cuadrícula de productos */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .product-item {
+    transition: transform 0.2s;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Estilos para la paginación */
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .pagination-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    &:hover:not(:disabled) {
+      background-color: #e9ecef;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background-color: #2196F3;
+      color: white;
+      border-color: #2196F3;
     }
   }
 }

@@ -1,10 +1,10 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { PasswordRecoveryService } from '../../../../shared/state/PasswordRecoveryService';
-import { ButtonComponent } from "../../../../shared/components/button/button.component";
+import { PasswordRecoveryService } from '../../../../Shared/state/PasswordRecoveryService';
+import { ButtonComponent } from "../../../../Shared/Components/button/button.component";
 import { UserService } from '../../../../core/services/user.service';
-import { AlertComponent } from '../../../../shared/components/alert/alert.component';
-import { AlertService } from '../../../../shared/components/alert/alert.service';
+import { AlertComponent } from '../../../../Shared/Components/alert/alert.component';
+import { AlertService } from '../../../../Shared/Components/alert/alert.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, Output } from '@angular/core';
-import { InputFieldComponent } from "../../../shared/components/input-field/input-field.component";
-import { ButtonComponent } from "../../../shared/components/button/button.component";
+import { InputFieldComponent } from "../../../Shared/Components/input-field/input-field.component";
+import { ButtonComponent } from "../../../Shared/Components/button/button.component";
 import { Router } from "@angular/router";
 import { UserService } from '../../../core/services/user.service';
-import { AlertComponent } from "../../../shared/components/alert/alert.component";
+import { AlertComponent } from "../../../Shared/Components/alert/alert.component";
 import { EventEmitter } from '@angular/core';
-import { AlertService } from '../../../shared/components/alert/alert.service';
+import { AlertService } from '../../../Shared/Components/alert/alert.service';
 
 @Component({
   selector: 'app-change-default-info',
