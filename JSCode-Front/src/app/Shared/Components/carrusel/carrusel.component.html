@@ -1,18 +1,23 @@
-<div class="carrusel-container">
-  <span class="categoria-label">Hogar</span>
+<div class="carrusel-container" *ngFor="let categoria of categoriasConProductos">
+  <span class="categoria-label">{{ categoria.nombre }}</span>
 
   <div class="productos">
-    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">←</button>
-    <div *ngFor="let product of paginatedProducts" class="producto-card">
+    <button 
+      (click)="goToPage(categoria.nombre, currentPageByCategory[categoria.nombre] - 1)"
+      [disabled]="currentPageByCategory[categoria.nombre] === 1">
+      ←
+    </button>
+
+    <div *ngFor="let product of getPaginatedProducts(categoria.nombre, categoria.productos)" class="producto-card">
       <img [src]="product.imageUrl" alt="{{ product.nombre }}" width="150" />
       <h4>{{ product.nombre }}</h4>
       <p>${{ product.precioCompra }}</p>
     </div>
-    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages()">→</button>
-  </div>
 
-  <div class="paginacion">
-
-
+    <button 
+      (click)="goToPage(categoria.nombre, currentPageByCategory[categoria.nombre] + 1)"
+      [disabled]="currentPageByCategory[categoria.nombre] === getTotalPages(categoria.nombre)">
+      →
+    </button>
   </div>
 </div>

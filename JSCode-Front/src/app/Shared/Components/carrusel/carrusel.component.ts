@@ -4,60 +4,57 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-carrusel',
-  imports: [CommonModule],
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './carrusel.component.html',
   styleUrl: './carrusel.component.scss'
 })
 export class CarruselComponent implements OnInit {
-
-  products: any[] = [];
   paginatedProducts: any[] = [];
-  currentPage: number = 1;
+  currentPageByCategory: { [key: string]: number } = {};
   itemsPerPage: number = 5;
 
-  constructor(private productService: ProductService) { }
-
-  categorias: any[] = []
+  categoriasConProductos: {nombre: string, productos:any}[] = [];
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getCategoriesConProductos();
+    };
 
-  }
+  async getCategoriesConProductos() {
+  const response = await this.productService.getCategories();
+  const categorias = response.data.data; 
 
-  getProducts(category_id: number) {
-    this.productService.getCarruselProducts(category_id).then((response => {
-      this.products = response.data;
-      this.updatePaginatedProducts();
-    }))
-  }
-
-  getCategories(){
-    this.productService.getCategories().then((response =>{
-      this.categorias = response.data;
-    }))
-
-    this.categorias.map((categoria) => {
-      this.productService.getCarruselProducts(categoria.id).then((response => {
-        const productos = []
-        productos.push(response.data)
-        this.updatePaginatedProducts();
-      }))
+  const resultados = await Promise.all(
+    categorias.map(async (categoria: any) => {
+      const productosResp = await this.productService.getCarruselProducts(categoria.id);
+      return {
+        nombre: categoria.nombreCategoria, // ← nombre correcto
+        productos: productosResp.data
+      };
     })
+  );
+
+  this.categoriasConProductos = resultados;
   }
 
-  updatePaginatedProducts() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
+
+  getPaginatedProducts(categoria: string, productos: any[]): any[] {
+    const page = this.currentPageByCategory[categoria] || 1;
+    const start = (page - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    this.paginatedProducts = this.products.slice(start, end);
+    return productos.slice(start, end);
   }
 
-  goToPage(page: number) {
-    this.currentPage = page;
-    this.updatePaginatedProducts();
+  goToPage(categoria: string, page: number) {
+    const totalPages = this.getTotalPages(categoria);
+    if (page >= 1 && page <= totalPages) {
+      this.currentPageByCategory[categoria] = page;
+    }
   }
 
-  totalPages(): number {
-    return Math.ceil(this.products.length / this.itemsPerPage);
+  getTotalPages(categoria: string): number {
+    const categoriaData = this.categoriasConProductos.find(cat => cat.nombre === categoria);
+    return categoriaData ? Math.ceil(categoriaData.productos.length / this.itemsPerPage) : 0;
   }
 }
