@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -41,6 +41,13 @@ import { ButtonComponent } from "../button/button.component";
   ]
 })
 export class HeaderComponent implements OnInit {
+  @Output() openUserInfoModal = new EventEmitter<void>();
+
+  onProfileClick(){
+    this.openUserInfoModal.emit();
+  }
+
+
   isAuthenticated = false;
   isMobileMenuOpen = false;
   isProfileMenuOpen = false;
@@ -49,6 +56,8 @@ export class HeaderComponent implements OnInit {
   favoritesCount = 0;
   cartCount = 0;
   userProfileImage = "";
+  isUserAdmin = false;
+
 
   faHouse = faHouse;
   faBox = faBox;

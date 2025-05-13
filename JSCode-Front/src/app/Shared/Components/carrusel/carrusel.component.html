@@ -1,0 +1,16 @@
+<div class="carrusel-container">
+  <span class="categoria-label">Hogar</span>
+
+  <div class="productos">
+    <div *ngFor="let product of paginatedProducts" class="producto-card">
+      <img [src]="product.imageUrl" alt="{{ product.nombre }}" width="150" />
+      <h4>{{ product.nombre }}</h4>
+      <p>${{ product.precioCompra }}</p>
+    </div>
+  </div>
+
+  <div class="paginacion">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">←</button>
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages()">→</button>
+  </div>
+</div>

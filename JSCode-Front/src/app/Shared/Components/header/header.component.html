@@ -50,7 +50,7 @@
           </button>
           <div class="profile-dropdown" *ngIf="isProfileMenuOpen" [@dropdownAnimation]>
             <ul>
-              <li><a href="#">Mi perfil</a></li>
+              <li><a href="#" (click)="onProfileClick()">Mi perfil</a></li>
               <li><a href="#">Configuracion</a></li>
               <li><a href="#" (click)="signOut()">Cerrar sesion</a></li>
               <li *ngIf="isAdmin"><a href="create-user-role">Crear usuario</a></li>

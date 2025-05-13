@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./productcard.component.scss']
 })
 export class ProductCardComponent {
-  @Input() product: any; // Asegúrate de pasar el producto desde el padre
+  @Input() product: any; 
 
   constructor(private router: Router) {}
 

@@ -65,7 +65,14 @@ export class UserService {
             },
             withCredentials: true,
         })
+    }
 
+    getUserInfo(token: String){
+        return axios.get(`${this.GestionUsuariosApi}/users/getuser`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }, withCredentials: true,
+        })
     }
     createUserRole(userData: any){
         console.log(userData)

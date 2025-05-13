@@ -7,17 +7,18 @@ import { ValidateCodeComponent } from './modules/auth/recover-password/password-
 import { HomeComponent } from './modules/home/home.component';
 import { VerifyComponent } from './modules/auth/register/verify/verify.component';
 import { ChangeDefaultInfoComponent } from './modules/auth/change-default-info/change-default-info.component';
+import { ProfileEditComponent } from './modules/auth/profile-edit/profile-edit.component';
 
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },  
-    { path: 'login', component: AuthComponent}, 
+    { path: '', component: HomeComponent },
+    { path: 'login', component: AuthComponent },
 
 
     //Validar y Cambiar Contraseña
     { path: 'forgot-password', component: RecoverPasswordComponent },
-    {path: 'new-password', component: NewPasswordComponent},
-    {path: 'set-password', component: ValidateCodeComponent},
+    { path: 'new-password', component: NewPasswordComponent },
+    { path: 'set-password', component: ValidateCodeComponent },
 
 
     //Auth
@@ -26,7 +27,10 @@ export const routes: Routes = [
     {path: 'changedefaultinfo', component: ChangeDefaultInfoComponent},
 
     //verificación de cuenta
-    {path: 'verify', component: VerifyComponent}
+    { path: 'verify', component: VerifyComponent },
+
+    //Información del perfil
+    { path: 'edit-profile', component: ProfileEditComponent }
 
 
 ];
