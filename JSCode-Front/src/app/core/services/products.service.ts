@@ -10,6 +10,9 @@ export class ProductService{
 
     constructor(){}
 
+    getCategories(){
+        return axios.get(`${this.GestionProductosApi}/api/productos/categorias`)
+    }
     getCarruselProducts(categoria_id: number){
         return axios.get(`${this.GestionProductosApi}/api/productos/obtener/categoria?categoria_id=${categoria_id}`);
     }

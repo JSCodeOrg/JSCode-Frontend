@@ -18,18 +18,32 @@ export class CarruselComponent implements OnInit {
 
   constructor(private productService: ProductService) { }
 
-
+  categorias: any[] = []
 
   ngOnInit(): void {
     this.getProducts();
 
   }
 
-  getProducts() {
-    this.productService.getCarruselProducts(1).then((response => {
+  getProducts(category_id: number) {
+    this.productService.getCarruselProducts(category_id).then((response => {
       this.products = response.data;
       this.updatePaginatedProducts();
     }))
+  }
+
+  getCategories(){
+    this.productService.getCategories().then((response =>{
+      this.categorias = response.data;
+    }))
+
+    this.categorias.map((categoria) => {
+      this.productService.getCarruselProducts(categoria.id).then((response => {
+        const productos = []
+        productos.push(response.data)
+        this.updatePaginatedProducts();
+      }))
+    })
   }
 
   updatePaginatedProducts() {
