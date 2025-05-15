@@ -9,11 +9,10 @@
 }
 
 .categoria-label {
-  background-color: #874691;
+  background: linear-gradient(to right, #9b4d9b, #2e2f61);
   color: #fff;
   padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: bold;
+  border-radius: 10px;
   margin-bottom: 15px;
   font-size: 1.2rem;
 }
@@ -21,7 +20,7 @@
 .productos {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap; /* evita que se acomoden en varias filas */
+  flex-wrap: nowrap;
   overflow-x: auto;  /* si quieres que el carrusel sea "deslizable" */
   gap: 1rem;
   width: 100%;
@@ -30,16 +29,17 @@
 .producto-card {
   flex: 0 0 auto;
   padding: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(108, 99, 255,0.4);
   width: 250px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   background-color: white;
   transition: transform 0.3s ease;
+  margin: 5px;
 }
 
 .producto-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 2px 6px #6C63FF;
 }
 
 .producto-card img {
@@ -65,7 +65,7 @@
 }
 
 .productos button {
-  background-color: #874691;
+  background: linear-gradient(to right, #9b4d9b, #2e2f61);
   color: white;
   border: none;
   padding: 8px 12px;
