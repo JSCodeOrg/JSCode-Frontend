@@ -11,9 +11,9 @@ export class ProductService{
     constructor(){}
 
     getCategories(){
-        return axios.get(`${this.GestionProductosApi}/api/productos/categorias`)
+        return axios.get(`${this.GestionProductosApi}/productos/categorias`)
     }
     getCarruselProducts(categoria_id: number){
-        return axios.get(`${this.GestionProductosApi}/api/productos/obtener/categoria?categoria_id=${categoria_id}`);
+        return axios.get(`${this.GestionProductosApi}/productos/obtener/categoria?categoria_id=${categoria_id}`);
     }
 }
