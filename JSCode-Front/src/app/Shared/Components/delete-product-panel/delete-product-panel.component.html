@@ -1,0 +1,20 @@
+<p>delete-product-panel works!</p>
+
+
+<div class="panel">
+  <img src="assets/icons/trash-purple.svg" alt="Eliminar" class="icon" />
+  <h2>Seleccione la opción para eliminar</h2>
+  <p>Stock: {{ stock }}</p>
+
+ <app-button class="button_eliminar" label="Eliminar"
+        (click)="eliminar($event)"></app-button>
+
+  <div class="button-group">
+  
+    <app-button class="button_stockDelete" label="Eliminar stock"
+        (click)="eliminarStock($event)"></app-button>
+      <app-button class="button_cancelar" label="Cancelar"
+        (click)="cancelar($event)"></app-button>
+  </div>
+</div>
+

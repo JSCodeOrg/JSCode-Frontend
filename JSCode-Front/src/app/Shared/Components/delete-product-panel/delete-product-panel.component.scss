@@ -1,0 +1,21 @@
+.modal-container {
+  text-align: center;
+  padding: 2rem;
+
+  .icono-basura {
+    font-size: 3rem;
+    color: #8753d4;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .acciones-secundarias {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
