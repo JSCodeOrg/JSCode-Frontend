@@ -1,0 +1,15 @@
+.confirmation-container {
+  text-align: center;
+  padding: 2rem;
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .botones-confirmacion {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

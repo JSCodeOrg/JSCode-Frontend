@@ -5,7 +5,7 @@
   </div>
   <p>Stock: {{ stock }}</p>
 
-  <input type="number" placeholder="Escriba la cantidad" (valuechange)="obtenerCantidad($event)" />
-
+<app-input-field type="text" placeholder="Escriba la cantidad"
+        (valueChange)="obtenerCantidad($event)"></app-input-field>
   <app-button class="button_primario" label="Eliminar" (click)="eliminar($event)"></app-button>
 </div>

@@ -1,1 +1,11 @@
 <p>confirmation-dialog works!</p>
+
+
+<div class="confirmation-container">
+  <p>¿Seguro quieres completar esta acción?</p>
+
+  <div class="botones-confirmacion">
+    <app-button class="button_confirmar" label="Sí" (click)="confirmarAccion($event)"></app-button>
+    <app-button class="button_cancelar" label="No" (click)="cancelarAccion($event)"></app-button>
+  </div>
+</div>
