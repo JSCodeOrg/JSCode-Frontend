@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, HostListener } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { BehaviorSubject, debounceTime, map } from "rxjs";
 import { trigger, transition, style, animate } from "@angular/animations";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -38,27 +38,6 @@ export class FilterPanelComponent implements OnInit {
     //logica para la sugestion
   ]);
 
-  colors = [
-    { id: "1", name: "Red", value: "#ff0000" },
-    { id: "2", name: "Blue", value: "#0000ff" },
-    { id: "3", name: "Green", value: "#00ff00" },
-    { id: "4", name: "Yellow", value: "#ffff00" },
-    { id: "5", name: "Purple", value: "#800080" },
-    { id: "6", name: "Orange", value: "#ffa500" }
-  ];
-
-  filteredBrands$ = this.brandSearch.valueChanges.pipe(
-    debounceTime(300),
-    map(search => {
-      const brands = this.brandsSubject.getValue();
-      return search
-        ? brands.filter(brand =>
-            brand.name.toLowerCase().includes(search.toLowerCase())
-          )
-        : brands;
-    })
-  );
-
   constructor(
     private fb: FormBuilder, 
     private router: Router,
@@ -67,10 +46,12 @@ export class FilterPanelComponent implements OnInit {
   ) {
     this.filterForm = this.fb.group({
       minPrice: [0],
-      maxPrice: [1000],
+      maxPrice: [null], // Hacerlo requerido
       selectedColors: [[]],
-      selectedBrands: [[]]
+      category: ['']
     });
+
+    this.filterForm.get('maxPrice')?.setValidators([Validators.required, Validators.min(0), Validators.max(10000000)]);
   }
 
   ngOnInit() {
@@ -107,15 +88,24 @@ export class FilterPanelComponent implements OnInit {
     });
   }
 
-  updateSliderTrack() {
-    const min = this.filterForm.get('minPrice')?.value || 0;
-    const max = this.filterForm.get('maxPrice')?.value || 1000;
-    const minPercent = (min / 1000) * 100;
-    const maxPercent = (max / 1000) * 100;
-    
-    document.documentElement.style.setProperty('--min-percent', `${minPercent}%`);
-    document.documentElement.style.setProperty('--max-percent', `${maxPercent}%`);
+  formatPriceInput(field: string) {
+  const control = this.filterForm.get(field);
+  if (control?.value) {
+    const formatted = this.formatPrice(control.value);
+    // Corrige esta línea:
+    control.setValue(this.parsePrice(formatted), { emitEvent: true });
   }
+}
+
+  updateSliderTrack() {
+  const min = this.filterForm.get('minPrice')?.value || 0;
+  const max = this.filterForm.get('maxPrice')?.value || 10000000;
+  const minPercent = (min / 10000000) * 100;
+  const maxPercent = (max / 10000000) * 100;
+  
+  document.documentElement.style.setProperty('--min-percent', `${minPercent}%`);
+  document.documentElement.style.setProperty('--max-percent', `${maxPercent}%`);
+}
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
@@ -125,14 +115,25 @@ export class FilterPanelComponent implements OnInit {
     }
   }
 
+  // Nueva función para formatear precios
+  formatPrice(value: number): string {
+    return value ? new Intl.NumberFormat('es-CO').format(value) : '';
+  }
+
+  // Nueva función para parsear precios
+  parsePrice(value: string): number {
+    return Number(value.replace(/\./g, ''));
+  }
+
+  // Actualiza las funciones de input
   onMinPriceInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.filterForm.get('minPrice')?.setValue(Number(value));
+    const value = this.parsePrice((event.target as HTMLInputElement).value);
+    this.filterForm.get('minPrice')?.setValue(value);
   }
 
   onMaxPriceInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.filterForm.get('maxPrice')?.setValue(Number(value));
+    const value = this.parsePrice((event.target as HTMLInputElement).value);
+    this.filterForm.get('maxPrice')?.setValue(value);
   }
 
   toggleFilter() {
@@ -159,40 +160,32 @@ export class FilterPanelComponent implements OnInit {
   }
 
   updateActiveFiltersCount() {
-    const formValues = this.filterForm.value;
-    this.activeFiltersCount = [
-      formValues.minPrice > 0 ? formValues.minPrice : null,
-      formValues.maxPrice < 1000 ? formValues.maxPrice : null,
-      ...(formValues.selectedColors || []),
-      ...(formValues.selectedBrands || [])
-    ].filter(Boolean).length;
-  }
+  const formValues = this.filterForm.value;
+  this.activeFiltersCount = [
+    formValues.minPrice > 0 ? true : null,
+    formValues.maxPrice ? true : null,
+    formValues.category ? true : null,
+    ...(formValues.selectedColors || [])
+  ].filter(Boolean).length;
+}
 
-  hasActiveFilters(): boolean {
-    const formValues = this.filterForm.value;
-    return (
-      formValues.minPrice > 0 ||
-      formValues.maxPrice < 1000 ||
-      (formValues.selectedColors && formValues.selectedColors.length > 0) ||
-      (formValues.selectedBrands && formValues.selectedBrands.length > 0)
-    );
-  }
+hasActiveFilters(): boolean {
+  const formValues = this.filterForm.value;
+  return (
+    formValues.minPrice > 0 ||
+    !!formValues.maxPrice ||
+    !!formValues.category ||
+    (formValues.selectedColors && formValues.selectedColors.length > 0)
+  );
+}
 
-  resetFilters() {
-    this.filterForm.patchValue({
-      minPrice: 0,
-      maxPrice: 1000,
-      selectedColors: [],
-      selectedBrands: []
-    });
-    this.brandSearch.setValue("");
-    this.showFilterError = false;
-    
-    // Opcional: limpiar la URL al resetear
-    this.router.navigate([], {
-      queryParams: {},
-      replaceUrl: true
-    });
+resetFilters() {
+  this.filterForm.patchValue({
+    minPrice: 0,
+    maxPrice: null,
+    selectedColors: [],
+    category: ''
+  });
   }
 
   applyFilters() {
@@ -223,7 +216,8 @@ export class FilterPanelComponent implements OnInit {
     
     // Precio
     if (filters.minPrice > 0) params.minPrice = filters.minPrice;
-    if (filters.maxPrice < 1000) params.maxPrice = filters.maxPrice;
+    if (filters.maxPrice) params.maxPrice = filters.maxPrice;
+    if (filters.category) params.category = filters.category;
     
     // Colores
     if (filters.selectedColors?.length > 0) {

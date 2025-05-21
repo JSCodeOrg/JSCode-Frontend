@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../Shared/Components/header/header.component';
 import { FooterComponent } from '../../Shared/Components/footer/footer.component';
-import { ProductCardComponent } from '../../Shared/Components/product-card/productcard.component';
 import { SearchInputComponent } from '../../Shared/Components/search/search.component';
-import { FilterPanelComponent } from '../../Shared/Components/filter/filter.component';
+import { FilterPanelComponent } from '../../Shared/Components/filter/filter.component'; 
+import { FilterCard } from '../../Shared/Components/filtercard/filtercard.component'; 
 
 interface Product {
   id: number;
@@ -22,7 +22,7 @@ interface Product {
     CommonModule,
     HeaderComponent, 
     FooterComponent, 
-    ProductCardComponent, 
+    FilterCard,
     SearchInputComponent, 
     FilterPanelComponent
   ],

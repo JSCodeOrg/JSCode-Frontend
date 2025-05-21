@@ -16,47 +16,40 @@
       <div class="price-range">
         <h4>Rango de precios</h4>
         <div class="range-inputs">
-          <input type="number" formControlName="minPrice" placeholder="Min" min="0" max="1000">
+          <input type="text" formControlName="minPrice" 
+                placeholder="Mínimo" 
+                (blur)="formatPriceInput('minPrice')"
+                [value]="formatPrice(filterForm.get('minPrice')?.value)">
           <span>-</span>
-          <input type="number" formControlName="maxPrice" placeholder="Max" min="0" max="1000">
+          <input type="text" formControlName="maxPrice" 
+                placeholder="Máximo*" 
+                required
+                (blur)="formatPriceInput('maxPrice')"
+                [value]="formatPrice(filterForm.get('maxPrice')?.value)">
         </div>
         <div class="range-slider">
-          <input type="range" formControlName="minPrice" [min]="0" [max]="1000" 
-                 (input)="onMinPriceInput($event)" class="slider min-slider">
-          <input type="range" formControlName="maxPrice" [min]="0" [max]="1000" 
-                 (input)="onMaxPriceInput($event)" class="slider max-slider">
+          <input type="range" formControlName="minPrice" 
+                [min]="0" [max]="4000000" 
+                [step]="100000"
+                (input)="onMinPriceInput($event)" class="slider min-slider">
+          <input type="range" formControlName="maxPrice" 
+                [min]="0" [max]="4000000"
+                [step]="100000"
+                (input)="onMaxPriceInput($event)" class="slider max-slider">
           <div class="slider-track"></div>
         </div>
       </div>
 
-      <div class="brand-selection">
-        <h4>Marcas</h4>
+      <div class="category-selection">
+        <h4>Categoría</h4>
         <div class="combobox-container">
-          <input type="text" [formControl]="brandSearch" 
-                 placeholder="Busca Marcas.." class="search-input"
-                 (focus)="showBrandDropdown = true">
-          
-          <div class="dropdown" *ngIf="showBrandDropdown">
-            <div class="dropdown-content">
-              <label *ngFor="let brand of filteredBrands$ | async" class="dropdown-item">
-                <input type="checkbox" [formControlName]="brand.id">
-                {{brand.name}}
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="color-selection">
-        <h4>Colores</h4>
-        <div class="color-grid">
-          <div *ngFor="let color of colors" 
-               class="color-swatch" 
-               [style.background-color]="color.value"
-               [class.selected]="isColorSelected(color.id)"
-               (click)="toggleColor(color.id)"
-               [attr.title]="color.name">
-          </div>
+          <select class="form-control" formControlName="category">
+            <option value="">Seleccione una categoría</option>
+            <option value="hogar">Hogar</option>
+            <option value="electronica">Ropa</option>
+            <option value="ropa">Tecnologia</option>
+            <option value="deportes">Deportes</option>
+          </select>
         </div>
       </div>
 

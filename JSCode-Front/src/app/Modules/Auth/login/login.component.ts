@@ -3,8 +3,7 @@ import { ButtonComponent } from "../../../Shared/Components/button/button.compon
 import { InputFieldComponent } from "../../../Shared/Components/input-field/input-field.component";
 import { Router } from "@angular/router";
 import { UserService } from "../../../core/services/user.service";
-import { response } from "express";
-import { retry } from "rxjs";
+
 @Component({
   selector: "app-login",
   standalone: true,
@@ -43,8 +42,6 @@ export class LoginComponent {
       });
       return;
     }
-    console.log("Correo enviado: [" + this.loginData.mail + "]");
-    console.log("Longitud del correo:", this.loginData.mail.length);
 
     this.userService.loginUser(this.loginData)
       .then((response) => {
@@ -61,7 +58,6 @@ export class LoginComponent {
             type: "danger",
             message: "El usuario o la contraseña son incorrectos.",
           });
-          console.log("cuerasdas")
           return;
         }
         if (error.status == 403) {

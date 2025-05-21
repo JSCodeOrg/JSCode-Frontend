@@ -1,5 +1,5 @@
 <div class="home-wrapper">
-  <app-header></app-header>
+  <app-header (openUserInfoModal)="onToggleProfileMenu()"></app-header>
 
   <div class="home-container">
     <div class="top-bar">
@@ -13,11 +13,11 @@
 </div>
 
     <div class="main-content">
-      <h1>Pantalla principal</h1>
-      <p>Productos</p>
-      <app-product-card></app-product-card>
+      <app-carrusel></app-carrusel>
+
+      <app-profile-edit *ngIf="showProfileMenu" (close)="onToggleProfileMenu()"></app-profile-edit>
+
     </div>
   </div>
-
   <app-footer></app-footer>
 </div>

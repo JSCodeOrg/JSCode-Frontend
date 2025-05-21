@@ -1,38 +1,66 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonComponent } from '../../../Shared/Components/button/button.component'; 
+import { InputFieldComponent } from '../../../Shared/Components/input-field/input-field.component'; 
+import { UserService } from '../../../core/services/user.service';
+
 
 @Component({
   selector: 'app-profile-edit',
+  standalone: true,
   templateUrl: './profile-edit.component.html',
+  styleUrls: ['./profile-edit.component.scss'],
+  imports: [ReactiveFormsModule, ButtonComponent, InputFieldComponent]
 })
 export class ProfileEditComponent implements OnInit {
-  profileForm!: FormGroup;
-  photoPreview: string | null = null;
+  userData = {};
 
-  constructor(private fb: FormBuilder) {}
+  @Output() close = new EventEmitter<void>();
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.profileForm = this.fb.group({
-      firstName: ['Mario', Validators.required],
-      lastName: ['Ocoró Pripra', Validators.required],
-      email: ['negrito@hotmail.com', [Validators.required, Validators.email]],
-      password: ['*', Validators.required]
-    });
+    const userToken = sessionStorage.getItem('authToken');
+    if (!userToken) {
+      return;
+    }
+
+    //TODO: La información del usuario ya se está obteniendo, ahora solo debe mostrarse en el formulario.
+    this.userService.getUserInfo(userToken).then((response) => {
+      this.userData = response.data;
+      console.log(this.userData);
+    })
+
   }
 
-  onSubmit() {
-    if (this.profileForm.valid) {
-      const updatedData = this.profileForm.value;
-      console.log('Datos actualizados:', updatedData);
-      // Aquí conectas con un servicio para guardar los datos
-    }
+  onClose() {
+    this.close.emit();
+  }
+
+  onDocumentChange(value: string) {
+
+  }
+
+  onLastNameChange(value: string) { }
+
+  onEmailChange(value: string) {
+
+  }
+
+  onPasswordChange(value: string) {
+
   }
 
   onChangePhoto() {
-    // Lógica para cargar nueva foto (input hidden + FileReader)
+
+  }
+
+  onPhoneChange(value: string) { }
+
+  editInfo() {
+
   }
 
   onDeletePhoto() {
-    this.photoPreview = null;
   }
 }

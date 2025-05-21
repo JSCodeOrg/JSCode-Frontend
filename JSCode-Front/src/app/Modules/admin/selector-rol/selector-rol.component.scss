@@ -1,5 +1,14 @@
+.Component-Selector-Rol{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
 .titulo {
-    font-size: 58px;
+    font-size: 40px;
     font-weight: bold; 
     text-align: center;
     display: block; 
@@ -8,6 +17,7 @@
     padding-bottom: 15px;
     width: 80%;
 }
+
 
 .texto{
     font-size: 20px;
@@ -22,27 +32,42 @@
     padding: 20px;
     max-height: 80%;
     max-width: 60%;
+    border: 2px solid #6C63FF;
 }
-
-
-.login_1-2{
-    min-width: 400px;
+.frame-rol:hover{
+    border: 2px solid #6C63FF;
+    box-shadow: 0 0 10px #6C63FF;
+    transition: all 0.3s ease-in-out;
 }
-
+.frame-rol a{    
+    padding-left: 10px;
+    text-decoration: none;
+    color: black;  
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+    display: block;
+}
+.frame-rol a:hover{
+    color: #6C63FF;
+    transition: all 0.3s ease-in-out;
+    font-size: 34px;
+}
 .custom-select {
+    padding-top: 10px;
     display: flex;
     align-items: center;
     flex-direction: column;
     margin: 10px;
-    border-color: #4204a5;
-    
+    border-color: #4204a5;    
 }
 .custom-select mat-label{
     margin-bottom: 5px;
+    font-size: 16px;
+    color: #4204a5;
     
 }
 .custom-select mat-select{
-    border-radius: 5px;
     padding-left: 10px;
     font-size: 14px;
     transition: border 0.3s;
@@ -53,4 +78,11 @@
     font-size: 14px;
     overflow: visible;
     z-index: 10000;    
+}
+.alertaRegistro{
+    display: flex;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    flex-direction: column;
 }

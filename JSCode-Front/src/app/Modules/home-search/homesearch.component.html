@@ -16,13 +16,8 @@
       <h1>Resultados de búsqueda</h1>
       
       <!-- Mostrar productos paginados -->
-      <div class="products-grid">
-        @for (product of paginatedProducts; track product.id) {
-          <app-product-card 
-            [product]="product"
-            class="product-item"
-          ></app-product-card>
-        }
+      <div class="products-container">
+        <app-filtercard></app-filtercard>
       </div>
       
       <!-- Mostrar mensaje si no hay productos -->

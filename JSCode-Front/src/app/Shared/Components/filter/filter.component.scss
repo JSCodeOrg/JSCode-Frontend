@@ -81,9 +81,6 @@
   }
 }
 
-.price-range, .brand-selection, .color-selection {
-  margin-bottom: 24px;
-}
 
 .range-inputs {
   display: flex;
@@ -215,27 +212,6 @@
   }
 }
 
-.color-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-}
-
-.color-swatch {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.2s ease;
-  
-  &.selected {
-    border-color: #2196f3;
-    transform: scale(1.1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-}
-
 .filter-actions {
   display: flex;
   gap: 12px;
@@ -290,4 +266,32 @@
 .error-snackbar {
   background-color: #d32f2f;
   color: white;
+}
+
+
+.category-selection {
+  margin: 15px 0;
+  
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: white;
+    appearance: none;
+    
+    &:focus {
+      outline: none;
+      border-color: #2196f3;
+      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+    }
+  }
+}
+
+.range-slider {
+  // Actualiza los cálculos del slider track
+  .slider-track::before {
+    left: calc((var(--min-percent) * 1%));
+    right: calc(100% - (var(--max-percent) * 1%));
+  }
 }

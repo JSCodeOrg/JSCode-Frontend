@@ -10,10 +10,6 @@ export class UserService {
     private GestionUsuariosLocal = environment.GestionUsuariosLocal
 
     constructor() { }
-
-
-    //TODO: Mejorar las entradas, no usamos TS para usar any
-    //TODO: Migrar a httpClient de Angular en vez de Axios
     
     loginUser(userData: any) {
         return axios.post(`${this.GestionUsuariosApi + '/auth/login'}`, userData, {
@@ -65,6 +61,22 @@ export class UserService {
             },
             withCredentials: true,
         })
+    }
 
+    getUserInfo(token: String){
+        return axios.get(`${this.GestionUsuariosApi}/users/getuser`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }, withCredentials: true,
+        })
+    }
+    createUserRole(userData: any){
+        console.log(userData)
+        return axios.post(`${this.GestionUsuariosApi}/users/createuser`, userData, {
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem('authToken')}`
+            },
+            withCredentials: true,
+        })
     }
 }
