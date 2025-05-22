@@ -6,6 +6,7 @@ import { SearchInputComponent } from '../../Shared/Components/search/search.comp
 import { FilterPanelComponent } from '../../Shared/Components/filter/filter.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../core/services/products.service';
+import { size } from 'lodash-es';
 
 interface Producto {
   id: number;
@@ -36,6 +37,7 @@ export class HomeSearchComponent implements OnInit {
   currentPage: number = 0;
   totalPages: number = 0;
   lastSearch: string = '';
+  size = 20;
 
 
   ngOnInit(): void {
@@ -53,24 +55,27 @@ export class HomeSearchComponent implements OnInit {
   }
 
   async solicitarBusqueda(searchTerm: string, page: number = 0) {
-    const productos = await this.productService.searchProducts(searchTerm);
+    const productos = await this.productService.searchProducts(searchTerm, page, this.size);
     if (productos.data.content.length === 0) {
       alert("No se encontraron resultados");
       this.products = [];
       this.totalPages = 0;
       this.currentPage = 0;
       console.log(productos.data);
-    }else{
+    } else {
       this.products = productos.data.content;
       this.totalPages = productos.data.totalPages;
       this.currentPage = productos.data.number;
-      console.log(this.totalPages)
+      console.log(this.currentPage)
     }
   }
 
-  nuevaPagina(nuevaPagina: number){
-    if(nuevaPagina >=0 && nuevaPagina<this.totalPages){
-      this.solicitarBusqueda(this.lastSearch, nuevaPagina);
+  nuevaPagina(nuevaPagina: number) {
+    console.log('paginas', this.totalPages)
+    console.log('actual:', this.currentPage)
+    if (nuevaPagina >= 0 && nuevaPagina < this.totalPages) {
+      this.currentPage = nuevaPagina;
+      this.solicitarBusqueda(this.lastSearch, this.currentPage);
     }
   }
 }

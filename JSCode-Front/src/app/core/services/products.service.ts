@@ -27,7 +27,7 @@ export class ProductService {
         return axios.get(`${this.GestionProductosApi}/inventario/productos/filtrar`, { params });
     }
 
-    searchProducts(searchTerm: string, page: number = 0, size: number = 50) {
+    searchProducts(searchTerm: string, page: number = 0, size: number = 20) {
         return axios.get(`${this.GestionProductosApi}/inventario/productos/buscar`, {
             params: {
                 texto: searchTerm,

@@ -29,7 +29,7 @@ export class CarruselComponent implements OnInit {
     categorias.map(async (categoria: any) => {
       const productosResp = await this.productService.getCarruselProducts(categoria.id);
       return {
-        nombre: categoria.nombreCategoria, // ← nombre correcto
+        nombre: categoria.nombreCategoria,
         productos: productosResp.data
       };
     })
