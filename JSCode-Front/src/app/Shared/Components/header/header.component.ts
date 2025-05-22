@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter} from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -43,15 +43,16 @@ import { ButtonComponent } from "../button/button.component";
 export class HeaderComponent implements OnInit {
   @Output() openUserInfoModal = new EventEmitter<void>();
 
-  onProfileClick(){
+  onProfileClick() {
     this.openUserInfoModal.emit();
   }
+
 
 
   isAuthenticated = false;
   isMobileMenuOpen = false;
   isProfileMenuOpen = false;
-  isAdmin:Boolean = false;
+  isAdmin: Boolean = false;
   activeLink = "home";
   favoritesCount = 0;
   cartCount = 0;
@@ -64,14 +65,19 @@ export class HeaderComponent implements OnInit {
   faPhone = faPhone;
   faCircleInfo = faCircleInfo;
 
-  constructor(private router: Router, private userService: UserService) {} 
+  constructor(private router: Router, private userService: UserService) { }
+
+  goHome() {
+this.router.navigate(["/"])
+  }
+
 
   ngOnInit(): void {
     this.userService.getUserData(sessionStorage.getItem('authToken')).then((response) => {
-      if(response.status == 200){
+      if (response.status == 200) {
         sessionStorage.setItem('userRole', response.data.data.role);
         this.isAuthenticated = true;
-        this.userProfileImage =  response.data.data.profileImgUrl;
+        this.userProfileImage = response.data.data.profileImgUrl;
       }
     });
   }

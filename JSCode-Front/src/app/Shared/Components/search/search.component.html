@@ -7,7 +7,7 @@
         type="text"
         [value]="searchTerm"
         (input)="handleSearch($event)"
-        placeholder="Search products..."
+        placeholder="Busca un producto"
         class="search-input"
         aria-label="Search products"
       />
@@ -20,6 +20,7 @@
           <fa-icon [icon]="faTimes"></fa-icon>
         </button>
       }
+        <button class="search-button" (click)="search($event)">Buscar</button>
     </div>
 
     @if (isLoading) {
@@ -28,4 +29,5 @@
       </div>
     }
   </div>
+
 </div>

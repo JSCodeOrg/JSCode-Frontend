@@ -5,16 +5,16 @@ import { environment } from "../../../environments/environment";
 @Injectable({
     providedIn: 'root'
 })
-export class ProductService{
+export class ProductService {
     private GestionProductosApi = environment.GestionProductosUrl
 
-    constructor(){}
+    constructor() { }
 
-    getCategories(){
-        return axios.get(`${this.GestionProductosApi}/api/productos/categorias`)
+    getCategories() {
+        return axios.get(`${this.GestionProductosApi}/inventario/productos/categorias`)
     }
-    getCarruselProducts(categoria_id: number){
-        return axios.get(`${this.GestionProductosApi}/api/productos/obtener/categoria?categoria_id=${categoria_id}`);
+    getCarruselProducts(categoria_id: number) {
+        return axios.get(`${this.GestionProductosApi}/inventario/productos/obtener/categoria?categoria_id=${categoria_id}`);
     }
 
     getFilterProducts(categoria?: string, precioMin?: number, precioMax?: number) {
@@ -24,7 +24,16 @@ export class ProductService{
         if (precioMin !== undefined && precioMin !== null) params.precioMin = precioMin;
         if (precioMax !== undefined && precioMax !== null) params.precioMax = precioMax;
 
-        return axios.get(`${this.GestionProductosApi}/api/productos/filtrar`, { params });
+        return axios.get(`${this.GestionProductosApi}/inventario/productos/filtrar`, { params });
     }
 
+    searchProducts(searchTerm: string, page: number = 0, size: number = 50) {
+        return axios.get(`${this.GestionProductosApi}/inventario/productos/buscar`, {
+            params: {
+                texto: searchTerm,
+                page: page,
+                size: size
+            }
+        })
+    }
 }

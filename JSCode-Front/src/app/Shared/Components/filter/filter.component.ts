@@ -54,7 +54,7 @@ export class FilterPanelComponent implements OnInit {
     this.filterForm.get('maxPrice')?.setValidators([Validators.required, Validators.min(0), Validators.max(10000000)]);
   }
 
-  ngOnInit() {
+  ngOnInit() {  
     // Inicializar con parámetros de la URL si existen
     this.route.queryParams.subscribe(params => {
       this.filterForm.patchValue({

@@ -14,7 +14,7 @@ import { HomeSearchComponent } from './Modules/home-search/homesearch.component'
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: AuthComponent },
-    { path: 'busqueda', component: HomeSearchComponent},
+    { path: 'search', component: HomeSearchComponent},
 
 
     //Validar y Cambiar Contraseña
