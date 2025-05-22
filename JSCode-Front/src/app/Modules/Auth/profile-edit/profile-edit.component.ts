@@ -4,6 +4,15 @@ import { ButtonComponent } from "../../../shared/components/button/button.compon
 import { InputFieldComponent } from "../../../shared/components/input-field/input-field.component";
 import { UserService } from '../../../core/services/user.service';
 
+interface Userinfo{
+  Fotoperfil: string
+  nombre: string
+  apellido: string
+  documento: string
+  direccion: string
+  email: string
+  telefono: string
+}
 
 @Component({
   selector: 'app-profile-edit',
@@ -13,11 +22,12 @@ import { UserService } from '../../../core/services/user.service';
   imports: [ReactiveFormsModule, ButtonComponent, InputFieldComponent]
 })
 export class ProfileEditComponent implements OnInit {
-  userData = {};
 
   @Output() close = new EventEmitter<void>();
 
   constructor(private userService: UserService) { }
+
+  userinfo: Userinfo = {Fotoperfil:"", nombre:"", apellido:"", documento:"", direccion:"", telefono:"", email:""}
 
   ngOnInit(): void {
     const userToken = sessionStorage.getItem('authToken');
@@ -27,8 +37,8 @@ export class ProfileEditComponent implements OnInit {
 
     //TODO: La información del usuario ya se está obteniendo, ahora solo debe mostrarse en el formulario.
     this.userService.getUserInfo(userToken).then((response) => {
-      this.userData = response.data;
-      console.log(this.userData);
+      this.userinfo = response.data.data;
+      console.log (this.userinfo)
     })
 
   }

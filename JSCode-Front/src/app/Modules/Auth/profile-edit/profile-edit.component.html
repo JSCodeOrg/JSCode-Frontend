@@ -12,7 +12,7 @@
       <div class="profile-photo-section">
         <h3>Foto de perfil</h3>
         <div class="photo-actions">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D" alt="Foto de perfil" />
+          <img [src]="this.userinfo.Fotoperfil ? this.userinfo.Fotoperfil : 'https://i.pinimg.com/236x/cd/b7/bd/cdb7bd75c577b47b1c9224e4908e4372.jpg' " alt="Foto de perfil" />
           <div class="photo-buttons">
             <app-button label="Cambiar Foto" variant="primary" (click)="onChangePhoto()"></app-button>
             <app-button label="Eliminar Foto" variant="secondary" (click)="onDeletePhoto()"></app-button>
@@ -22,27 +22,27 @@
 
       <div class="profile-form">
         <div class="name-fields">
-          <app-input-field label="Nombre" variant="primary" (valueChange)="onDocumentChange($event)"
+          <app-input-field label="Nombre" placeholder="{{this.userinfo.nombre}}" variant="primary" (valueChange)="onDocumentChange($event)"
             icon="person_pin"></app-input-field>
 
-          <app-input-field label="Apellido" variant="primary" (valueChange)="onLastNameChange($event)"
+          <app-input-field label="Apellido" placeholder="{{this.userinfo.apellido}}" variant="primary" (valueChange)="onLastNameChange($event)"
             icon="person_pin"></app-input-field>
         </div>
-        <app-input-field label="Documento" variant="primary" (valueChange)="onDocumentChange($event)"
+        <app-input-field label="Documento" placeholder="{{this.userinfo.documento}}" variant="primary" (valueChange)="onDocumentChange($event)"
           icon="person_pin"></app-input-field>
 
         <div class="contact-fields">
-          <app-input-field label="Correo Electrónico" variant="primary" (valueChange)="onEmailChange($event)"
+          <app-input-field label="Correo Electrónico" placeholder="{{this.userinfo.email}}" variant="primary" (valueChange)="onEmailChange($event)"
             icon="email"></app-input-field>
 
-          <app-input-field label="Teléfono"  variant="primary"
+          <app-input-field label="Teléfono"  placeholder="{{this.userinfo.telefono}}" variant="primary"
             (valueChange)="onPhoneChange($event)" icon="phone"></app-input-field>
 
         </div>
-        <app-input-field label="Dirección" variant="primary" (valueChange)="onDocumentChange($event)"
+        <app-input-field label="Dirección" placeholder="{{this.userinfo.direccion}}" variant="primary" (valueChange)="onDocumentChange($event)"
           icon="place"></app-input-field>
 
-        <app-input-field label="Contraseña" variant="primary" (valueChange)="onDocumentChange($event)"
+        <app-input-field label="Contraseña" placeholder="**************"variant="primary" (valueChange)="onDocumentChange($event)"
           icon="lock"></app-input-field>
 
 
