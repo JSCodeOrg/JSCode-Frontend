@@ -8,8 +8,10 @@
       ←
     </button>
 
-    <div *ngFor="let product of getPaginatedProducts(categoria.nombre, categoria.productos)" class="producto-card">
-      <img [src]="product.imageUrl" alt="{{ product.nombre }}" width="150" />
+    <div *ngFor="let product of getPaginatedProducts(categoria.nombre, categoria.productos)" 
+      class="producto-card"
+      (click)="selectProduct(product)">
+      <img [src]="product.imagenes" alt="{{ product.nombre }}" width="150" />
       <h4>{{ product.nombre }}</h4>
       <p>${{ product.precioCompra }}</p>
     </div>

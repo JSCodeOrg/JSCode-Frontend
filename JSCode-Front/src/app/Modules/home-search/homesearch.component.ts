@@ -6,7 +6,7 @@ import { SearchInputComponent } from '../../Shared/Components/search/search.comp
 import { FilterPanelComponent } from '../../Shared/Components/filter/filter.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../core/services/products.service';
-import { size } from 'lodash-es';
+import { InfoProductComponent } from "../../Shared/Components/infoproduct/infoproduct.component";
 
 interface Producto {
   id: number;
@@ -14,6 +14,8 @@ interface Producto {
   descripcion: string;
   precioCompra: number;
   imagenes: string[];
+  nombreCategoria: string;
+
 }
 
 @Component({
@@ -25,13 +27,14 @@ interface Producto {
     HeaderComponent,
     FooterComponent,
     SearchInputComponent,
-    FilterPanelComponent
-  ],
+    FilterPanelComponent,
+    InfoProductComponent
+],
   styleUrls: ['./homesearch.component.scss']
 })
 export class HomeSearchComponent implements OnInit {
-
   constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService) { }
+  selectedProduct: any = null;
 
   products: Producto[] = [];
   currentPage: number = 0;
@@ -78,5 +81,12 @@ export class HomeSearchComponent implements OnInit {
       this.solicitarBusqueda(this.lastSearch, this.currentPage);
     }
   }
-}
 
+  openProductModal(id: any) {
+    this.selectedProduct = id;
+  }
+
+  closeProductModal() {
+    this.selectedProduct = null;
+  }
+}

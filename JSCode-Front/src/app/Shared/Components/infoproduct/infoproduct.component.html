@@ -1,0 +1,46 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="closeModal()">&times;</button>
+
+    <div class="product-container">
+
+      <div class="image-gallery">
+        <img class="main-image" [src]="selectedImage || id?.imagenes[0]" alt="{{ id?.nombre }}" />
+        <div class="thumbnail-row">
+          <img 
+            *ngFor="let img of id?.imagenes" 
+            [src]="img" 
+            class="thumbnail" 
+            [class.selected]="img === selectedImage"
+            (click)="selectedImage = img"
+            alt="thumbnail" />
+        </div>
+      </div>
+
+      <div class="product-info">
+        <span class="categoria" *ngIf="id?.categoria?.nombreCategoria">{{ id?.categoria?.nombreCategoria }}</span> 
+        <h2>{{ id?.nombre }}</h2>
+        <p class="price">{{ id?.precioCompra | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+        <div class="description-container" *ngIf="id?.descripcion">
+          <p class="description">{{ showFullDescription ? id.descripcion : (id.descripcion | slice:0:maxLength) }}</p>
+          <button *ngIf="id.descripcion.length > maxLength" class="show-more-less" (click)="toggleDescription()">
+            {{ showFullDescription ? 'Mostrar menos' : 'Mostrar más' }}
+          </button>
+        </div>
+
+        <div class="options">
+          <label for="size">Tamaño:</label>
+          <select id="size">
+            <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+          </select>
+        </div>
+
+
+        <div class="action-buttons">
+          <button class="add-cart">🛒 Agregar Al Carrito</button>
+          <button class="favorite">❤️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

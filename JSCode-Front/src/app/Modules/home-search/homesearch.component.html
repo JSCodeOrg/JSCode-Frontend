@@ -1,12 +1,10 @@
 <div class="home-search-wrapper">
   <app-header></app-header>
-
   <div class="home-search-container">
     <div class="top-bar">
       <div class="search-top-left">
         <search-input></search-input>
       </div>
-
       <div class="filter-top-left">
         <filter-panel></filter-panel>
       </div>
@@ -21,32 +19,37 @@
         </div>
 
         <div *ngIf="products.length>0" class="products-list">
-          <div *ngFor="let producto of products" class="product-item">
+          <div 
+            *ngFor="let producto of products" 
+            class="product-item"
+            (click)="openProductModal(producto)">
             <img class="producto-image"
               *ngIf="producto.imagenes && producto.imagenes.length > 0 && producto.imagenes[0]"
-              [src]="producto.imagenes[0]" alt="{{producto.nombre}} ">
+              [src]="producto.imagenes[0]" alt="{{producto.nombre}}">
             <div class="product-info">
               <h2 class="producto-name">{{producto.nombre}}</h2>
               <h2 class="producto-precio">${{producto.precioCompra}}</h2>
             </div>
           </div>
         </div>
+
         <div *ngIf="totalPages>1" class="control-paginacion">
           <button (click)="nuevaPagina(currentPage - 1)" [disabled]="currentPage === 0">Anterior</button>
-
           <button *ngFor="let i of [].constructor(totalPages); let idx = index" (click)="nuevaPagina(idx)"
             [class.active]="currentPage === idx">
             {{ idx + 1 }}
           </button>
-
           <button (click)="nuevaPagina(currentPage + 1)" [disabled]="currentPage === totalPages - 1">Siguiente</button>
         </div>
       </div>
-
-
-
     </div>
   </div>
+
+  <app-infoproduct
+   *ngIf="selectedProduct" 
+    [id]="selectedProduct" 
+    (close)="closeProductModal()">
+  </app-infoproduct>
 
   <app-footer></app-footer>
 </div>

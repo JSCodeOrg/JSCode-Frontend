@@ -6,7 +6,8 @@ import { environment } from "../../../environments/environment";
     providedIn: 'root'
 })
 export class ProductService {
-    private GestionProductosApi = environment.GestionProductosUrl
+    private GestionProductosApi = environment.GestionProductosUrl;
+    private categoriesCache: any[] = [];
 
     constructor() { }
 

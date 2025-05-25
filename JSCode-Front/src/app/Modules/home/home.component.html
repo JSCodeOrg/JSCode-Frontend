@@ -13,11 +13,18 @@
 </div>
 
     <div class="main-content">
-      <app-carrusel></app-carrusel>
+      <app-carrusel (productSelected)="openProductModal($event)"></app-carrusel>
 
       <app-profile-edit *ngIf="showProfileMenu" (close)="onToggleProfileMenu()"></app-profile-edit>
 
     </div>
   </div>
+
+  <app-infoproduct 
+    *ngIf="selectedProduct" 
+    [id]="selectedProduct" 
+    (close)="closeProductModal()">
+  </app-infoproduct>
+
   <app-footer></app-footer>
 </div>

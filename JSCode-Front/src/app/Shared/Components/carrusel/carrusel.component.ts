@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProductService } from '../../../core/services/products.service';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-carrusel',
@@ -10,6 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './carrusel.component.scss'
 })
 export class CarruselComponent implements OnInit {
+  @Output() productSelected = new EventEmitter<any>();
   paginatedProducts: any[] = [];
   currentPageByCategory: { [key: string]: number } = {};
   itemsPerPage: number = 5;
@@ -56,5 +58,9 @@ export class CarruselComponent implements OnInit {
   getTotalPages(categoria: string): number {
     const categoriaData = this.categoriasConProductos.find(cat => cat.nombre === categoria);
     return categoriaData ? Math.ceil(categoriaData.productos.length / this.itemsPerPage) : 0;
+  }
+
+  selectProduct(id: any) {
+    this.productSelected.emit(id);
   }
 }
