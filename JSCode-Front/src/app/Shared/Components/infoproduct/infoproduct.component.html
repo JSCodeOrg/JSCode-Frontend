@@ -5,30 +5,40 @@
     <div class="product-container">
 
       <div class="image-gallery">
-        <img class="main-image" [src]="selectedImage || id?.imagenes[0]" alt="{{ id?.nombre }}" />
+        <img class="main-image" [src]="selectedImage || id?.imagenes[0].url" alt="{{ id?.nombre }}" />
         <div class="thumbnail-row">
-          <img 
-            *ngFor="let img of id?.imagenes" 
-            [src]="img" 
-            class="thumbnail" 
-            [class.selected]="img === selectedImage"
-            (click)="selectedImage = img"
-            alt="thumbnail" />
+          <div class="thumbnail-container" style="display: flex; flex-direction: column;" *ngFor="let img of id?.imagenes; trackBy: trackById">
+            <img [src]="img.url" class="thumbnail" [class.selected]="img.url === selectedImage"
+              (click)="selectedImage = img.url" alt="thumbnail" />
+
+            <img *ngIf="!isEditable" class="elemento-basura" src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png"
+              alt="delete" style="width: 45px; margin-left: 10px; margin-top: 10px;" (click)="deleteImage(img.id)" />
+          </div>
         </div>
       </div>
 
       <div class="product-info">
-        <span class="categoria" *ngIf="id?.categoria?.nombreCategoria">{{ id?.categoria?.nombreCategoria }}</span> 
-        <h2>{{ id?.nombre }}</h2>
-        <p class="price">{{ id?.precioCompra | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+        <span class="categoria" *ngIf="id?.categoria?.nombreCategoria">{{ id?.categoria?.nombreCategoria }}</span>
+        <button class="edit-button" *ngIf="userRole === 'administrador'"> <img class="edit-button-image"
+            [src]="isEditable ? 'https://i.ibb.co/GQZxwFbm/edit-3-svgrepo-com.png' : 'https://i.ibb.co/Y7fJ8Gf9/close-circle-svgrepo-com.png'"
+            alt="edit-product-button" (click)="editInfoProduct()"> </button>
+        <h2 *ngIf="isEditable">{{ id?.nombre }}</h2>
+
+        <input type="text" *ngIf="!isEditable" placeholder="{{id?.nombre}}" class="product-name-input">
+        <p *ngIf="isEditable" class="price">{{ id?.precioCompra | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+        <input type="number" *ngIf="!isEditable" placeholder="${{id?.precioCompra}}" class="product-price-input">
         <div class="description-container" *ngIf="id?.descripcion">
-          <p class="description">{{ showFullDescription ? id.descripcion : (id.descripcion | slice:0:maxLength) }}</p>
+          <p *ngIf="isEditable" class="description">{{ showFullDescription ? id.descripcion : (id.descripcion |
+            slice:0:maxLength) }}</p>
+          <textarea class="product-description-input" *ngIf="!isEditable">
+  {{ id.descripcion }}
+</textarea>
           <button *ngIf="id.descripcion.length > maxLength" class="show-more-less" (click)="toggleDescription()">
             {{ showFullDescription ? 'Mostrar menos' : 'Mostrar más' }}
           </button>
         </div>
 
-        <div class="options">
+        <div class="options" *ngIf="isEditable">
           <label for="size">Tamaño:</label>
           <select id="size">
             <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
@@ -36,10 +46,12 @@
         </div>
 
 
-        <div class="action-buttons">
+        <div *ngIf="isEditable" class="action-buttons">
           <button class="add-cart">🛒 Agregar Al Carrito</button>
           <button class="favorite">❤️</button>
         </div>
+
+        <button class="send-edit-button" *ngIf="!isEditable">Finalizar edición</button>
       </div>
     </div>
   </div>

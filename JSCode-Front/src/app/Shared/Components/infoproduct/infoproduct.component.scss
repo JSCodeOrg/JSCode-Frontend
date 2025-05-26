@@ -1,6 +1,9 @@
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
@@ -19,12 +22,16 @@
 
 .close-button {
   position: absolute;
-  top: 10px; right: 20px;
+  top: 10px;
+  right: 20px;
   font-size: 1.8rem;
   border: none;
   background: none;
   cursor: pointer;
-  &:hover { color: red; }
+
+  &:hover {
+    color: red;
+  }
 }
 
 .product-container {
@@ -35,7 +42,7 @@
 
 .image-gallery {
   flex: 1;
-  width: 100%;            
+  width: 100%;
 
 
   .main-image {
@@ -72,17 +79,18 @@
   min-width: 300px;
 
   .categoria {
+    border: 1px solid black;
     background: linear-gradient(to right, #9b4d9b, #2e2f61);
     color: white;
     padding: 6px 14px;
     border-radius: 10px;
     font-size: 1.1rem;
     display: inline-block;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
   }
 
   h2 {
-    margin: 0 0 20px 0; 
+    margin: 0 0 20px 0;
     font-size: 1.8rem;
     font-weight: bold;
   }
@@ -90,18 +98,18 @@
   .price {
     font-size: 1.6rem;
     color: #874691;
-    margin: 0 0 20px 0; 
+    margin: 0 0 20px 0;
     font-weight: bold;
   }
 
   .description-container {
-  margin-bottom: 40px;
+    margin-bottom: 40px;
 
     .description {
       color: #444;
       font-size: 1rem;
       line-height: 1.5;
-      margin-bottom: 8px; 
+      margin-bottom: 8px;
     }
 
     .show-more-less {
@@ -112,7 +120,7 @@
       font-weight: bold;
       padding: 0;
       font-size: 0.95rem;
-      
+
       &:hover {
         text-decoration: underline;
       }
@@ -120,19 +128,22 @@
   }
 
   .options {
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
+
     label {
       font-weight: bold;
       margin-right: 0.5rem;
     }
+
     select {
-      margin-bottom: 15px; 
+      margin-bottom: 15px;
     }
   }
 
   .color-options {
     display: flex;
     gap: 10px;
+
     .color-dot {
       width: 22px;
       height: 22px;
@@ -174,6 +185,62 @@
       }
     }
   }
+
+  .edit-button {
+    object-fit: contain;
+    border: none;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 0;
+    position: relative;
+    margin-left: 180px;
+    bottom: 5px;
+  }
+
+  .edit-button-image {
+    width: 40px;
+    padding: 0;
+  }
+
+  .product-name-input {
+    border-radius: 8px;
+    border: 2px solid #874691;
+    height: 40px;
+    width: 300px;
+    margin-bottom: 20px;
+  }
+
+  .product-price-input {
+    border-radius: 8px;
+    border: 2px solid #874691;
+    height: 40px;
+    margin-bottom: 20px;
+    width: 300px;
+  }
+
+  .product-description-input {
+    border-radius: 8px;
+    border: 2px solid #874691;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 150px;
+    scrollbar-width: none;
+
+  }
+
+  .send-edit-button {
+    background-color: #874691;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 50px;
+
+    &:hover {
+      background-color: #6c3c77;
+    }
+
+  }
 }
-
-

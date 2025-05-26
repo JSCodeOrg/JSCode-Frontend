@@ -38,6 +38,7 @@ export class CarruselComponent implements OnInit {
   );
 
   this.categoriasConProductos = resultados;
+  console.log(resultados);
   }
 
 
