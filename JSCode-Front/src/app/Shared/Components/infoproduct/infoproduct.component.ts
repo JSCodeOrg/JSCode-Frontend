@@ -3,18 +3,6 @@ import { CommonModule } from '@angular/common';
 import { InputFieldComponent } from "../input-field/input-field.component";
 import { ProductService } from '../../../core/services/products.service';
 
-interface EditedProduct {
-  id: number | null;
-  nombre: string;
-  descripcion: string;
-  cantidadDisponible: number | null;
-  stockMinimo: number | null;
-  palabrasClave: string;
-  precioCompra: number | null;
-  imagenesEliminadas: Number[];
-  imagenesAñadidas: File[];
-}
-
 interface Categoria {
   id: number
   nombreCategoria: string
@@ -29,6 +17,8 @@ interface Producto {
   palabrasClave: string;
   precioCompra: number | null;
   urlsImagenes: Imagen[];
+  imagenesEliminadas: number[];
+  imagenesAñadidas: File[];
 }
 
 interface Imagen {
@@ -62,21 +52,10 @@ export class InfoProductComponent implements OnInit {
     precioCompra: null,
     stockMinimo: null,
     urlsImagenes: [],
-    palabrasClave: ""
-  }
-
-  editedProduct: EditedProduct = {
-    id: 0,
-    nombre: "",
-    precioCompra: 0,
-    descripcion: "",
-    imagenesEliminadas: [] as number[],
-    imagenesAñadidas: [],
-    stockMinimo: 0,
     palabrasClave: "",
-    cantidadDisponible: 0,
+    imagenesEliminadas: [],
+    imagenesAñadidas: []
   }
-
 
   constructor(private productoService: ProductService) { }
 
@@ -86,8 +65,11 @@ export class InfoProductComponent implements OnInit {
   async getProductInfo(product_id: number) {
     const response = await this.productoService.getProductInfo(product_id);
     if (response.data) {
-      this.productData = response.data.data
-      console.log("Información nueva:", this.productData)
+      this.productData = {
+        ...response.data.data,
+        imagenesEliminadas: [],
+        imagenesAñadidas: []
+      }
     }
   }
 
@@ -113,32 +95,42 @@ export class InfoProductComponent implements OnInit {
   setNewName(event: Event) {
     const input = event.target as HTMLInputElement
     const value = input.value
-    this.editedProduct.nombre = value.trim();
+    this.productData.nombre = value.trim();
   }
 
   setNewPrice(event: Event) {
     const input = event.target as HTMLInputElement
     const newPrice = Number(input.value)
-    this.editedProduct.precioCompra = newPrice;
+    this.productData.precioCompra = newPrice;
   }
 
   setNewDescription(event: Event) {
     const input = event.target as HTMLTextAreaElement
     const newDescription = input.value
-    this.editedProduct.descripcion = newDescription
+    this.productData.descripcion = newDescription
+  }
+
+  setNewKeywords(event: Event) {
+    const input = event.target as HTMLInputElement
+    const newKeywords = input.value
+    this.productData.palabrasClave = newKeywords
+
+  }
+
+  setNewQuantity(event: Event) {
+    const input = event.target as HTMLInputElement
+    const newQuantity = input.value
+    this.productData.cantidadDisponible = Number(newQuantity)
+
   }
 
   deleteImage(imageid: number) {
-    this.editedProduct.imagenesEliminadas.push(imageid)
+    this.productData.imagenesEliminadas.push(imageid)
     this.productData.urlsImagenes = this.productData.urlsImagenes.filter(img => img.id !== imageid);
   }
 
   changeProductInfo() {
-    if (this.productData.id) {
-      this.editedProduct.id = this.productData.id
-    }
-
-    console.log(this.editedProduct);
+    console.log(this.productData);
 
   }
 
@@ -146,7 +138,7 @@ export class InfoProductComponent implements OnInit {
     const input = event.target as HTMLInputElement
     const file = input.files?.[0]
     if (file) {
-      this.editedProduct.imagenesAñadidas.push(file)
+      this.productData.imagenesAñadidas.push(file)
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrls.push(reader.result as string);
@@ -174,6 +166,5 @@ export class InfoProductComponent implements OnInit {
   ngOnInit(): void {
     this.checkAdmin();
     this.getProductInfo(this.producto_id)
-    this.editedProduct.id = this.producto_id;
   }
 }
