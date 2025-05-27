@@ -8,14 +8,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../core/services/products.service';
 import { InfoProductComponent } from "../../Shared/Components/infoproduct/infoproduct.component";
 
+interface Imagen {
+  id: number
+  url: string
+}
+
 interface Producto {
   id: number;
   nombre: string;
   descripcion: string;
   precioCompra: number;
-  imagenes: string[];
+  imagenes: Imagen[];
   nombreCategoria: string;
-
 }
 
 @Component({
@@ -69,7 +73,7 @@ export class HomeSearchComponent implements OnInit {
       this.products = productos.data.content;
       this.totalPages = productos.data.totalPages;
       this.currentPage = productos.data.number;
-      console.log(this.currentPage)
+      console.log("contenido de productos", productos.data.content)
     }
   }
 
@@ -82,8 +86,9 @@ export class HomeSearchComponent implements OnInit {
     }
   }
 
-  openProductModal(id: any) {
-    this.selectedProduct = id;
+  openProductModal(producto: any) {
+    console.log("producto del search", producto)
+    this.selectedProduct = producto;
   }
 
   closeProductModal() {

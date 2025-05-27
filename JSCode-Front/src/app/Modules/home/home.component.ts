@@ -32,8 +32,8 @@ export class HomeComponent {
     this.showProfileMenu = !this.showProfileMenu;
   }
 
-  openProductModal(id: any) {
-    this.selectedProduct = id;
+  openProductModal(producto: any) {
+    this.selectedProduct = producto;
   }
 
   closeProductModal() {

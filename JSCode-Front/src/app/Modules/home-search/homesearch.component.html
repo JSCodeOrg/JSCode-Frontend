@@ -25,7 +25,7 @@
             (click)="openProductModal(producto)">
             <img class="producto-image"
               *ngIf="producto.imagenes && producto.imagenes.length > 0 && producto.imagenes[0]"
-              [src]="producto.imagenes[0]" alt="{{producto.nombre}}">
+              [src]="producto.imagenes[0].url" alt="{{producto.nombre}}">
             <div class="product-info">
               <h2 class="producto-name">{{producto.nombre}}</h2>
               <h2 class="producto-precio">${{producto.precioCompra}}</h2>
@@ -47,7 +47,7 @@
 
   <app-infoproduct
    *ngIf="selectedProduct" 
-    [id]="selectedProduct" 
+    [producto]="selectedProduct" 
     (close)="closeProductModal()">
   </app-infoproduct>
 

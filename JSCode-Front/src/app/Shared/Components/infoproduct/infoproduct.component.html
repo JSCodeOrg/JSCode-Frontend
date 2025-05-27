@@ -5,35 +5,44 @@
     <div class="product-container">
 
       <div class="image-gallery">
-        <img class="main-image" [src]="selectedImage || id?.imagenes[0].url" alt="{{ id?.nombre }}" />
+        <img class="main-image" *ngIf="producto?.imagenes?.length" [src]="selectedImage || producto.imagenes[0].url"
+          alt="{{ producto.nombre }}" />
         <div class="thumbnail-row">
-          <div class="thumbnail-container" style="display: flex; flex-direction: column;" *ngFor="let img of id?.imagenes; trackBy: trackById">
+          <div class="thumbnail-container" style="display: flex; flex-direction: column;"
+            *ngFor="let img of producto?.imagenes; trackBy: trackById">
             <img [src]="img.url" class="thumbnail" [class.selected]="img.url === selectedImage"
               (click)="selectedImage = img.url" alt="thumbnail" />
 
-            <img *ngIf="!isEditable" class="elemento-basura" src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png"
-              alt="delete" style="width: 45px; margin-left: 10px; margin-top: 10px;" (click)="deleteImage(img.id)" />
+            <img *ngIf="isEditable" class="elemento-basura"
+              src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png" alt="delete"
+              style="width: 45px; margin-left: 10px; margin-top: 10px;" (click)="deleteImage(img.id)" />
           </div>
+          <img *ngIf="isEditable" class="add-image-button" style="width: 60px; max-height: 65px; top: 0px;"
+            src="https://i.ibb.co/1Y3x4ZSH/add-square-svgrepo-com.png" alt="add-image-button">
         </div>
       </div>
 
       <div class="product-info">
-        <span class="categoria" *ngIf="id?.categoria?.nombreCategoria">{{ id?.categoria?.nombreCategoria }}</span>
-        <button class="edit-button" *ngIf="userRole === 'administrador'"> <img class="edit-button-image"
-            [src]="isEditable ? 'https://i.ibb.co/GQZxwFbm/edit-3-svgrepo-com.png' : 'https://i.ibb.co/Y7fJ8Gf9/close-circle-svgrepo-com.png'"
-            alt="edit-product-button" (click)="editInfoProduct()"> </button>
-        <h2 *ngIf="isEditable">{{ id?.nombre }}</h2>
+        <div class="categoria">
+          <h3 class="category-name" *ngIf="!isEditable">{{producto.categoria.nombreCategoria}}</h3>
+          <button class="edit-button" *ngIf="userRole === 'administrador'"> <img class="edit-button-image"
+              [src]="!isEditable ? 'https://i.ibb.co/GQZxwFbm/edit-3-svgrepo-com.png' : 'https://i.ibb.co/Y7fJ8Gf9/close-circle-svgrepo-com.png'"
+              alt="edit-product-button" (click)="editInfoProduct()"> </button>
+          </div>
 
-        <input type="text" *ngIf="!isEditable" placeholder="{{id?.nombre}}" class="product-name-input">
-        <p *ngIf="isEditable" class="price">{{ id?.precioCompra | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
-        <input type="number" *ngIf="!isEditable" placeholder="${{id?.precioCompra}}" class="product-price-input">
-        <div class="description-container" *ngIf="id?.descripcion">
-          <p *ngIf="isEditable" class="description">{{ showFullDescription ? id.descripcion : (id.descripcion |
+        <h2 *ngIf="!isEditable">{{ producto.nombre }}</h2>
+
+        <input type="text" *ngIf="isEditable" placeholder="{{producto.nombre}}" class="product-name-input">
+        <p *ngIf="!isEditable" class="price">{{ producto.precioCompra | currency:'COP':'symbol-narrow':'1.0-0' }}</p>
+        <input type="number" *ngIf="isEditable" placeholder="${{producto.precioCompra}}" class="product-price-input">
+        <div class="description-container" *ngIf="producto?.descripcion">
+          <p *ngIf="!isEditable" class="description">{{ showFullDescription ? producto.descripcion :
+            (producto.descripcion |
             slice:0:maxLength) }}</p>
-          <textarea class="product-description-input" *ngIf="!isEditable">
-  {{ id.descripcion }}
+          <textarea class="product-description-input" *ngIf="isEditable">
+  {{ producto.descripcion }}
 </textarea>
-          <button *ngIf="id.descripcion.length > maxLength" class="show-more-less" (click)="toggleDescription()">
+          <button *ngIf="producto.descripcion.length > maxLength" class="show-more-less" (click)="toggleDescription()">
             {{ showFullDescription ? 'Mostrar menos' : 'Mostrar más' }}
           </button>
         </div>
@@ -45,13 +54,12 @@
           </select>
         </div>
 
-
-        <div *ngIf="isEditable" class="action-buttons">
+        <div *ngIf="!isEditable" class="action-buttons">
           <button class="add-cart">🛒 Agregar Al Carrito</button>
           <button class="favorite">❤️</button>
         </div>
 
-        <button class="send-edit-button" *ngIf="!isEditable">Finalizar edición</button>
+        <button class="send-edit-button" *ngIf="isEditable">Finalizar edición</button>
       </div>
     </div>
   </div>
