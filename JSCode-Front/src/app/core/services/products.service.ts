@@ -37,4 +37,13 @@ export class ProductService {
             }
         })
     }
+
+    getProductInfo(product_id: number){
+        return axios.get(`${this.GestionProductosApi}/inventario/productos/ver/${product_id}`)
+    }
+
+    changeProductInfo(newProductData: any){
+        
+        
+    }
 }

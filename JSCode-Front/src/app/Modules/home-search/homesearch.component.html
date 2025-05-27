@@ -22,7 +22,7 @@
           <div 
             *ngFor="let producto of products" 
             class="product-item"
-            (click)="openProductModal(producto)">
+            (click)="openProductModal(producto.id)">
             <img class="producto-image"
               *ngIf="producto.imagenes && producto.imagenes.length > 0 && producto.imagenes[0]"
               [src]="producto.imagenes[0].url" alt="{{producto.nombre}}">
@@ -47,7 +47,7 @@
 
   <app-infoproduct
    *ngIf="selectedProduct" 
-    [producto]="selectedProduct" 
+    [producto_id]="selectedProduct" 
     (close)="closeProductModal()">
   </app-infoproduct>
 

@@ -38,7 +38,7 @@ interface Producto {
 })
 export class HomeSearchComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService) { }
-  selectedProduct: any = null;
+  selectedProduct: number |null = null;
 
   products: Producto[] = [];
   currentPage: number = 0;
@@ -87,7 +87,6 @@ export class HomeSearchComponent implements OnInit {
   }
 
   openProductModal(producto: any) {
-    console.log("producto del search", producto)
     this.selectedProduct = producto;
   }
 

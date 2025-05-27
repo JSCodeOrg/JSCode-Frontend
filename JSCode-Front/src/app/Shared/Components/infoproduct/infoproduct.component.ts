@@ -1,27 +1,34 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputFieldComponent } from "../input-field/input-field.component";
+import { ProductService } from '../../../core/services/products.service';
 
 interface EditedProduct {
-  product_name: string
-  product_price: number
-  product_description: string
-  deleted_images: number[]
-  added_images: string[]
+  id: number | null;
+  nombre: string;
+  descripcion: string;
+  cantidadDisponible: number | null;
+  stockMinimo: number | null;
+  palabrasClave: string;
+  precioCompra: number | null;
+  imagenesEliminadas: Number[];
+  imagenesAñadidas: File[];
 }
 
-interface Categoria{
+interface Categoria {
   id: number
   nombreCategoria: string
 }
 
 interface Producto {
-  id: number;
+  id: number | null;
   nombre: string;
   descripcion: string;
-  precioCompra: number;
-  imagenes: Imagen[];
-  categoria: Categoria;
+  cantidadDisponible: number | null;
+  stockMinimo: number | null;
+  palabrasClave: string;
+  precioCompra: number | null;
+  urlsImagenes: Imagen[];
 }
 
 interface Imagen {
@@ -39,19 +46,51 @@ interface Imagen {
 
 export class InfoProductComponent implements OnInit {
 
+  @Input() producto_id!: number;
+  @Output() close = new EventEmitter<void>();
+
   userRole: string = "";
   isEditable: boolean = false;
 
-  editedProduct: EditedProduct = {
-    product_name: "",
-    product_price: 0,
-    product_description: "",
-    deleted_images:[] as number[] ,
-    added_images: []
+  previewUrls: string[] = []
+
+  productData: Producto = {
+    id: null,
+    nombre: "",
+    descripcion: "",
+    cantidadDisponible: null,
+    precioCompra: null,
+    stockMinimo: null,
+    urlsImagenes: [],
+    palabrasClave: ""
   }
 
-  @Input() producto!: Producto;
-  @Output() close = new EventEmitter<void>();
+  editedProduct: EditedProduct = {
+    id: 0,
+    nombre: "",
+    precioCompra: 0,
+    descripcion: "",
+    imagenesEliminadas: [] as number[],
+    imagenesAñadidas: [],
+    stockMinimo: 0,
+    palabrasClave: "",
+    cantidadDisponible: 0,
+  }
+
+
+  constructor(private productoService: ProductService) { }
+
+  //TODO: Solicitar los productos, y modificar todo para que la información completa me quede aquí mismo.
+
+
+  async getProductInfo(product_id: number) {
+    const response = await this.productoService.getProductInfo(product_id);
+    if (response.data) {
+      this.productData = response.data.data
+      console.log("Información nueva:", this.productData)
+    }
+  }
+
   selectedImage: string = '';
   showFullDescription = false;
   maxLength = 60;
@@ -71,22 +110,50 @@ export class InfoProductComponent implements OnInit {
     console.log(this.isEditable);
   }
 
-deleteImage(imageId: number): void {
-  this.editedProduct.deleted_images.push(imageId);
-
-  if (this.producto?.imagenes) {
-    this.producto.imagenes = this.producto.imagenes.filter(img => img.id !== imageId);
+  setNewName(event: Event) {
+    const input = event.target as HTMLInputElement
+    const value = input.value
+    this.editedProduct.nombre = value.trim();
   }
 
-
-  if (this.selectedImage === this.producto?.imagenes?.find(img => img.id === imageId)?.url) {
-    this.selectedImage = this.producto?.imagenes?.[0]?.url || '';
+  setNewPrice(event: Event) {
+    const input = event.target as HTMLInputElement
+    const newPrice = Number(input.value)
+    this.editedProduct.precioCompra = newPrice;
   }
-}
 
-  onProductNameChange() {
+  setNewDescription(event: Event) {
+    const input = event.target as HTMLTextAreaElement
+    const newDescription = input.value
+    this.editedProduct.descripcion = newDescription
+  }
 
+  deleteImage(imageid: number) {
+    this.editedProduct.imagenesEliminadas.push(imageid)
+    this.productData.urlsImagenes = this.productData.urlsImagenes.filter(img => img.id !== imageid);
+  }
 
+  changeProductInfo() {
+    if (this.productData.id) {
+      this.editedProduct.id = this.productData.id
+    }
+
+    console.log(this.editedProduct);
+
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement
+    const file = input.files?.[0]
+    if (file) {
+      this.editedProduct.imagenesAñadidas.push(file)
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrls.push(reader.result as string);
+        console.log(this.previewUrls);
+      }
+      reader.readAsDataURL(file);
+    }
   }
 
   trackById(index: number, item: any): number {
@@ -103,9 +170,10 @@ deleteImage(imageId: number): void {
     }
     console.log(this.userRole)
   }
+
   ngOnInit(): void {
     this.checkAdmin();
-    console.log(this.producto);
-    console.log(this.isEditable)
+    this.getProductInfo(this.producto_id)
+    this.editedProduct.id = this.producto_id;
   }
 }

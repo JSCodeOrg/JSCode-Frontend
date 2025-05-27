@@ -22,7 +22,7 @@
 
   <app-infoproduct 
     *ngIf="selectedProduct" 
-    [producto]="selectedProduct" 
+    [producto_id]="selectedProduct.id" 
     (close)="closeProductModal()">
   </app-infoproduct>
 
