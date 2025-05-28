@@ -38,12 +38,29 @@ export class ProductService {
         })
     }
 
-    getProductInfo(product_id: number){
+    getProductInfo(product_id: number) {
         return axios.get(`${this.GestionProductosApi}/inventario/productos/ver/${product_id}`)
     }
 
-    changeProductInfo(newProductData: any){
-        
-        
+    changeProductInfo(product_id: number, token: string, productData: any) {
+    const formData = new FormData();
+
+    formData.append('producto', new Blob([JSON.stringify(productData)], {
+        type: 'application/json'
+    }));
+
+    if (productData.imagenesAñadidas && productData.imagenesAñadidas.length > 0) {
+        productData.imagenesAñadidas.forEach((file: File) => {
+            formData.append('imagenes', file); 
+        });
     }
+
+    return axios.put(`${this.GestionProductosApi}/inventario/productos/actualizar/${product_id}`, formData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}
+
 }

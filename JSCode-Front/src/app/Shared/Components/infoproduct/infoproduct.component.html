@@ -47,13 +47,13 @@
             <p *ngIf="!isEditable" style="margin-top: 6px; margin-left: 35px; font-weight: bold;" class="quantity">{{
               productData.cantidadDisponible }} unidades disponibles</p>
           </div>
-          <input type="number" *ngIf="isEditable" [value]="productData.precioCompra"
-            class="product-price-input" (input)="setNewPrice($event)">
+          <input type="number" *ngIf="isEditable" [value]="productData.precioCompra" class="product-price-input"
+            (input)="setNewPrice($event)">
           <div class="description-container" *ngIf="productData?.descripcion">
             <p *ngIf="!isEditable" class="description">{{ showFullDescription ? productData.descripcion :
               (productData.descripcion |
               slice:0:maxLength) }}</p>
-              <h1 *ngIf="isEditable" style="font-size: 18px;">Descripción del producto</h1>
+            <h1 *ngIf="isEditable" style="font-size: 18px;">Descripción del producto</h1>
             <textarea class="product-description-input" *ngIf="isEditable" (input)="setNewDescription($event)">
               {{ productData.descripcion }}
             </textarea>
@@ -61,7 +61,15 @@
             <input type="number" (input)="setNewQuantity($event)" *ngIf="isEditable" class="product-quantity-input"
               [value]="productData.cantidadDisponible">
             <h1 *ngIf="isEditable" style="font-size: 18px;">Palabras clave</h1>
-              <input *ngIf="isEditable" (input)="setNewKeywords($event)" class="keywords-input" [value]="productData.palabrasClave" >
+            <input *ngIf="isEditable" (input)="setNewKeywords($event)" type="text" class="keywords-input"
+              [value]="productData.palabrasClave">
+            <h1 *ngIf="isEditable" style="font-size: 18px;margin-top: 10px;">Stock mínimo antes de notificación</h1>
+            <input type="number" class="minimum-stock-input" style="border-radius: 8px;
+    border: 2px solid #874691;
+    height: 40px;
+    margin-bottom: 20px;
+    width: 300px;" *ngIf="isEditable" (input)="setNewMinimumStock($event)" class="stock-input"
+              [value]="productData.palabrasClave">
           </div>
         </div>
         <div *ngIf="previewUrls.length > 0 && isEditable" class="preview-section"

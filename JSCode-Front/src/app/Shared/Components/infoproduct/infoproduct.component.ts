@@ -68,9 +68,44 @@ export class InfoProductComponent implements OnInit {
       this.productData = {
         ...response.data.data,
         imagenesEliminadas: [],
-        imagenesAñadidas: []
+        imagenesAñadidas: [],
+        producto_id: this.producto_id
       }
     }
+    console.log(this.productData)
+  }
+
+  async sendEditionRequest() {
+    const userToken = sessionStorage.getItem('authToken');
+    if (!userToken) return;
+
+    const productoParaEnviar = {
+      cantidadDisponible: this.productData.cantidadDisponible,
+      descripcion: this.productData.descripcion,
+      imagenesEliminadas: this.productData.imagenesEliminadas,
+      nombre: this.productData.nombre,
+      precioCompra: this.productData.precioCompra,
+      stockMinimo: this.productData.stockMinimo,
+      producto_id: this.producto_id,
+      palabrasClave: this.productData.palabrasClave
+    };
+
+    const editProductRequest = await this.productoService.changeProductInfo(
+      this.producto_id,
+      userToken,
+      {
+        ...productoParaEnviar,
+        imagenesAñadidas: this.productData.imagenesAñadidas
+      }
+    );
+
+    if (editProductRequest.status === 200) {
+      console.log(editProductRequest.data);
+      if (editProductRequest.data) {
+        this.productData = editProductRequest.data.data;
+      }
+    }
+
   }
 
   selectedImage: string = '';
@@ -110,6 +145,12 @@ export class InfoProductComponent implements OnInit {
     this.productData.descripcion = newDescription
   }
 
+  setNewMinimumStock(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const newMinimumStock = input.value;
+    this.productData.stockMinimo = Number(newMinimumStock)
+  }
+
   setNewKeywords(event: Event) {
     const input = event.target as HTMLInputElement
     const newKeywords = input.value
@@ -130,8 +171,7 @@ export class InfoProductComponent implements OnInit {
   }
 
   changeProductInfo() {
-    console.log(this.productData);
-
+    this.sendEditionRequest();
   }
 
   onFileSelected(event: Event) {
