@@ -64,12 +64,11 @@
             <input *ngIf="isEditable" (input)="setNewKeywords($event)" type="text" class="keywords-input"
               [value]="productData.palabrasClave">
             <h1 *ngIf="isEditable" style="font-size: 18px;margin-top: 10px;">Stock mínimo antes de notificación</h1>
-            <input type="number" class="minimum-stock-input" style="border-radius: 8px;
+            <input type="number" [value]="productData.stockMinimo" class="minimum-stock-input" style="border-radius: 8px;
     border: 2px solid #874691;
     height: 40px;
     margin-bottom: 20px;
-    width: 300px;" *ngIf="isEditable" (input)="setNewMinimumStock($event)" class="stock-input"
-              [value]="productData.palabrasClave">
+    width: 300px;" *ngIf="isEditable" (input)="setNewMinimumStock($event)" class="stock-input">
           </div>
         </div>
         <div *ngIf="previewUrls.length > 0 && isEditable" class="preview-section"

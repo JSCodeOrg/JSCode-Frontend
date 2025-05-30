@@ -72,8 +72,9 @@ export class InfoProductComponent implements OnInit {
         producto_id: this.producto_id
       }
     }
-    console.log(this.productData)
-  }
+
+    console.log("la info es", this.productData.stockMinimo)
+    console.log(typeof(this.productData.stockMinimo)) }
 
   async sendEditionRequest() {
     const userToken = sessionStorage.getItem('authToken');
