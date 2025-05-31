@@ -105,7 +105,6 @@ export class ProfileEditComponent implements OnInit {
   }
 
 
-
   onPhoneChange(value: string) {
     this.userData.telefono = value;
   }
@@ -128,6 +127,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   onDeletePhoto() {
+    
 
   }
 }

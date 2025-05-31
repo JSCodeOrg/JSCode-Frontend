@@ -80,10 +80,14 @@
           </div>
         </div>
         <div *ngIf="!isEditable" class="action-buttons">
-          <button class="add-cart">🛒 Agregar Al Carrito</button>
+          <button class="add-cart" (click)="addToCart()">🛒 Agregar Al Carrito</button>
           <button class="favorite">❤️</button>
         </div>
         <button class="send-edit-button" *ngIf="isEditable" (click)="changeProductInfo()">Finalizar edición</button>
+
+        <div *ngIf="openQuantityModal" >
+          <app-quantity-modal [productoId]="productData.producto_id" (cerrar)="openQuantityModal = false"></app-quantity-modal>
+        </div>
       </div>
     </div>
   </div>

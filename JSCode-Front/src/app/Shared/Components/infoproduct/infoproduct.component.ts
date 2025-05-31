@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputFieldComponent } from "../input-field/input-field.component";
 import { ProductService } from '../../../core/services/products.service';
+import { AppquantitymodalComponent } from '../infoproduct/appquantitymodal/appquantitymodal.component';
 
 interface Categoria {
   id: number
@@ -9,7 +10,7 @@ interface Categoria {
 }
 
 interface Producto {
-  id: number | null;
+  producto_id: number | null;
   nombre: string;
   descripcion: string;
   cantidadDisponible: number | null;
@@ -21,6 +22,11 @@ interface Producto {
   imagenesAñadidas: File[];
 }
 
+interface addToCartProduct {
+  id_producto: number | null,
+  cantidad: number | null
+}
+
 interface Imagen {
   id: number
   url: string
@@ -29,23 +35,23 @@ interface Imagen {
 @Component({
   selector: 'app-infoproduct',
   standalone: true,
-  imports: [CommonModule, InputFieldComponent],
+  imports: [CommonModule, InputFieldComponent, AppquantitymodalComponent, AppquantitymodalComponent],
   templateUrl: './infoproduct.component.html',
   styleUrls: ['./infoproduct.component.scss']
 })
 
 export class InfoProductComponent implements OnInit {
-
   @Input() producto_id!: number;
   @Output() close = new EventEmitter<void>();
 
   userRole: string = "";
   isEditable: boolean = false;
+  openQuantityModal = false;
 
   previewUrls: string[] = []
 
   productData: Producto = {
-    id: null,
+    producto_id: null,
     nombre: "",
     descripcion: "",
     cantidadDisponible: null,
@@ -55,6 +61,11 @@ export class InfoProductComponent implements OnInit {
     palabrasClave: "",
     imagenesEliminadas: [],
     imagenesAñadidas: []
+  }
+
+  productToCart: addToCartProduct = {
+    id_producto: null,
+    cantidad: null
   }
 
   constructor(private productoService: ProductService) { }
@@ -69,12 +80,9 @@ export class InfoProductComponent implements OnInit {
         ...response.data.data,
         imagenesEliminadas: [],
         imagenesAñadidas: [],
-        producto_id: this.producto_id
       }
     }
-
-    console.log("la info es", this.productData.stockMinimo)
-    console.log(typeof(this.productData.stockMinimo)) }
+  }
 
   async sendEditionRequest() {
     const userToken = sessionStorage.getItem('authToken');
@@ -101,12 +109,10 @@ export class InfoProductComponent implements OnInit {
     );
 
     if (editProductRequest.status === 200) {
-      console.log(editProductRequest.data);
       if (editProductRequest.data) {
         this.productData = editProductRequest.data.data;
       }
     }
-
   }
 
   selectedImage: string = '';
@@ -125,7 +131,6 @@ export class InfoProductComponent implements OnInit {
 
   editInfoProduct() {
     this.isEditable = (!this.isEditable);
-    console.log(this.isEditable);
   }
 
   setNewName(event: Event) {
@@ -183,7 +188,6 @@ export class InfoProductComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrls.push(reader.result as string);
-        console.log(this.previewUrls);
       }
       reader.readAsDataURL(file);
     }
@@ -201,8 +205,13 @@ export class InfoProductComponent implements OnInit {
     else {
       this.userRole = role;
     }
-    console.log(this.userRole)
   }
+
+  addToCart(){
+    this.openQuantityModal = !this.openQuantityModal;
+  }
+
+
 
   ngOnInit(): void {
     this.checkAdmin();

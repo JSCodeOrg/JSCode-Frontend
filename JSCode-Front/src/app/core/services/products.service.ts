@@ -43,24 +43,35 @@ export class ProductService {
     }
 
     changeProductInfo(product_id: number, token: string, productData: any) {
-    const formData = new FormData();
+        const formData = new FormData();
 
-    formData.append('producto', new Blob([JSON.stringify(productData)], {
-        type: 'application/json'
-    }));
+        formData.append('producto', new Blob([JSON.stringify(productData)], {
+            type: 'application/json'
+        }));
 
-    if (productData.imagenesAñadidas && productData.imagenesAñadidas.length > 0) {
-        productData.imagenesAñadidas.forEach((file: File) => {
-            formData.append('imagenes', file); 
+        if (productData.imagenesAñadidas && productData.imagenesAñadidas.length > 0) {
+            productData.imagenesAñadidas.forEach((file: File) => {
+                formData.append('imagenes', file);
+            });
+        }
+
+        return axios.put(`${this.GestionProductosApi}/inventario/productos/actualizar/${product_id}`, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
         });
+
+
     }
 
-    return axios.put(`${this.GestionProductosApi}/inventario/productos/actualizar/${product_id}`, formData, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
-        }
-    });
-}
+    addProductToCart(productData: any, authToken: String) {
+        console.log("info es", productData);
+        return axios.post(`${this.GestionProductosApi}/inventario/carrito`, productData, {
+            headers:
+                { Authorization: `Bearer ${authToken}` }
+        })
+
+    }
 
 }
