@@ -27,7 +27,6 @@ export class RegisterComponent {
     apellido: "",
     direccion: "",
     telefono: "",
-
   };
 
   constructor(private router: Router, private userService: UserService) {

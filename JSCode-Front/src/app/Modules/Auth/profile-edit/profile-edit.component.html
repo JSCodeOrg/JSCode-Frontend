@@ -12,9 +12,12 @@
       <div class="profile-photo-section">
         <h3>Foto de perfil</h3>
         <div class="photo-actions">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D" alt="Foto de perfil" />
+          <img
+            [src]="userData.fotoperfil || 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg'"
+            alt="Foto de perfil" />
           <div class="photo-buttons">
-            <app-button label="Cambiar Foto" variant="primary" (click)="onChangePhoto()"></app-button>
+            <app-button label="Cambiar Foto" variant="primary" (click)="fileInput.click()"></app-button>
+            <input type="file" #fileInput accept="image/*" style="display: none;" (change)="onFileSelected($event)">
             <app-button label="Eliminar Foto" variant="secondary" (click)="onDeletePhoto()"></app-button>
           </div>
         </div>
@@ -22,30 +25,30 @@
 
       <div class="profile-form">
         <div class="name-fields">
-          <app-input-field label="Nombre" variant="primary" (valueChange)="onDocumentChange($event)"
-            icon="person_pin"></app-input-field>
+          <app-input-field label="Nombre" variant="primary" [(value)]="userData.nombre"
+            (valueChange)="onNameChange($event)" icon="person_pin"></app-input-field>
 
-          <app-input-field label="Apellido" variant="primary" (valueChange)="onLastNameChange($event)"
-            icon="person_pin"></app-input-field>
+          <app-input-field label="Apellido" variant="primary" [(value)]="userData.apellido"
+            (valueChange)="onLastNameChange($event)" icon="person_pin"></app-input-field>
         </div>
-        <app-input-field label="Documento" variant="primary" (valueChange)="onDocumentChange($event)"
-          icon="person_pin"></app-input-field>
+        <app-input-field label="Documento" variant="primary" type="number"
+          [value]="userData.documento !== null ? userData.documento.toString() : ''"
+          (valueChange)="onDocumentChange($event)" icon="person_pin"></app-input-field>
 
         <div class="contact-fields">
-          <app-input-field label="Correo Electrónico" variant="primary" (valueChange)="onEmailChange($event)"
-            icon="email"></app-input-field>
+          <app-input-field label="Correo Electrónico" [(value)]="userData.email" variant="primary"
+            (valueChange)="onEmailChange($event)" icon="email"></app-input-field>
 
-          <app-input-field label="Teléfono"  variant="primary"
+          <app-input-field label="Teléfono" [(value)]="userData.telefono" variant="primary"
             (valueChange)="onPhoneChange($event)" icon="phone"></app-input-field>
 
         </div>
-        <app-input-field label="Dirección" variant="primary" (valueChange)="onDocumentChange($event)"
-          icon="place"></app-input-field>
+        
+        <app-input-field label="Dirección" [(value)]="userData.direccion" variant="primary"
+          (valueChange)="onDirectionChange($event)" icon="place"></app-input-field>
 
-        <app-input-field label="Contraseña" variant="primary" (valueChange)="onDocumentChange($event)"
-          icon="lock"></app-input-field>
-
-
+        <app-input-field label="Contraseña" placeholder="*********" ariant="primary"
+          (valueChange)="onPasswordChange($event)" icon="lock"></app-input-field>
 
         <app-button label="Editar Información" variant="primary" (click)="editInfo()"></app-button>
       </div>

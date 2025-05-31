@@ -10,13 +10,13 @@ export class UserService {
     private GestionUsuariosLocal = environment.GestionUsuariosLocal
 
     constructor() { }
-    
+
     loginUser(userData: any) {
         console.log(`${this.GestionUsuariosApi + '/usuarios/auth/login'}`)
         return axios.post(`${this.GestionUsuariosApi + '/usuarios/auth/login'}`, userData, {
             withCredentials: true
         });
-        
+
     }
 
     recoverPassword(recoverPasswordData: any) {
@@ -37,7 +37,7 @@ export class UserService {
         })
     }
 
-    getUserData(userToken: any){
+    getUserData(userToken: any) {
         return axios.get(`${this.GestionUsuariosApi + '/usuarios/auth/me'}`, {
             headers: {
                 Authorization: `Bearer ${userToken}`
@@ -46,15 +46,40 @@ export class UserService {
         })
     }
 
-    registerUser(newUserData: any){
+    changeUserData(userToken: string, newData: any) {
+        console.log(newData);
+        return axios.put(`${this.GestionUsuariosApi}/usuarios/users/updateinfo`, newData, {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        })
+
+    }
+
+    changeProfileImage(newProfileImage: File, authToken: String) {
+        const formData = new FormData();
+        formData.append('newImage', newProfileImage);
+
+        return axios.put(`${this.GestionUsuariosApi}/usuarios/users/updateprofileimage`, formData, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+
+        
+
+
+    }
+
+    registerUser(newUserData: any) {
         return axios.post(`${this.GestionUsuariosApi + '/usuarios/users/register'}`, newUserData)
     }
 
-    verifyAccount(token: string){
+    verifyAccount(token: string) {
         return axios.post(`${this.GestionUsuariosApi}/usuarios/users/verify?token=${token}`)
     }
 
-    changeDefaultInfo(userData: any, token: String){
+    changeDefaultInfo(userData: any, token: String) {
         console.log(token)
         console.log(userData)
         return axios.put(`${this.GestionUsuariosApi}/usuarios/users/updateinfo`, userData, {
@@ -65,14 +90,14 @@ export class UserService {
         })
     }
 
-    getUserInfo(token: String){
+    getUserInfo(token: String) {
         return axios.get(`${this.GestionUsuariosApi}/usuarios/users/getuser`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }, withCredentials: true,
         })
     }
-    createUserRole(userData: any){
+    createUserRole(userData: any) {
         console.log(userData)
         return axios.post(`${this.GestionUsuariosApi}/usuarios/users/createuser`, userData, {
             headers: {
