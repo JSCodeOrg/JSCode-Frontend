@@ -21,9 +21,9 @@
                     </h1>
 
                     <div class="quantity-container">
-                        <button class="decrease-quantity">-</button>
+                        <button class="decrease-quantity" (click)="toDecreaseQuantity(product)">-</button>
                         <input type="number" class="quantity-input" [value]="product.cantidad">
-                        <button class="increase-quantity">+</button>
+                        <button class="increase-quantity" (click)="toIncreaseQuantity(product)">+</button>
                     </div>
                 </div>
                 <button class="delete-button"> <img src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png"
@@ -32,7 +32,9 @@
         </div>
         <div class="price-buy-container">
             <h1 class="final-price-label">{{newTotalPrice.totalPrice | currency: 'COP':'symbol':'1.0-0':'es-CO'}}</h1>
-            <app-button class="comprar-button" label="Comprar" (click)="onBuy()">Comprar</app-button>
+            <button [ngClass]="isCartEdited ? 'save-cart' : 'comprar-button'" (click)="isCartEdited? saveCart() : onBuy()">
+                {{ isCartEdited ? 'Guarda tu carrito' : 'Comprar' }}
+            </button>
         </div>
     </div>
 </div>

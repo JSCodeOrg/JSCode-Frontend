@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UserService } from '../../../core/services/user.service';
 import { ProductService } from '../../../core/services/products.service';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../Shared/Components/button/button.component';
@@ -13,11 +12,9 @@ interface ProductsOnCartInfo {
   seleccionado?: boolean
 }
 
-interface TotalPrice{
+interface TotalPrice {
   totalPrice: number;
 }
-
-
 
 @Component({
   standalone: true,
@@ -27,13 +24,12 @@ interface TotalPrice{
   styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
-  
 
   @Output() close = new EventEmitter<void>();
 
   productsOnUserCart: ProductsOnCartInfo[] = [];
   selectedProducts: ProductsOnCartInfo[] = [];
-
+  isCartEdited: Boolean = false;
   newTotalPrice: TotalPrice = {
     totalPrice: 0
   };
@@ -49,7 +45,6 @@ export class CartComponent implements OnInit {
     }
     this.getUserCart(authToken);
   }
-
 
   async getUserCart(authToken: String) {
     const userCart = await this.productService.getUserCart(authToken);
@@ -75,17 +70,33 @@ export class CartComponent implements OnInit {
     console.log(this.selectedProducts)
   }
 
+  toDecreaseQuantity(product: ProductsOnCartInfo) {
+    product.cantidad -= 1;
+    this.isCartEdited = true;
+    console.log(this.productsOnUserCart);
+  }
+
+  toIncreaseQuantity(product: ProductsOnCartInfo) {
+    product.cantidad += 1;
+    this.isCartEdited = true;
+    console.log(this.productsOnUserCart);
+  }
+
   onBuy() {
+    console.log("Compra realizada")
     return;
   }
 
   closeCart() {
     this.close.emit();
+  }
+
+  saveCart(){
+   console.log("Guardando carrito.");
 
   }
 
   ngOnInit(): void {
     this.getUserToken();
   }
-
 }
