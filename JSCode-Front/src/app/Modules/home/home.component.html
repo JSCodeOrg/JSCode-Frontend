@@ -1,5 +1,7 @@
 <div class="home-wrapper">
-  <app-header (openUserInfoModal)="onToggleProfileMenu()"></app-header>
+  <app-header (openUserInfoModal)="onToggleProfileMenu()" (toggleCartEvent)="onToggleCart()"></app-header>
+
+  <app-cart *ngIf="isCartOpen" (close)="onToggleCart()"> </app-cart>
 
   <div class="home-container">
     <div class="top-bar">

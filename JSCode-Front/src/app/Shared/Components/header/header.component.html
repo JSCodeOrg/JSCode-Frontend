@@ -42,7 +42,6 @@
         </button>
         <button class="icon-btn cart" (click)="toggleCart()">
           <span class="cart-icon">🛒</span>
-          <span class="badge" *ngIf="cartCount > 0">{{cartCount}}</span>
         </button>
         <div class="profile-container" (clickOutside)="closeProfileMenu()">
           <button class="profile-btn" (click)="toggleProfileMenu()">

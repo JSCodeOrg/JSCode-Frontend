@@ -42,6 +42,7 @@ import { ButtonComponent } from "../button/button.component";
 })
 export class HeaderComponent implements OnInit {
   @Output() openUserInfoModal = new EventEmitter<void>();
+  @Output() toggleCartEvent = new EventEmitter<void>();
 
   onProfileClick() {
     this.openUserInfoModal.emit();
@@ -58,6 +59,7 @@ export class HeaderComponent implements OnInit {
   cartCount = 0;
   userProfileImage = "";
   isUserAdmin = false;
+  isCartOpen = false;
 
 
   faHouse = faHouse;
@@ -68,7 +70,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { }
 
   goHome() {
-this.router.navigate(["/"])
+    this.router.navigate(["/"])
   }
 
 
@@ -125,7 +127,7 @@ this.router.navigate(["/"])
   }
 
   toggleCart(): void {
-    // Implement cart toggle logic
+    this.toggleCartEvent.emit();
   }
 }
 

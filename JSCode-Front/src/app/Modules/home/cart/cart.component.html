@@ -3,22 +3,36 @@
         <div class="label-containers">
             <h1 class="cart-title">Carrito</h1>
             <h1 class="products-quantity-label">({{productsOnUserCart.length}})</h1>
+            <button class="close-cart" (click)="closeCart()">X</button>
         </div>
         <div class="products-container">
             <div class="product-container" *ngFor="let product of productsOnUserCart">
+                <button class="select-button" [class.selected]="product.seleccionado"
+                    (click)="toggleSeleccion(product)">
+                    <span *ngIf="product.seleccionado">✔</span>
+                </button>
                 <img class="product-image" [src]="product.imageUrl" alt="product-image">
                 <div class="product-info">
                     <h1 class="product-name">
                         {{product.nombre}}
                     </h1>
+                    <h1 class="product-price">
+                        <p>{{ product.precio | currency:'COP':'symbol':'1.0-0':'es-CO' }}</p>
+                    </h1>
+
                     <div class="quantity-container">
                         <button class="decrease-quantity">-</button>
                         <input type="number" class="quantity-input" [value]="product.cantidad">
                         <button class="increase-quantity">+</button>
                     </div>
                 </div>
-                <button class="delete-button"> <img src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png" alt="delete-button"></button>
+                <button class="delete-button"> <img src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png"
+                        alt="delete-button"></button>
             </div>
+        </div>
+        <div class="price-buy-container">
+            <h1 class="final-price-label">$90.000</h1>
+            <app-button class="comprar-button" label="Comprar" (click)="onBuy()">Comprar</app-button>
         </div>
     </div>
 </div>

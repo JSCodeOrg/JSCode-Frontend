@@ -74,4 +74,11 @@ export class ProductService {
 
     }
 
+    getUserCart(authToken: String) {
+        return axios.get(`${this.GestionProductosApi}/inventario/carrito`, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+    }
 }
