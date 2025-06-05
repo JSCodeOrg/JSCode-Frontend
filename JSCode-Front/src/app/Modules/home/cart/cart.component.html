@@ -1,0 +1,24 @@
+<div class="cart-container">
+    <div class="cart-header">
+        <div class="label-containers">
+            <h1 class="cart-title">Carrito</h1>
+            <h1 class="products-quantity-label">({{productsOnUserCart.length}})</h1>
+        </div>
+        <div class="products-container">
+            <div class="product-container" *ngFor="let product of productsOnUserCart">
+                <img class="product-image" [src]="product.imageUrl" alt="product-image">
+                <div class="product-info">
+                    <h1 class="product-name">
+                        {{product.nombre}}
+                    </h1>
+                    <div class="quantity-container">
+                        <button class="decrease-quantity">-</button>
+                        <input type="number" class="quantity-input" [value]="product.cantidad">
+                        <button class="increase-quantity">+</button>
+                    </div>
+                </div>
+                <button class="delete-button"> <img src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png" alt="delete-button"></button>
+            </div>
+        </div>
+    </div>
+</div>

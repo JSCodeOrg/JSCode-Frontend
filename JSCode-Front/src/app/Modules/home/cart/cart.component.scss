@@ -1,0 +1,107 @@
+.cart-container {
+    background-color: rgb(255, 255, 255);
+    width: 400px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    right: 0;
+    top: 0;
+    border-radius: 10px;
+    margin-top: 124px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+.label-containers {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.products-quantity-label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.cart-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+}
+
+.product-image {
+    width: 100px;
+    min-width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+}
+
+.product-container {
+    display: flex;
+    padding: 10px;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+
+}
+
+.product-name {
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.quantity-container {
+    margin-left: 20px;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.quantity-container button {
+    font-size: 30px;
+    width: 30px;
+    border: none;
+    background-color: transparent;
+    gap: 10px;
+
+}
+
+.quantity-input {
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    padding: 0;
+    font-size: 16px;
+    border: none;
+    line-height: 30px;
+    box-sizing: border-box;
+
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.delete-button {
+  border: none;
+  background-color: transparent;
+  margin-left: auto;
+  align-self: flex-start; 
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+.delete-button img {
+  width: 30px;
+}
