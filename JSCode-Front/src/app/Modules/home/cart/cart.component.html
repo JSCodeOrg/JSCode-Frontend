@@ -7,9 +7,9 @@
         </div>
         <div class="products-container">
             <div class="product-container" *ngFor="let product of productsOnUserCart">
-                <button class="select-button" [class.selected]="product.seleccionado"
+                <button class="select-button" [ngClass]="{ 'selected': product.seleccionado }"
                     (click)="toggleSeleccion(product)">
-                    <span *ngIf="product.seleccionado">✔</span>
+                    <span *ngIf="product.seleccionado" class="checkmark">✔</span>
                 </button>
                 <img class="product-image" [src]="product.imageUrl" alt="product-image">
                 <div class="product-info">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="price-buy-container">
-            <h1 class="final-price-label">$90.000</h1>
+            <h1 class="final-price-label">{{newTotalPrice.totalPrice | currency: 'COP':'symbol':'1.0-0':'es-CO'}}</h1>
             <app-button class="comprar-button" label="Comprar" (click)="onBuy()">Comprar</app-button>
         </div>
     </div>

@@ -5,13 +5,19 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../Shared/Components/button/button.component';
 
 interface ProductsOnCartInfo {
+  id: number,
   nombre: string,
   precio: string,
   cantidad: number,
   imageUrl: string,
   seleccionado?: boolean
-
 }
+
+interface TotalPrice{
+  totalPrice: number;
+}
+
+
 
 @Component({
   standalone: true,
@@ -21,11 +27,16 @@ interface ProductsOnCartInfo {
   styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
+  
 
   @Output() close = new EventEmitter<void>();
 
   productsOnUserCart: ProductsOnCartInfo[] = [];
   selectedProducts: ProductsOnCartInfo[] = [];
+
+  newTotalPrice: TotalPrice = {
+    totalPrice: 0
+  };
 
   constructor(private productService: ProductService) { }
 
@@ -37,7 +48,6 @@ export class CartComponent implements OnInit {
       return;
     }
     this.getUserCart(authToken);
-
   }
 
 
@@ -51,17 +61,19 @@ export class CartComponent implements OnInit {
   }
 
   toggleSeleccion(product: ProductsOnCartInfo) {
-  product.seleccionado = !product.seleccionado;
+    product.seleccionado = !product.seleccionado;
 
-  if (product.seleccionado) {
-    if (!this.selectedProducts.includes(product)) {
-      this.selectedProducts.push(product);
+    if (product.seleccionado) {
+      if (!this.selectedProducts.includes(product)) {
+        this.selectedProducts.push(product);
+        this.newTotalPrice.totalPrice = this.newTotalPrice.totalPrice + (Number(product.precio) * product.cantidad);
+      }
+    } else {
+      this.selectedProducts = this.selectedProducts.filter(p => p !== product);
+      this.newTotalPrice.totalPrice -= (Number(product.precio) * product.cantidad);
     }
-  } else {
-    this.selectedProducts = this.selectedProducts.filter(p => p !== product);
+    console.log(this.selectedProducts)
   }
-  console.log(this.selectedProducts)
-}
 
   onBuy() {
     return;
