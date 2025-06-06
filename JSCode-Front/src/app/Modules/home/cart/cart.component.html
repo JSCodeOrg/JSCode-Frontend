@@ -6,7 +6,7 @@
             <button class="close-cart" (click)="closeCart()">X</button>
         </div>
         <div class="products-container">
-            <div class="product-container" *ngFor="let product of productsOnUserCart">
+            <div class="product-container" *ngFor="let product of visibleProductsOnUserCart">
                 <button class="select-button" [ngClass]="{ 'selected': product.seleccionado }"
                     (click)="toggleSeleccion(product)">
                     <span *ngIf="product.seleccionado" class="checkmark">✔</span>
@@ -26,7 +26,7 @@
                         <button class="increase-quantity" (click)="toIncreaseQuantity(product)">+</button>
                     </div>
                 </div>
-                <button class="delete-button"> <img src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png"
+                <button class="delete-button" (click)="deleteProduct(product)"> <img src="https://i.ibb.co/h1MzmXvM/trash-bin-trash-svgrepo-com.png"
                         alt="delete-button"></button>
             </div>
         </div>

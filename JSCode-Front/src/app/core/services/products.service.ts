@@ -2,6 +2,20 @@ import { Injectable } from "@angular/core";
 import axios from "axios";
 import { environment } from "../../../environments/environment";
 
+interface ProductsOnCartInfo {
+  id: number,
+  nombre: string,
+  precio: string,
+  cantidad: number,
+  imageUrl: string,
+  seleccionado?: boolean
+}
+
+interface EditedCart{
+    productosEditados: ProductsOnCartInfo[],
+    productosEliminados: ProductsOnCartInfo[],
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -80,5 +94,15 @@ export class ProductService {
                 Authorization: `Bearer ${authToken}`
             }
         })
+    }
+
+    saveUserCart(authToken: String, editedCart: EditedCart){
+        return axios.put(`${this.GestionProductosApi}/inventario/carrito`, editedCart, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+            
+        })
+
     }
 }
