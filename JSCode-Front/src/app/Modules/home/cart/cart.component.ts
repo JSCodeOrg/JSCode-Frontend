@@ -144,6 +144,10 @@ export class CartComponent implements OnInit {
 
     console.log(response.data)
 
+    if(response.data.status === 200){
+      this.isCartEdited = false;
+    }
+
   }
 
   get visibleProductsOnUserCart(): ProductsOnCartInfo[] {
