@@ -100,7 +100,6 @@ export class CartComponent implements OnInit {
   toIncreaseQuantity(product: ProductsOnCartInfo) {
     product.cantidad += 1;
     this.isCartEdited = true;
-
     const alreadyEdited = this.editedProducts.some(p => p.id === product.id);
 
     if (!alreadyEdited) {
