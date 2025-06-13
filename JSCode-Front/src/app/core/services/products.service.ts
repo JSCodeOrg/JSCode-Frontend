@@ -3,15 +3,21 @@ import axios from "axios";
 import { environment } from "../../../environments/environment";
 
 interface ProductsOnCartInfo {
-  id: number,
-  nombre: string,
-  precio: string,
-  cantidad: number,
-  imageUrl: string,
-  seleccionado?: boolean
+    id: number,
+    nombre: string,
+    precio: string,
+    cantidad: number,
+    imageUrl: string,
+    seleccionado?: boolean
 }
 
-interface EditedCart{
+interface ProductReadyToBuy {
+    nombre: string,
+    cantidad: number,
+    precioUnitario: number,
+}
+
+interface EditedCart {
     productosEditados: ProductsOnCartInfo[],
     productosEliminados: ProductsOnCartInfo[],
 }
@@ -96,13 +102,22 @@ export class ProductService {
         })
     }
 
-    saveUserCart(authToken: String, editedCart: EditedCart){
+    saveUserCart(authToken: String, editedCart: EditedCart) {
         return axios.put(`${this.GestionProductosApi}/inventario/carrito`, editedCart, {
             headers: {
                 Authorization: `Bearer ${authToken}`
             }
-            
+
         })
+
+    }
+
+    buy(authToken: String, productsList: ProductReadyToBuy[]){
+        return axios.post(`${this.GestionProductosApi}/ordenes/pagos`, productsList, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        } )
 
     }
 }

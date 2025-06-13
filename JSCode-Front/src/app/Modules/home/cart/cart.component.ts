@@ -12,6 +12,13 @@ interface ProductsOnCartInfo {
   seleccionado?: boolean
 }
 
+interface ProductReadyToBuy {
+  productoId: number,
+  nombre: string,
+  cantidad: number,
+  precioUnitario: number,
+}
+
 interface EditedCart {
   productosEditados: ProductsOnCartInfo[],
   productosEliminados: ProductsOnCartInfo[],
@@ -36,6 +43,7 @@ export class CartComponent implements OnInit {
   selectedProducts: ProductsOnCartInfo[] = [];
   deletedProducts: ProductsOnCartInfo[] = [];
   editedProducts: ProductsOnCartInfo[] = [];
+  productsReadyToBuy: ProductReadyToBuy[] = [];
   isCartEdited: Boolean = false;
   newTotalPrice: TotalPrice = {
     totalPrice: 0
@@ -45,6 +53,7 @@ export class CartComponent implements OnInit {
     productosEditados: [],
     productosEliminados: []
   }
+
 
   constructor(private productService: ProductService) { }
 
@@ -120,8 +129,32 @@ export class CartComponent implements OnInit {
     console.log(this.deletedProducts)
   }
 
-  onBuy() {
+  async onBuy() {
     console.log("Compra realizada")
+    for (const product of this.selectedProducts) {
+      const readyProduct: ProductReadyToBuy = {
+        productoId: product.id,
+        cantidad: product.cantidad,
+        nombre: product.nombre,
+        precioUnitario: Number(product.precio)
+      };
+
+      const yaExiste = this.productsReadyToBuy.some(
+        p => p.nombre === readyProduct.nombre
+      );
+
+      if (!yaExiste) {
+        this.productsReadyToBuy.push(readyProduct);
+      }
+    }
+    const authToken = sessionStorage.getItem('authToken');
+    if (!authToken) {
+      return;
+    }
+
+    const response = await this.productService.buy(authToken, this.productsReadyToBuy)
+    console.log(response.data);
+
     return;
   }
 
@@ -143,7 +176,7 @@ export class CartComponent implements OnInit {
 
     console.log(response.data)
 
-    if(response.data.status === 200){
+    if (response.data.status === 200) {
       this.isCartEdited = false;
     }
 
