@@ -153,8 +153,8 @@ export class CartComponent implements OnInit {
     }
 
     const response = await this.productService.buy(authToken, this.productsReadyToBuy)
-    console.log(response.data);
-
+    const url = response.data;
+    window.location.href = url;
     return;
   }
 

@@ -16,7 +16,6 @@ export class UserService {
         return axios.post(`${this.GestionUsuariosApi + '/usuarios/auth/login'}`, userData, {
             withCredentials: true
         });
-
     }
 
     recoverPassword(recoverPasswordData: any) {

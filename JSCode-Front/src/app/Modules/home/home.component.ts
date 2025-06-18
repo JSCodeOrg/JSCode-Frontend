@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../Shared/Components/header/header.component';
 import { FooterComponent } from '../../Shared/Components/footer/footer.component';
 import { ProfileEditComponent } from '../Auth/profile-edit/profile-edit.component';
@@ -8,6 +8,7 @@ import { SearchInputComponent } from '../../Shared/Components/search/search.comp
 import { FilterPanelComponent } from '../../Shared/Components/filter/filter.component';
 import { InfoProductComponent } from '../../Shared/Components/infoproduct/infoproduct.component';
 import { CartComponent } from "./cart/cart.component";
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -24,11 +25,15 @@ import { CartComponent } from "./cart/cart.component";
     FilterPanelComponent,
     InfoProductComponent,
     CartComponent
-]
+  ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
+  constructor(private route: ActivatedRoute) { }
 
   isCartOpen = false;
+
+  hasBought = false;
 
   showProfileMenu = false;
   selectedProduct: any = null;
@@ -47,6 +52,28 @@ export class HomeComponent {
 
   onToggleCart() {
     this.isCartOpen = !this.isCartOpen;
-
   }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe(params => {
+      const orderId = params.get('orderId');
+      const status = params.get('status');
+      const payment_id = params.get('payment_id');
+
+      if (orderId && status && payment_id) {
+        this.hasBought = true;
+        this.sendBoughtProductInformation(orderId, status, payment_id);
+        console.log("orderId:" + params.get('orderId'));
+        console.log("status:" + params.get('status'));
+        console.log("payment_id" + params.get('payment_id'));
+      }
+    })
+  }
+
+  sendBoughtProductInformation(orderId: string, status: string, payment_id: string) {
+    console.log(orderId);
+    console.log(status);
+    console.log(payment_id);
+  }
+
 }
