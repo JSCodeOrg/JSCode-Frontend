@@ -9,8 +9,14 @@ import { FilterPanelComponent } from '../../Shared/Components/filter/filter.comp
 import { InfoProductComponent } from '../../Shared/Components/infoproduct/infoproduct.component';
 import { CartComponent } from "./cart/cart.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { PaymentsService } from '../../core/services/payments.service';
 
 
+interface PaymentData{
+    orderId: string,
+    paymentId: string,
+    status: string;
+}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,10 +33,13 @@ import { ActivatedRoute, Router } from '@angular/router';
     CartComponent
   ]
 })
+
+
 export class HomeComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private paymentservice: PaymentsService) { }
 
+  
   isCartOpen = false;
 
   hasBought = false;
@@ -62,18 +71,19 @@ export class HomeComponent implements OnInit {
 
       if (orderId && status && payment_id) {
         this.hasBought = true;
-        this.sendBoughtProductInformation(orderId, status, payment_id);
-        console.log("orderId:" + params.get('orderId'));
-        console.log("status:" + params.get('status'));
-        console.log("payment_id" + params.get('payment_id'));
+
+        const paymentData:PaymentData = {
+          orderId: orderId,
+          status: status,
+          paymentId: payment_id
+        }
+        this.sendBoughtProductInformation(paymentData)
       }
     })
   }
 
-  sendBoughtProductInformation(orderId: string, status: string, payment_id: string) {
-    console.log(orderId);
-    console.log(status);
-    console.log(payment_id);
+  async sendBoughtProductInformation(datapayment: PaymentData) {
+    await this.paymentservice.changeOrderStatus(datapayment)
   }
 
 }
