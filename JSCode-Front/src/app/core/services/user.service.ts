@@ -6,38 +6,37 @@ import { environment } from "../../../environments/environment";
     providedIn: 'root'
 })
 export class UserService {
-    private GestionUsuariosApi = environment.GestionUsuariosUrl
-    private GestionUsuariosLocal = environment.GestionUsuariosLocal
+    private ApiGateway = environment.GestionUsuariosUrl
 
     constructor() { }
 
     loginUser(userData: any) {
-        console.log(`${this.GestionUsuariosApi + '/usuarios/auth/login'}`)
-        return axios.post(`${this.GestionUsuariosApi + '/usuarios/auth/login'}`, userData, {
+        console.log(`${this.ApiGateway + '/usuarios/auth/login'}`)
+        return axios.post(`${this.ApiGateway + '/usuarios/auth/login'}`, userData, {
             withCredentials: true
         });
     }
 
     recoverPassword(recoverPasswordData: any) {
         console.log(recoverPasswordData);
-        return axios.post(`${this.GestionUsuariosApi + '/usuarios/users/recoverpassword'}`, recoverPasswordData)
+        return axios.post(`${this.ApiGateway + '/usuarios/users/recoverpassword'}`, recoverPasswordData)
     }
 
     validateCode(validationData: any) {
         console.log(validationData);
-        return axios.post(`${this.GestionUsuariosApi + '/usuarios/users/checkrecoverycode'}`, validationData, {
+        return axios.post(`${this.ApiGateway + '/usuarios/users/checkrecoverycode'}`, validationData, {
             withCredentials: true,
         })
     }
 
     setNewPassword(newPasswordData: any) {
-        return axios.put(`${this.GestionUsuariosApi + '/usuarios/users/createnewpassword'}`, newPasswordData, {
+        return axios.put(`${this.ApiGateway + '/usuarios/users/createnewpassword'}`, newPasswordData, {
             withCredentials: true,
         })
     }
 
     getUserData(userToken: any) {
-        return axios.get(`${this.GestionUsuariosApi + '/usuarios/auth/me'}`, {
+        return axios.get(`${this.ApiGateway + '/usuarios/auth/me'}`, {
             headers: {
                 Authorization: `Bearer ${userToken}`
             },
@@ -47,7 +46,7 @@ export class UserService {
 
     changeUserData(userToken: string, newData: any) {
         console.log(newData);
-        return axios.put(`${this.GestionUsuariosApi}/usuarios/users/updateinfo`, newData, {
+        return axios.put(`${this.ApiGateway}/usuarios/users/updateinfo`, newData, {
             headers: {
                 Authorization: `Bearer ${userToken}`
             }
@@ -59,7 +58,7 @@ export class UserService {
         const formData = new FormData();
         formData.append('newImage', newProfileImage);
 
-        return axios.put(`${this.GestionUsuariosApi}/usuarios/users/updateprofileimage`, formData, {
+        return axios.put(`${this.ApiGateway}/usuarios/users/updateprofileimage`, formData, {
             headers: {
                 Authorization: `Bearer ${authToken}`
             }
@@ -71,17 +70,17 @@ export class UserService {
     }
 
     registerUser(newUserData: any) {
-        return axios.post(`${this.GestionUsuariosApi + '/usuarios/users/register'}`, newUserData)
+        return axios.post(`${this.ApiGateway + '/usuarios/users/register'}`, newUserData)
     }
 
     verifyAccount(token: string) {
-        return axios.post(`${this.GestionUsuariosApi}/usuarios/users/verify?token=${token}`)
+        return axios.post(`${this.ApiGateway}/usuarios/users/verify?token=${token}`)
     }
 
     changeDefaultInfo(userData: any, token: String) {
         console.log(token)
         console.log(userData)
-        return axios.put(`${this.GestionUsuariosApi}/usuarios/users/updateinfo`, userData, {
+        return axios.put(`${this.ApiGateway}/usuarios/users/updateinfo`, userData, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -90,7 +89,7 @@ export class UserService {
     }
 
     getUserInfo(token: String) {
-        return axios.get(`${this.GestionUsuariosApi}/usuarios/users/getuser`, {
+        return axios.get(`${this.ApiGateway}/usuarios/users/getuser`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }, withCredentials: true,
@@ -98,7 +97,7 @@ export class UserService {
     }
     createUserRole(userData: any) {
         console.log(userData)
-        return axios.post(`${this.GestionUsuariosApi}/usuarios/users/createuser`, userData, {
+        return axios.post(`${this.ApiGateway}/usuarios/users/createuser`, userData, {
             headers: {
                 Authorization: `Bearer ${sessionStorage.getItem('authToken')}`
             },

@@ -12,14 +12,13 @@ interface PaymentData{
     providedIn: 'root'
 })
 
-
 export class PaymentsService { 
-    private GestionUsuariosApi = environment.GestionUsuariosUrl
+    private ApiGateway = environment.GestionUsuariosUrl
 
     constructor() {}
 
     public changeOrderStatus(paymentData: PaymentData){
-        return axios.patch(`${this.GestionUsuariosApi}/ordenes/ordenes`,paymentData,{
+        return axios.patch(`${this.ApiGateway}/ordenes/ordenes`,paymentData,{
           headers: {
                 Authorization: `Bearer ${sessionStorage.getItem('authToken')}`
             },

@@ -12,10 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentsService } from '../../core/services/payments.service';
 
 
-interface PaymentData{
-    orderId: string,
-    paymentId: string,
-    status: string;
+interface PaymentData {
+  orderId: string,
+  paymentId: string,
+  status: string;
 }
 @Component({
   selector: 'app-home',
@@ -37,9 +37,9 @@ interface PaymentData{
 
 export class HomeComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private paymentservice: PaymentsService) { }
+  constructor(private route: ActivatedRoute, private paymentservice: PaymentsService, private router: Router) { }
 
-  
+
   isCartOpen = false;
 
   hasBought = false;
@@ -72,18 +72,26 @@ export class HomeComponent implements OnInit {
       if (orderId && status && payment_id) {
         this.hasBought = true;
 
-        const paymentData:PaymentData = {
+        const paymentData: PaymentData = {
           orderId: orderId,
           status: status,
           paymentId: payment_id
         }
         this.sendBoughtProductInformation(paymentData)
+
+        this.router.navigate([], {
+          queryParams: {}, 
+          replaceUrl: true,
+          queryParamsHandling: ''
+        });
       }
     })
   }
 
   async sendBoughtProductInformation(datapayment: PaymentData) {
-    await this.paymentservice.changeOrderStatus(datapayment)
+    const response = await this.paymentservice.changeOrderStatus(datapayment)
+    console.log(response.data)
+
   }
 
 }

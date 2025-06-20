@@ -82,7 +82,6 @@ export class ProductService {
             }
         });
 
-
     }
 
     addProductToCart(productData: any, authToken: String) {
