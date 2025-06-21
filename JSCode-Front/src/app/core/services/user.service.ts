@@ -63,10 +63,6 @@ export class UserService {
                 Authorization: `Bearer ${authToken}`
             }
         });
-
-        
-
-
     }
 
     registerUser(newUserData: any) {
@@ -100,6 +96,15 @@ export class UserService {
         return axios.post(`${this.ApiGateway}/usuarios/users/createuser`, userData, {
             headers: {
                 Authorization: `Bearer ${sessionStorage.getItem('authToken')}`
+            },
+            withCredentials: true,
+        })
+    }
+
+    updateDeliveryInformation(deliveryData: any, token: String){
+        return axios.put(`${this.ApiGateway}/usuarios/users/repartidor/actualizar`, deliveryData, {
+            headers: {
+                Authorization: `Bearer ${token}`
             },
             withCredentials: true,
         })

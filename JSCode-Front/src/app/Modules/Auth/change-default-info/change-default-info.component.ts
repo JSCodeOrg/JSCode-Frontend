@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { InputFieldComponent } from "../../../Shared/Components/input-field/input-field.component";
 import { ButtonComponent } from "../../../Shared/Components/button/button.component";
 import { Router } from "@angular/router";
@@ -13,12 +13,14 @@ import { AlertService } from '../../../Shared/Components/alert/alert.service';
   templateUrl: './change-default-info.component.html',
   styleUrl: './change-default-info.component.scss'
 })
-export class ChangeDefaultInfoComponent {
+export class ChangeDefaultInfoComponent implements OnInit {
   @Output() notify = new EventEmitter<{ type: string; message: string }>();
   newPasswordData = {
     newPassword: "",
     repeatPassword: ""
   };
+
+  isDelivery = false;
 
   dataToChange = {
     password: "",
@@ -89,15 +91,29 @@ export class ChangeDefaultInfoComponent {
     }
 
     const token = sessionStorage.getItem('authToken')
-    if(!token){
+    if (!token) {
       this.alertService.showAlert("danger", "No se ha encontrado un token válido en tu navegador, por favor reporta el error.")
       return;
     }
 
-    this.userService.changeDefaultInfo(this.dataToChange, token).then((response) =>{
-      if(response.status == 200){
+    if (this.isDelivery) {
+      this.userService.updateDeliveryInformation(this.dataToChange, token).then((response) => {
+        if (response.status == 200) {
+          this.alertService.showAlert('success', 'Tu información fue actualizada con éxito! Serás redirigido a iniciar sesión')
+          setTimeout(() => {
+            sessionStorage.removeItem("authToken")
+            sessionStorage.removeItem("rol");
+            this.router.navigate(['login'])
+          }, 4000)
+        }
+      })
+      return;
+    }
+
+    this.userService.changeDefaultInfo(this.dataToChange, token).then((response) => {
+      if (response.status == 200) {
         this.alertService.showAlert('success', 'Tu información fue actualizada con éxito! Serás redirigido a iniciar sesión')
-        setTimeout(() =>{
+        setTimeout(() => {
           sessionStorage.removeItem("authToken")
           this.router.navigate(['login'])
         }, 4000)
@@ -105,4 +121,32 @@ export class ChangeDefaultInfoComponent {
     })
   }
 
+  ngOnInit(): void {
+    const token = sessionStorage.getItem('authToken');
+
+    if (!token) {
+      this.alertService.showAlert('danger', 'Ocurrió un error durante el inicio de sesión');
+      setTimeout(() => {
+        sessionStorage.removeItem("authToken")
+        this.router.navigate(['login'])
+      }, 4000)
+      return;
+    }
+
+    this.validateDelivery(token);
+
+  }
+
+  async validateDelivery(authToken: string) {
+
+    const userData = await this.userService.getUserData(authToken);
+
+    console.log(userData.data);
+
+    sessionStorage.setItem('rol', userData.data.data.role);
+
+    if (userData.data.data.role === "repartidor") {
+      this.isDelivery = true;
+    }
+  }
 }
